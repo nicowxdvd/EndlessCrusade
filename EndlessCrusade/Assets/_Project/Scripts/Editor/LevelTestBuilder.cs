@@ -17,13 +17,14 @@ public static class LevelTestBuilder
         if (!AssetDatabase.IsValidFolder(LevelsFolder))
             AssetDatabase.CreateFolder("Assets/_Project/ScriptableObjects", "Levels");
 
+        var boss = BossBuilder.BuildAssets();
         var warg = AssetDatabase.LoadAssetAtPath<EnemyDefinition>(WargPath);
         var bat = AssetDatabase.LoadAssetAtPath<EnemyDefinition>(BatPath);
         var waves = new[]
         {
             LoadOrCreateWave(1, 4f, Entry(warg, 3, 2f, 0f)),
             LoadOrCreateWave(2, 4f, Entry(warg, 3, 1.5f, 0f), Entry(bat, 3, 1f, 2f)),
-            LoadOrCreateWave(3, 0f, Entry(warg, 4, 1f, 0f), Entry(bat, 5, 0.8f, 1f))
+            LoadOrCreateWave(3, 0f, boss, 6f, Entry(warg, 4, 1f, 0f), Entry(bat, 5, 0.8f, 1f))
         };
 
         var level = LoadOrCreate<LevelDefinition>(LevelPath);
@@ -51,9 +52,16 @@ public static class LevelTestBuilder
 
     static WaveDefinition LoadOrCreateWave(int number, float delayBeforeNext, params SpawnEntry[] entries)
     {
+        return LoadOrCreateWave(number, delayBeforeNext, null, 0f, entries);
+    }
+
+    static WaveDefinition LoadOrCreateWave(int number, float delayBeforeNext, BossDefinition boss, float bossStartDelay, params SpawnEntry[] entries)
+    {
         var wave = LoadOrCreate<WaveDefinition>(LevelsFolder + "/Wave_Test_" + number + ".asset");
         wave.entries = entries;
         wave.delayBeforeNext = delayBeforeNext;
+        wave.boss = boss;
+        wave.bossStartDelay = bossStartDelay;
         EditorUtility.SetDirty(wave);
         return wave;
     }

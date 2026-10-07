@@ -21,4 +21,6 @@ MonoBehaviour:
     count: 5
     interval: 0.8
     startDelay: 1
+  boss: {fileID: 11400000, guid: 2327bbdc9701a4d05b3a74060a2608d1, type: 2}
+  bossStartDelay: 6
   delayBeforeNext: 0
