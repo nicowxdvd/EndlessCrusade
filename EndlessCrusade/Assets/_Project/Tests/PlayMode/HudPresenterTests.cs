@@ -23,6 +23,12 @@ namespace EC.Tests.PlayMode
             presenter.baseBar = NewBar("Base");
             presenter.waveLabel = new GameObject("Wave").AddComponent<TextMeshProUGUI>();
             presenter.waveLabel.transform.SetParent(root.transform);
+            presenter.bossRoot = new GameObject("BossRoot");
+            presenter.bossRoot.transform.SetParent(root.transform);
+            presenter.bossBar = NewBar("BossBar");
+            presenter.bossLabel = new GameObject("BossName").AddComponent<TextMeshProUGUI>();
+            presenter.bossLabel.transform.SetParent(root.transform);
+            presenter.bossRoot.SetActive(false);
             root.SetActive(true);
             hero = new GameObject("HeroStub");
         }
@@ -82,5 +88,40 @@ namespace EC.Tests.PlayMode
             Assert.AreEqual(0f, HudPresenter.Ratio(10, 0));
             Assert.AreEqual(1f, HudPresenter.Ratio(20, 10));
         }
-    }
+    
+        [Test]
+        public void BossBar_AppearsOnBossSpawnedWithNameAndFullFill()
+        {
+            Assert.IsFalse(presenter.bossRoot.activeSelf);
+
+            EventBus<BossSpawned>.Publish(new BossSpawned(hero, "Licantropo Gigante"));
+
+            Assert.IsTrue(presenter.bossRoot.activeSelf);
+            Assert.AreEqual("Licantropo Gigante", presenter.bossLabel.text);
+            Assert.AreEqual(1f, presenter.bossBar.fillAmount, 0.001f);
+        }
+
+        [Test]
+        public void BossBar_ReflectsBossHealthOnly()
+        {
+            var other = new GameObject("Other");
+            EventBus<BossSpawned>.Publish(new BossSpawned(hero, "Jefe"));
+
+            EventBus<HealthChanged>.Publish(new HealthChanged(hero, 150, 600));
+            Assert.AreEqual(0.25f, presenter.bossBar.fillAmount, 0.001f);
+
+            EventBus<HealthChanged>.Publish(new HealthChanged(other, 1, 100));
+            Assert.AreEqual(0.25f, presenter.bossBar.fillAmount, 0.001f);
+            Object.DestroyImmediate(other);
+        }
+
+        [Test]
+        public void BossBar_HidesWhenBossDies()
+        {
+            EventBus<BossSpawned>.Publish(new BossSpawned(hero, "Jefe"));
+            EventBus<EntityDied>.Publish(new EntityDied(hero));
+
+            Assert.IsFalse(presenter.bossRoot.activeSelf);
+        }
+}
 }
