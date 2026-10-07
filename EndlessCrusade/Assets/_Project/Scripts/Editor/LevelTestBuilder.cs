@@ -32,6 +32,7 @@ public static class LevelTestBuilder
         level.displayName = "Nivel de prueba";
         level.baseDefinition = AssetDatabase.LoadAssetAtPath<BaseDefinition>(BasePath);
         level.waves = waves;
+        level.troopsEnabled = true;
         EditorUtility.SetDirty(level);
         AssetDatabase.SaveAssets();
         return level;
@@ -43,6 +44,7 @@ public static class LevelTestBuilder
         var controller = new GameObject("WaveController").AddComponent<WaveController>();
         controller.level = level;
         controller.spawner = Object.FindFirstObjectByType<EnemySpawner>();
+        TroopBuilder.SpawnSummoner(AssetDatabase.LoadAssetAtPath<LaneConfig>("Assets/_Project/ScriptableObjects/Lane/LaneConfig_Default.asset"), level);
     }
 
     static SpawnEntry Entry(EnemyDefinition enemy, int count, float interval, float startDelay)

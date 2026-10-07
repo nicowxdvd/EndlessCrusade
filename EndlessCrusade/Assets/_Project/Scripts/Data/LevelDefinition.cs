@@ -9,5 +9,6 @@ namespace EC.Data
         public string displayName;
         public BaseDefinition baseDefinition;
         public WaveDefinition[] waves;
+        public bool troopsEnabled;
     }
 }
