@@ -8,7 +8,8 @@
         "EC.Data",
         "EC.Gameplay",
         "EC.UI",
-        "EC.Services"
+        "EC.Services",
+        "Unity.Cinemachine"
     ],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],

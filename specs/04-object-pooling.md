@@ -1,6 +1,6 @@
 # SPEC 04 — Object pooling
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-10-06
 > **Objetivo:** Implementar un servicio de pooling genérico para enemigos, tropas, proyectiles y efectos visuales sin asignaciones de memoria durante el combate.
@@ -45,6 +45,7 @@ Reglas:
 
 - Cada instancia lleva un componente `PooledObject` con referencia a su prefab de origen.
 - `Release` de un objeto no creado por el pool lo destruye y escribe un warning.
+- `Get` con el pool vacío instancia una instancia nueva. Prewarm reduce esos casos, no los prohíbe.
 - `PoolService` vive en la escena `Boot` con `DontDestroyOnLoad`.
 
 ---
@@ -55,19 +56,19 @@ Reglas:
 2. Crear `PoolService` con un diccionario `prefab -> ObjectPool`. Verificar: compila.
 3. Implementar `Prewarm`, `Get` y `Release`, llamando `OnSpawn` y `OnDespawn` en los `IPoolable` del objeto.
 4. Agregar `PoolService` a la escena `Boot` con `DontDestroyOnLoad`.
-5. Crear el test PlayMode: 1000 ciclos `Get`/`Release` de un prefab de prueba. Medir con `ProfilerRecorder` la categoría `GC Allocated In Frame`. Verificar: 0 bytes en el bucle.
+5. Crear el test PlayMode: el propio test crea el `PoolService` por código, sin cargar `Boot`. 1000 ciclos `Get`/`Release` de un prefab de prueba. Medir con `ProfilerRecorder` la categoría `GC Allocated In Frame`. Verificar: 0 bytes en el bucle.
 6. Agregar un contador de instancias activas por prefab para depuración (solo editor).
 
 ---
 
 ## Criterios de aceptación
 
-- [ ] `Get` tras `Prewarm(prefab, 10)` no instancia objetos nuevos en las primeras 10 llamadas.
-- [ ] `Release` desactiva el objeto y lo devuelve al pool.
-- [ ] `OnSpawn` y `OnDespawn` se llaman una vez por ciclo.
-- [ ] El test PlayMode de 1000 ciclos registra 0 bytes asignados por frame.
-- [ ] `Release` de un objeto ajeno al pool no lanza excepción y escribe un warning.
-- [ ] El pool sobrevive a la carga de `Boot` a `Main`.
+- [x] `Get` tras `Prewarm(prefab, 10)` no instancia objetos nuevos en las primeras 10 llamadas.
+- [x] `Release` desactiva el objeto y lo devuelve al pool.
+- [x] `OnSpawn` y `OnDespawn` se llaman una vez por ciclo.
+- [x] El test PlayMode de 1000 ciclos registra 0 bytes asignados por frame.
+- [x] `Release` de un objeto ajeno al pool no lanza excepción y escribe un warning.
+- [x] El pool sobrevive a la carga de `Boot` a `Main`.
 
 ---
 

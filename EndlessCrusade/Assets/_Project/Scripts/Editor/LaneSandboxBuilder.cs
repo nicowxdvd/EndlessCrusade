@@ -26,6 +26,9 @@ public static class LaneSandboxBuilder
         CreateRain(cam);
         CreateLights(config);
         CreateVolume();
+        EntityDummyBuilder.SpawnDummies(config);
+        EnemyBaseBuilder.SpawnSandbox(config);
+        HeroBuilder.SpawnHero(config);
 
         EditorSceneManager.SaveScene(scene, ScenePath);
     }

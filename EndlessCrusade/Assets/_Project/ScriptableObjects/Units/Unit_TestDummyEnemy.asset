@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d1cc1e80a614aceb898a2e0326f1eb, type: 3}
+  m_Name: Unit_TestDummyEnemy
+  m_EditorClassIdentifier: 
+  id: test_dummy_enemy
+  displayName: Test Dummy Enemy
+  team: 1
+  maxHealth: 100
+  moveSpeed: 2
+  attackDamage: 10
+  attackRange: 1.2
+  attackCooldown: 1
+  hurtDuration: 0.25
+  prefab: {fileID: 1863442768247617308, guid: cd2202c7a551542bf8bc48aa1350cab2, type: 3}
