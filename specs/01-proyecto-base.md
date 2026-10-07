@@ -1,6 +1,6 @@
 # SPEC 01 — Proyecto base Unity con build Android
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** ninguna
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear el proyecto Unity 6 LTS con URP, estructura de carpetas, assembly definitions y Force Text, con una build Android que arranca en la escena Boot y carga Main.
@@ -129,7 +129,7 @@ Contrato del `Bootstrapper`:
 - [x] Los siete archivos `.asmdef` existen en las rutas del modelo de datos con las referencias de la tabla.
 - [x] El proyecto abre en el editor y la consola muestra 0 errores de compilación. Los warnings esperados son los de assemblies vacíos (`will not be compiled, because no scripts`) y `HDRP-Editor-ref.asmref has no target assembly definition` de Cinemachine.
 - [x] `Build Settings` lista `Boot` en índice 0 y `Main` en índice 1.
-- [ ] Play Mode desde `Boot` imprime `[Boot] Endless Crusade iniciado` y la escena activa pasa a `Main`.
+- [x] Play Mode desde `Boot` imprime `[Boot] Endless Crusade iniciado` y la escena activa pasa a `Main`.
 - [x] Player Settings Android muestran IL2CPP, ARM64, Min API 26, Landscape Left y el identificador `com.nicolas.endlesscrusade`.
 - [x] Player Settings muestran `Color Space = Linear` y Graphics APIs Android en orden Vulkan, OpenGLES3.
 - [x] El URP Asset activo tiene HDR on, MSAA 4x y Post Processing on.
