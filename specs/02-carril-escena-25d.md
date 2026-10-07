@@ -1,6 +1,6 @@
 # SPEC 02 — Carril 2.5D y escena sandbox
 
-> **Estado:** Approved
+> **Estado:** Implementado
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-10-06
 > **Objetivo:** Montar la escena `LaneSandbox` con un carril horizontal único, cámara ortográfica inclinada, sprites billboard sobre fondo 3D, parallax y lluvia con arte placeholder.
@@ -114,16 +114,16 @@ Asset: `Assets/_Project/ScriptableObjects/Lane/LaneConfig_Default.asset`.
 
 ## Criterios de aceptación
 
-- [ ] `LaneSandbox` abre y entra en Play Mode con 0 errores en consola.
-- [ ] La cámara es ortográfica con inclinación igual a `LaneConfig.cameraPitch`.
-- [ ] El centro de la cámara no sale de `±(laneHalfLength - semiancho visible)` en X y nunca se ve el vacío más allá del suelo.
-- [ ] Un sprite con `BillboardSprite` mantiene menos de 0.1° de diferencia con la rotación de la cámara.
-- [ ] Las tres capas de parallax se mueven a velocidades distintas, con factores 0.2, 0.5 y 0.8.
-- [ ] La lluvia es hija de la cámara, está activa y no supera 800 partículas.
-- [ ] La escena tiene luz fría y farol cálido, y el farol ilumina el suelo.
-- [ ] El Volume global de `LaneSandbox` muestra Bloom, Vignette y Color Adjustments con los valores de la tabla.
-- [ ] Los tests EditMode de `LaneConfig` y del rango de cámara pasan.
-- [ ] La escena corre a 60 FPS en el editor con Game view en 1920x1080.
+- [x] `LaneSandbox` abre y entra en Play Mode con 0 errores en consola.
+- [x] La cámara es ortográfica con inclinación igual a `LaneConfig.cameraPitch`.
+- [x] El centro de la cámara no sale de `±(laneHalfLength - semiancho visible)` en X y nunca se ve el vacío más allá del suelo.
+- [x] Un sprite con `BillboardSprite` mantiene menos de 0.1° de diferencia con la rotación de la cámara.
+- [x] Las tres capas de parallax se mueven a velocidades distintas, con factores 0.2, 0.5 y 0.8.
+- [x] La lluvia es hija de la cámara, está activa y no supera 800 partículas.
+- [x] La escena tiene luz fría y farol cálido, y el farol ilumina el suelo.
+- [x] El Volume global de `LaneSandbox` muestra Bloom, Vignette y Color Adjustments con los valores de la tabla.
+- [x] Los tests EditMode de `LaneConfig` y del rango de cámara pasan.
+- [x] La escena corre a 60 FPS en el editor con Game view en 1920x1080.
 
 ---
 
