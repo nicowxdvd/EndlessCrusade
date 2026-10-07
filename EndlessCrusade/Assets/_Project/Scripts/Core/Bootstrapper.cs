@@ -5,7 +5,7 @@ namespace EC.Core
 {
     public class Bootstrapper : MonoBehaviour
     {
-        const string MainScene = "Main";
+        const string MainScene = "LaneSandbox";
 
         void Start()
         {
