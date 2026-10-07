@@ -80,6 +80,8 @@ public static class HudBuilder
         CreateTouchButton(safe, "Sword", "Espada", "<Gamepad>/buttonWest", new Vector2(1f, 0f), new Vector2(-(Margin * 2f + ButtonSize * 1.5f), Margin + ButtonSize * 0.5f), theme);
         CreateTouchButton(safe, "Whip", "Látigo", "<Gamepad>/buttonEast", new Vector2(1f, 0f), new Vector2(-(Margin + ButtonSize * 0.5f), Margin + ButtonSize * 0.5f), theme);
 
+        CreateTroopBar(safe, theme, presenter);
+
         var pause = root.AddComponent<PausePanel>();
         var pauseButton = CreateButton(safe, "PauseButton", "II", new Vector2(1f, 1f), new Vector2(-Margin, -Margin * 2f - 60f), new Vector2(120f, 120f), theme);
         var pauseOutline = pauseButton.gameObject.AddComponent<Outline>();
@@ -104,6 +106,35 @@ public static class HudBuilder
         result.panel.SetActive(false);
 
         return root;
+    }
+
+    static void CreateTroopBar(Transform parent, UiTheme theme, HudPresenter hud)
+    {
+        var troop = TroopBuilder.BuildAssets();
+        var troopBar = hud.gameObject.AddComponent<TroopBarPresenter>();
+        var bar = NewRect("TroopBar", parent);
+        bar.anchorMin = new Vector2(0.5f, 0f);
+        bar.anchorMax = new Vector2(0.5f, 0f);
+        bar.pivot = new Vector2(0.5f, 0f);
+        bar.anchoredPosition = new Vector2(0f, Margin);
+        bar.sizeDelta = new Vector2(520f, 260f);
+        troopBar.bar = bar.gameObject;
+
+        troopBar.leadershipFill = CreateBar(bar, "LeadershipBar", "", new Vector2(0f, 1f), new Vector2(0f, 0f), new Color(0.3f, 0.5f, 0.85f), theme);
+        troopBar.leadershipLabel = troopBar.leadershipFill.transform.parent.Find("Caption").GetComponent<TMP_Text>();
+
+        var button = CreateButton(bar, "Summon_" + troop.id, troop.displayName + "\n" + troop.leadershipCost + " Fe", new Vector2(0.5f, 0f), new Vector2(0f, 80f), new Vector2(240f, 160f), theme);
+        var cooldown = NewRect("Cooldown", button.transform);
+        Stretch(cooldown);
+        var cooldownImage = cooldown.gameObject.AddComponent<Image>();
+        cooldownImage.color = new Color(0f, 0f, 0f, 0.6f);
+        cooldownImage.type = Image.Type.Filled;
+        cooldownImage.fillMethod = Image.FillMethod.Vertical;
+        cooldownImage.fillOrigin = 1;
+        cooldownImage.fillAmount = 0f;
+        cooldownImage.raycastTarget = false;
+        troopBar.slots = new[] { new TroopBarPresenter.Slot { troop = troop, button = button, cooldownFill = cooldownImage } };
+        bar.gameObject.SetActive(false);
     }
 
     static RectTransform NewRect(string name, Transform parent)

@@ -1,6 +1,6 @@
 # SPEC 13 — Liderazgo e invocación de tropas
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 08, SPEC 09
 > **Fecha:** 2026-10-06
 > **Objetivo:** Agregar el recurso Liderazgo que se regenera con el tiempo, la interfaz de invocación y el Escudero como primera tropa.
@@ -63,12 +63,12 @@ Valores propuestos. Liderazgo máximo 100, regeneración 4 por segundo, tropas a
 
 ## Criterios de aceptación
 
-- [ ] El Liderazgo se regenera a 4 por segundo y no supera 100.
-- [ ] Invocar un Escudero descuenta 30 y lo crea junto a la base.
-- [ ] No se puede invocar con Liderazgo insuficiente, en cooldown o con 8 tropas activas.
-- [ ] El Escudero avanza, ataca enemigos y muere al llegar a vida 0.
-- [ ] La barra de invocación no aparece si `troopsEnabled = false`.
-- [ ] Invocar y morir tropas no asigna memoria por frame.
+- [x] El Liderazgo se regenera a 4 por segundo y no supera 100.
+- [x] Invocar un Escudero descuenta 30 y lo crea junto a la base.
+- [x] No se puede invocar con Liderazgo insuficiente, en cooldown o con 8 tropas activas.
+- [x] El Escudero avanza, ataca enemigos y muere al llegar a vida 0.
+- [x] La barra de invocación no aparece si `troopsEnabled = false`.
+- [x] Invocar y morir tropas no asigna memoria por frame.
 
 ---
 
