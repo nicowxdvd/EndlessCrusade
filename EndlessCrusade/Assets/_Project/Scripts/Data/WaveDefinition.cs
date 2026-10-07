@@ -6,6 +6,8 @@ namespace EC.Data
     public class WaveDefinition : ScriptableObject
     {
         public SpawnEntry[] entries;
+        public BossDefinition boss;
+        public float bossStartDelay;
         public float delayBeforeNext = 4f;
     }
 }

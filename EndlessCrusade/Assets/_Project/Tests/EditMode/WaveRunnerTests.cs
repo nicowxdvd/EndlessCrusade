@@ -186,5 +186,42 @@ namespace EC.Tests.EditMode
 
             Assert.AreEqual(0, runner.Alive);
         }
-    }
+
+        [Test]
+        public void BossEntry_SpawnsAtBossStartDelay()
+        {
+            var boss = Create<BossDefinition>();
+            var wave = Wave(0f);
+            wave.boss = boss;
+            wave.bossStartDelay = 2f;
+            var runner = Runner(0f, wave);
+            Tick(runner, 0.1f);
+
+            Tick(runner, 1.8f);
+            Assert.AreEqual(0, spawns.Count);
+
+            Tick(runner, 0.3f);
+            CollectionAssert.AreEqual(new EnemyDefinition[] { boss }, spawns);
+        }
+
+        [Test]
+        public void BossWave_EndsInVictoryOnlyAfterBossAndEnemiesDie()
+        {
+            var boss = Create<BossDefinition>();
+            var wave = Wave(0f, Entry(warg, 1, 1f));
+            wave.boss = boss;
+            var runner = Runner(0f, wave);
+            Tick(runner, 0.1f);
+            Tick(runner, 0.1f);
+            Assert.AreEqual(2, runner.Alive);
+
+            runner.NotifyEnemyDied();
+            Tick(runner, 0.1f);
+            Assert.AreEqual(0, outcomes.Count);
+
+            runner.NotifyEnemyDied();
+            Tick(runner, 0.1f);
+            CollectionAssert.AreEqual(new[] { LevelOutcome.Victory }, outcomes);
+        }
+}
 }
