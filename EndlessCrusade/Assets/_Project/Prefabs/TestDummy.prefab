@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 7890430781547145670}
   - component: {fileID: 9196779843530625543}
   - component: {fileID: 7922989537144564640}
-  - component: {fileID: 7765679000158409021}
   - component: {fileID: 5329474341598631000}
+  - component: {fileID: 7765679000158409021}
   - component: {fileID: 636129711621253700}
   - component: {fileID: 5551793823487925180}
-  - component: {fileID: 5518188743531301680}
   - component: {fileID: 7484703240727662541}
   m_Layer: 0
   m_Name: TestDummy
@@ -116,6 +115,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5329474341598631000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863442768247617308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f956822849afc47c288ffc669122ad24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  definition: {fileID: 11400000, guid: e72d2d217fe3b4d798420294edacc1c2, type: 2}
+  hurtDuration: 0.25
 --- !u!114 &7765679000158409021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,20 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   team: 0
---- !u!114 &5329474341598631000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863442768247617308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f956822849afc47c288ffc669122ad24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  definition: {fileID: 0}
-  hurtDuration: 0.25
 --- !u!114 &636129711621253700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,20 +172,6 @@ MonoBehaviour:
   damage: 10
   range: 1.2
   cooldown: 1
---- !u!114 &5518188743531301680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863442768247617308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f956822849afc47c288ffc669122ad24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  definition: {fileID: 11400000, guid: e72d2d217fe3b4d798420294edacc1c2, type: 2}
-  hurtDuration: 0.25
 --- !u!114 &7484703240727662541
 MonoBehaviour:
   m_ObjectHideFlags: 0
