@@ -1,6 +1,6 @@
 # SPEC 11 — Jefe Licántropo Gigante
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Depende de:** SPEC 06, SPEC 08
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear al Licántropo Gigante con embestida devastadora, rugido que desorienta y barra de vida de jefe.
