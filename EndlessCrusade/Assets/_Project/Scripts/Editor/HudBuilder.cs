@@ -82,6 +82,9 @@ public static class HudBuilder
 
         var pause = root.AddComponent<PausePanel>();
         var pauseButton = CreateButton(safe, "PauseButton", "II", new Vector2(1f, 1f), new Vector2(-Margin, -Margin * 2f - 60f), new Vector2(120f, 120f), theme);
+        var pauseOutline = pauseButton.gameObject.AddComponent<Outline>();
+        pauseOutline.effectColor = theme.gold;
+        pauseOutline.effectDistance = new Vector2(3f, -3f);
         pause.panel = CreateOverlay(safe, "PausePanel", theme);
         var pauseTitle = CreateLabel(pause.panel.transform, "Title", "Pausa", 96f, new Vector2(0.5f, 0.5f), new Vector2(0f, 160f), new Vector2(800f, 140f), theme, theme.titleFont);
         pauseTitle.color = theme.gold;
@@ -142,7 +145,7 @@ public static class HudBuilder
         image.fillAmount = 1f;
         image.raycastTarget = false;
 
-        var label = CreateLabel(frame, "Caption", caption, 28f, new Vector2(0.5f, 0.5f), Vector2.zero, frame.sizeDelta, theme, theme.bodyFont);
+        var label = CreateLabel(frame, "Caption", caption, 36f, new Vector2(0.5f, 0.5f), Vector2.zero, frame.sizeDelta, theme, theme.bodyFont);
         label.alignment = TextAlignmentOptions.Center;
         return image;
     }

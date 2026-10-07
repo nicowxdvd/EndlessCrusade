@@ -1,6 +1,6 @@
 # SPEC 09 — HUD de combate
 
-> **Estado:** En progreso
+> **Estado:** Implementado
 > **Depende de:** SPEC 05, SPEC 07, SPEC 08
 > **Fecha:** 2026-10-06
 > **Objetivo:** Mostrar vida del héroe, resistencia de la base, oleada actual, controles táctiles y pantallas de pausa, victoria y derrota con estilo gótico.
@@ -68,7 +68,7 @@ public class UiTheme : ScriptableObject
 - [x] Pausa detiene el juego y reanudar lo restaura a `timeScale = 1`.
 - [x] Victoria y derrota muestran el panel correcto y solo una vez.
 - [x] Reintentar reinicia el nivel con vida y oleadas desde cero.
-- [ ] Ningún botón táctil queda cubierto por la muesca ni por el borde en un emulador de 20:9.
+- [x] Ningún botón táctil queda cubierto por la muesca ni por el borde en un emulador de 20:9.
 - [x] `EC.UI` no referencia `EC.Gameplay`.
 
 ---
