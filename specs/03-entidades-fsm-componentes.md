@@ -118,7 +118,7 @@ Clase `StateMachine` en `EC.Core` con `Register(EntityState, IState)`, `Transiti
 - [ ] `MovementComponent` no sale de los límites de `LaneConfig`.
 - [ ] Dos dummies de equipos opuestos en `LaneSandbox` se atacan hasta que uno muere.
 - [ ] `EC.Core` no referencia ningún otro assembly `EC.*`.
-- [ ] Un golpe no letal lleva a `Hurt` y vuelve a `Idle` tras `hurtDuration`.
+- [x] Un golpe no letal lleva a `Hurt` y vuelve a `Idle` tras `hurtDuration`.
 - [ ] `EventBus<T>` no conserva suscriptores tras reiniciar el dominio o entrar a Play Mode.
 
 ---
