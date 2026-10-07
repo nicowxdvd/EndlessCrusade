@@ -21,6 +21,7 @@ MonoBehaviour:
   attackRange: 2.2
   attackCooldown: 1.2
   hurtDuration: 0.1
+  tags: 0
   prefab: {fileID: 933518836300278907, guid: 80975788ce9944930a1d8af4db9df5fd, type: 3}
   kind: 0
   goldDrop: 100
