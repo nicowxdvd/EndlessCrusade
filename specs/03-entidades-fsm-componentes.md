@@ -1,6 +1,6 @@
 # SPEC 03 — Entidades, FSM y componentes
 
-> **Estado:** Approved
+> **Estado:** Implementado
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear los componentes `HealthComponent`, `AttackComponent` y `MovementComponent`, una FSM genérica con los estados Idle, Move, Attack, Hurt y Dead, y el ScriptableObject `UnitDefinition` con las estadísticas.
@@ -111,15 +111,15 @@ Clase `StateMachine` en `EC.Core` con `Register(EntityState, IState)`, `Transiti
 
 ## Criterios de aceptación
 
-- [ ] Los tests EditMode de FSM y `HealthComponent` pasan.
-- [ ] `HealthComponent.TakeDamage` no baja de 0 y publica `EntityDied` una sola vez.
-- [ ] Una entidad en estado `Dead` no ataca ni se mueve.
-- [ ] `AttackComponent` respeta `attackCooldown`.
-- [ ] `MovementComponent` no sale de los límites de `LaneConfig`.
-- [ ] Dos dummies de equipos opuestos en `LaneSandbox` se atacan hasta que uno muere.
-- [ ] `EC.Core` no referencia ningún otro assembly `EC.*`.
+- [x] Los tests EditMode de FSM y `HealthComponent` pasan.
+- [x] `HealthComponent.TakeDamage` no baja de 0 y publica `EntityDied` una sola vez.
+- [x] Una entidad en estado `Dead` no ataca ni se mueve.
+- [x] `AttackComponent` respeta `attackCooldown`.
+- [x] `MovementComponent` no sale de los límites de `LaneConfig`.
+- [x] Dos dummies de equipos opuestos en `LaneSandbox` se atacan hasta que uno muere.
+- [x] `EC.Core` no referencia ningún otro assembly `EC.*`.
 - [x] Un golpe no letal lleva a `Hurt` y vuelve a `Idle` tras `hurtDuration`.
-- [ ] `EventBus<T>` no conserva suscriptores tras reiniciar el dominio o entrar a Play Mode.
+- [x] `EventBus<T>` no conserva suscriptores tras reiniciar el dominio o entrar a Play Mode.
 
 ---
 
