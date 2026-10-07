@@ -22,6 +22,16 @@ namespace EC.Gameplay
                 Current = maxHealth;
         }
 
+        void OnEnable()
+        {
+            TargetFinder.Register(this, transform);
+        }
+
+        void OnDisable()
+        {
+            TargetFinder.Unregister(this);
+        }
+
         public void Initialize(int max, Team newTeam)
         {
             maxHealth = max;

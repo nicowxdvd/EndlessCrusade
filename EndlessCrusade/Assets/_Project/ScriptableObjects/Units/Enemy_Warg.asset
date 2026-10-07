@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e1dcde192bc4cca89c62db64c12d5c, type: 3}
+  m_Name: Enemy_Warg
+  m_EditorClassIdentifier: 
+  id: warg
+  displayName: Wargo
+  team: 1
+  maxHealth: 40
+  moveSpeed: 2.5
+  attackDamage: 12
+  attackRange: 1.2
+  attackCooldown: 1
+  hurtDuration: 0.25
+  prefab: {fileID: 7067277861199072860, guid: d4780bf75e447452f9fc664006c30a63, type: 3}
+  kind: 0
+  goldDrop: 5
+  chargeRange: 5
+  chargeSpeedMultiplier: 2.2
+  chargeDuration: 0.8
+  flightHeight: 2.2
+  bobAmplitude: 0.4
+  bobFrequency: 2

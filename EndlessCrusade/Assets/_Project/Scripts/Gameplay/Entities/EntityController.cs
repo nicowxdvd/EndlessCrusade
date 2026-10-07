@@ -18,7 +18,19 @@ namespace EC.Gameplay
         void Awake()
         {
             health = GetComponent<HealthComponent>();
+            ResetState();
+        }
+
+        public void ResetState()
+        {
             ApplyDefinition();
+
+            if (machine != null)
+            {
+                machine.Reset();
+                machine.Transition(EntityState.Idle);
+                return;
+            }
 
             machine = new StateMachine();
             machine.Register(EntityState.Idle, new SimpleState());
