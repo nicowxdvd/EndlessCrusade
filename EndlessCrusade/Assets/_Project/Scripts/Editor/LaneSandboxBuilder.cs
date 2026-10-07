@@ -26,6 +26,7 @@ public static class LaneSandboxBuilder
         CreateRain(cam);
         CreateLights(config);
         CreateVolume();
+        EntityDummyBuilder.SpawnDummies(config);
 
         EditorSceneManager.SaveScene(scene, ScenePath);
     }
