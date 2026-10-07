@@ -1,7 +1,7 @@
 {
     "name": "EC.Gameplay",
     "rootNamespace": "EC.Gameplay",
-    "references": ["EC.Core", "EC.Data"],
+    "references": ["EC.Core", "EC.Data", "Unity.Cinemachine", "Unity.InputSystem"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
