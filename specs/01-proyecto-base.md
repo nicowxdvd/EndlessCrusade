@@ -127,13 +127,13 @@ Contrato del `Bootstrapper`:
 - [x] `EditorSettings.asset` tiene `m_SerializationMode: 2` (Force Text).
 - [x] Existe un archivo `.meta` junto a cada archivo y carpeta de `Assets/`.
 - [x] Los siete archivos `.asmdef` existen en las rutas del modelo de datos con las referencias de la tabla.
-- [ ] El proyecto abre en el editor y la consola muestra 0 errores de compilación. Los warnings esperados son los de assemblies vacíos (`will not be compiled, because no scripts`) y `HDRP-Editor-ref.asmref has no target assembly definition` de Cinemachine.
+- [x] El proyecto abre en el editor y la consola muestra 0 errores de compilación. Los warnings esperados son los de assemblies vacíos (`will not be compiled, because no scripts`) y `HDRP-Editor-ref.asmref has no target assembly definition` de Cinemachine.
 - [x] `Build Settings` lista `Boot` en índice 0 y `Main` en índice 1.
 - [ ] Play Mode desde `Boot` imprime `[Boot] Endless Crusade iniciado` y la escena activa pasa a `Main`.
 - [x] Player Settings Android muestran IL2CPP, ARM64, Min API 26, Landscape Left y el identificador `com.nicolas.endlesscrusade`.
 - [x] Player Settings muestran `Color Space = Linear` y Graphics APIs Android en orden Vulkan, OpenGLES3.
-- [ ] El URP Asset activo tiene HDR on, MSAA 4x y Post Processing on.
-- [ ] `Main` contiene un Volume global con Bloom, Vignette y Color Adjustments.
+- [x] El URP Asset activo tiene HDR on, MSAA 4x y Post Processing on.
+- [x] `Main` contiene un Volume global con Bloom, Vignette y Color Adjustments.
 - [x] La build Android genera un `.apk` sin errores.
 - [x] El APK instalado en un dispositivo o emulador arranca en landscape y `adb logcat -s Unity` muestra `[Boot] Endless Crusade iniciado`.
 - [x] `git status` no lista `Library/`, `Temp/`, `Logs/`, `UserSettings/` ni archivos `.apk`.

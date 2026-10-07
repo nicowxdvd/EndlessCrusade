@@ -29,3 +29,5 @@ GoogleService-Info.plist
 *.keystore
 *.jks
 *.slnx
+.serena/
+.utmp/
