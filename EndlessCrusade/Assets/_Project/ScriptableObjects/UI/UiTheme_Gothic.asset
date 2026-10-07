@@ -16,5 +16,5 @@ MonoBehaviour:
   blood: {r: 0.54509807, g: 0, b: 0, a: 1}
   gold: {r: 0.7882353, g: 0.63529414, b: 0.29411766, a: 1}
   text: {r: 0.84705883, g: 0.84705883, b: 0.8627451, a: 1}
-  titleFont: {fileID: 0}
-  bodyFont: {fileID: 0}
+  titleFont: {fileID: 11400000, guid: f7be0d678ccf64541bd54e9770d60116, type: 2}
+  bodyFont: {fileID: 11400000, guid: 13646030ae76941a9838ab1834785971, type: 2}

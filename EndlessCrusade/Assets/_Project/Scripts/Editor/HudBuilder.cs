@@ -48,6 +48,9 @@ public static class HudBuilder
             theme = ScriptableObject.CreateInstance<UiTheme>();
             AssetDatabase.CreateAsset(theme, ThemePath);
         }
+        theme.titleFont = FontBuilder.LoadOrCreate("Cinzel");
+        theme.bodyFont = FontBuilder.LoadOrCreate("EBGaramond");
+        EditorUtility.SetDirty(theme);
         return theme;
     }
 
