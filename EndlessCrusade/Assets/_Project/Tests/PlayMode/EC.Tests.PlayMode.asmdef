@@ -8,7 +8,9 @@
         "EC.Data",
         "EC.Gameplay",
         "EC.UI",
-        "EC.Services"
+        "EC.Services",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
