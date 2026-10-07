@@ -28,6 +28,7 @@ public static class LaneSandboxBuilder
         CreateVolume();
         EntityDummyBuilder.SpawnDummies(config);
         EnemyBaseBuilder.SpawnSandbox(config);
+        LevelTestBuilder.SpawnController();
         HeroBuilder.SpawnHero(config);
 
         EditorSceneManager.SaveScene(scene, ScenePath);
