@@ -23,3 +23,8 @@ Recordings/
 *.apk
 *.aab
 *.unitypackage
+
+google-services.json
+GoogleService-Info.plist
+*.keystore
+*.jks
