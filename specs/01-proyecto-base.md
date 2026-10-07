@@ -107,7 +107,7 @@ Contrato del `Bootstrapper`:
 
 1. Instalar Unity Hub y Unity 6 LTS (serie 6000.0) con módulos Android Build Support, OpenJDK y Android SDK & NDK Tools. Verificar: `Unity Hub > Installs` muestra la versión con módulo Android.
 2. Crear el proyecto con plantilla Universal 3D en `EndlessCrusade/` dentro del repo. Verificar: Unity abre el proyecto y la escena de ejemplo se renderiza sin errores en consola.
-3. Fijar `Force Text` y `Visible Meta Files` en `Project Settings > Editor`. Verificar: `git diff` muestra `m_SerializationMode: 2` y `m_ExternalVersionControlSupport: Visible Meta Files` en `EditorSettings.asset`.
+3. Fijar `Force Text` y `Visible Meta Files` en `Project Settings > Editor`. Verificar: `git diff` muestra `m_SerializationMode: 2` y `m_Mode: Visible Meta Files` en `ProjectSettings/VersionControlSettings.asset`.
 4. Instalar Input System, Cinemachine, Test Framework y uGUI desde Package Manager. Aceptar el reinicio del editor al activar el Input System. Verificar: `Packages/manifest.json` lista los cuatro paquetes.
 5. Crear las carpetas de `Assets/_Project/` según el modelo de datos, con un archivo `.gitkeep` en las carpetas vacías (`Prefabs`, `ScriptableObjects`, `Art`, `Audio`).
 6. Crear los cinco asmdef de módulo con las referencias de la tabla. Verificar: el proyecto compila sin errores en consola.
@@ -122,21 +122,21 @@ Contrato del `Bootstrapper`:
 
 ## Criterios de aceptación
 
-- [ ] `EndlessCrusade/ProjectSettings/ProjectVersion.txt` contiene una versión `6000.0.x`.
-- [ ] `EndlessCrusade/Packages/manifest.json` incluye `com.unity.render-pipelines.universal`, `com.unity.inputsystem`, `com.unity.cinemachine`, `com.unity.test-framework` y `com.unity.ugui`.
-- [ ] `EditorSettings.asset` tiene `m_SerializationMode: 2` (Force Text).
-- [ ] Existe un archivo `.meta` junto a cada archivo y carpeta de `Assets/`.
-- [ ] Los siete archivos `.asmdef` existen en las rutas del modelo de datos con las referencias de la tabla.
-- [ ] El proyecto abre en el editor y la consola muestra 0 errores y 0 warnings de compilación.
-- [ ] `Build Settings` lista `Boot` en índice 0 y `Main` en índice 1.
+- [x] `EndlessCrusade/ProjectSettings/ProjectVersion.txt` contiene una versión `6000.0.x`.
+- [x] `EndlessCrusade/Packages/manifest.json` incluye `com.unity.render-pipelines.universal`, `com.unity.inputsystem`, `com.unity.cinemachine`, `com.unity.test-framework` y `com.unity.ugui`.
+- [x] `EditorSettings.asset` tiene `m_SerializationMode: 2` (Force Text).
+- [x] Existe un archivo `.meta` junto a cada archivo y carpeta de `Assets/`.
+- [x] Los siete archivos `.asmdef` existen en las rutas del modelo de datos con las referencias de la tabla.
+- [ ] El proyecto abre en el editor y la consola muestra 0 errores de compilación. Los warnings esperados son los de assemblies vacíos (`will not be compiled, because no scripts`) y `HDRP-Editor-ref.asmref has no target assembly definition` de Cinemachine.
+- [x] `Build Settings` lista `Boot` en índice 0 y `Main` en índice 1.
 - [ ] Play Mode desde `Boot` imprime `[Boot] Endless Crusade iniciado` y la escena activa pasa a `Main`.
-- [ ] Player Settings Android muestran IL2CPP, ARM64, Min API 26, Landscape Left y el identificador `com.nicolas.endlesscrusade`.
-- [ ] Player Settings muestran `Color Space = Linear` y Graphics APIs Android en orden Vulkan, OpenGLES3.
+- [x] Player Settings Android muestran IL2CPP, ARM64, Min API 26, Landscape Left y el identificador `com.nicolas.endlesscrusade`.
+- [x] Player Settings muestran `Color Space = Linear` y Graphics APIs Android en orden Vulkan, OpenGLES3.
 - [ ] El URP Asset activo tiene HDR on, MSAA 4x y Post Processing on.
 - [ ] `Main` contiene un Volume global con Bloom, Vignette y Color Adjustments.
-- [ ] La build Android genera un `.apk` sin errores.
-- [ ] El APK instalado en un dispositivo o emulador arranca en landscape y `adb logcat -s Unity` muestra `[Boot] Endless Crusade iniciado`.
-- [ ] `git status` no lista `Library/`, `Temp/`, `Logs/`, `UserSettings/` ni archivos `.apk`.
+- [x] La build Android genera un `.apk` sin errores.
+- [x] El APK instalado en un dispositivo o emulador arranca en landscape y `adb logcat -s Unity` muestra `[Boot] Endless Crusade iniciado`.
+- [x] `git status` no lista `Library/`, `Temp/`, `Logs/`, `UserSettings/` ni archivos `.apk`.
 
 ---
 
