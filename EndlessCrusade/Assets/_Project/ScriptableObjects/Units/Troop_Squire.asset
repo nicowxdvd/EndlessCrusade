@@ -21,6 +21,7 @@ MonoBehaviour:
   attackRange: 1.2
   attackCooldown: 1
   hurtDuration: 0.25
+  tags: 0
   prefab: {fileID: 6711081455862478773, guid: ac616f3a053404fb49b034c8f1e18d66, type: 3}
   leadershipCost: 30
   summonCooldown: 6
