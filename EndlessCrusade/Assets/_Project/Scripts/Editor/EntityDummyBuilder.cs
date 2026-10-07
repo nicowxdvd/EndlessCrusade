@@ -68,12 +68,11 @@ public static class EntityDummyBuilder
     {
         var go = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         go.name = "TestDummy";
+        go.AddComponent<EntityController>().definition = definition;
         go.AddComponent<HealthComponent>();
         var movement = go.AddComponent<MovementComponent>();
         movement.lane = AssetDatabase.LoadAssetAtPath<LaneConfig>(ConfigPath);
         go.AddComponent<AttackComponent>();
-        var controller = go.AddComponent<EntityController>();
-        controller.definition = definition;
         go.AddComponent<DummyBrain>();
         PrefabUtility.SaveAsPrefabAsset(go, PrefabPath);
         Object.DestroyImmediate(go);

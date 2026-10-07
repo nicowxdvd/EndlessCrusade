@@ -14,10 +14,10 @@ namespace EC.Tests.PlayMode
         {
             var go = new GameObject("Hurt");
             go.SetActive(false);
+            var controller = go.AddComponent<EntityController>();
             var health = go.AddComponent<HealthComponent>();
             health.Initialize(30, Team.Player);
             go.AddComponent<MovementComponent>();
-            var controller = go.AddComponent<EntityController>();
             controller.hurtDuration = 0.1f;
             go.SetActive(true);
 

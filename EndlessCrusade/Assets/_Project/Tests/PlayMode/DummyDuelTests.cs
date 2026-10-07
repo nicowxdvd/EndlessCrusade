@@ -13,10 +13,10 @@ namespace EC.Tests.PlayMode
         {
             var go = new GameObject(team.ToString());
             go.SetActive(false);
+            go.AddComponent<EntityController>().hurtDuration = 0.05f;
             go.AddComponent<HealthComponent>().Initialize(30, team);
             go.AddComponent<MovementComponent>();
             go.AddComponent<AttackComponent>().cooldown = 0.2f;
-            go.AddComponent<EntityController>().hurtDuration = 0.05f;
             go.AddComponent<DummyBrain>();
             go.transform.position = new Vector3(x, 0f, 0f);
             go.SetActive(true);

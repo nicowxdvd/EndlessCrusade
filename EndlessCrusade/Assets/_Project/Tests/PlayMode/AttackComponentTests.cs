@@ -36,9 +36,9 @@ namespace EC.Tests.PlayMode
         {
             var go = new GameObject(team.ToString());
             go.SetActive(false);
+            go.AddComponent<EntityController>();
             go.AddComponent<HealthComponent>().Initialize(health, team);
             go.AddComponent<AttackComponent>();
-            go.AddComponent<EntityController>();
             go.SetActive(true);
             return go;
         }
