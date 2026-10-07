@@ -1,6 +1,6 @@
 # SPEC 08 — Oleadas
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 06, SPEC 07
 > **Fecha:** 2026-10-06
 > **Objetivo:** Controlar las oleadas desde `LevelDefinition` y `WaveDefinition` (ScriptableObjects) con condiciones de victoria y derrota.
@@ -79,13 +79,13 @@ public readonly struct LevelEnded { public readonly LevelOutcome Outcome; }
 
 ## Criterios de aceptación
 
-- [ ] `WaveController` inicia la oleada 1 tras una cuenta regresiva de 3 segundos.
-- [ ] Los enemigos aparecen según `count`, `interval` y `startDelay`.
-- [ ] La siguiente oleada empieza `delayBeforeNext` segundos después de matar a todos.
-- [ ] Se publica `LevelEnded(Victory)` al matar al último enemigo de la última oleada.
-- [ ] Se publica `LevelEnded(Defeat)` si `BaseDestroyed` o el héroe muere.
-- [ ] `LevelEnded` se publica una sola vez.
-- [ ] Los tests EditMode de `WaveRunner` pasan.
+- [x] `WaveController` inicia la oleada 1 tras una cuenta regresiva de 3 segundos.
+- [x] Los enemigos aparecen según `count`, `interval` y `startDelay`.
+- [x] La siguiente oleada empieza `delayBeforeNext` segundos después de matar a todos.
+- [x] Se publica `LevelEnded(Victory)` al matar al último enemigo de la última oleada.
+- [x] Se publica `LevelEnded(Defeat)` si `BaseDestroyed` o el héroe muere.
+- [x] `LevelEnded` se publica una sola vez.
+- [x] Los tests EditMode de `WaveRunner` pasan.
 
 ---
 
