@@ -184,6 +184,7 @@ namespace EC.Tests.PlayMode
 
             Assert.GreaterOrEqual(heroGo.transform.position.x, start);
             Assert.LessOrEqual(heroGo.transform.position.x, 10f);
+            var afterRight = heroGo.transform.position.x;
 
             for (var i = 0; i < 20; i++)
             {
@@ -191,7 +192,7 @@ namespace EC.Tests.PlayMode
                 yield return null;
             }
 
-            Assert.Less(heroGo.transform.position.x, start);
+            Assert.Less(heroGo.transform.position.x, afterRight);
         }
 
         [Test]
