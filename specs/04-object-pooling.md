@@ -1,6 +1,6 @@
 # SPEC 04 — Object pooling
 
-> **Estado:** Borrador
+> **Estado:** Approved
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-10-06
 > **Objetivo:** Implementar un servicio de pooling genérico para enemigos, tropas, proyectiles y efectos visuales sin asignaciones de memoria durante el combate.
@@ -45,6 +45,7 @@ Reglas:
 
 - Cada instancia lleva un componente `PooledObject` con referencia a su prefab de origen.
 - `Release` de un objeto no creado por el pool lo destruye y escribe un warning.
+- `Get` con el pool vacío instancia una instancia nueva. Prewarm reduce esos casos, no los prohíbe.
 - `PoolService` vive en la escena `Boot` con `DontDestroyOnLoad`.
 
 ---
@@ -55,7 +56,7 @@ Reglas:
 2. Crear `PoolService` con un diccionario `prefab -> ObjectPool`. Verificar: compila.
 3. Implementar `Prewarm`, `Get` y `Release`, llamando `OnSpawn` y `OnDespawn` en los `IPoolable` del objeto.
 4. Agregar `PoolService` a la escena `Boot` con `DontDestroyOnLoad`.
-5. Crear el test PlayMode: 1000 ciclos `Get`/`Release` de un prefab de prueba. Medir con `ProfilerRecorder` la categoría `GC Allocated In Frame`. Verificar: 0 bytes en el bucle.
+5. Crear el test PlayMode: el propio test crea el `PoolService` por código, sin cargar `Boot`. 1000 ciclos `Get`/`Release` de un prefab de prueba. Medir con `ProfilerRecorder` la categoría `GC Allocated In Frame`. Verificar: 0 bytes en el bucle.
 6. Agregar un contador de instancias activas por prefab para depuración (solo editor).
 
 ---
