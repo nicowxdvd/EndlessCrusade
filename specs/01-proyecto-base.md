@@ -1,6 +1,6 @@
 # SPEC 01 — Proyecto base Unity con build Android
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Depende de:** ninguna
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear el proyecto Unity 6 LTS con URP, estructura de carpetas, assembly definitions y Force Text, con una build Android que arranca en la escena Boot y carga Main.
