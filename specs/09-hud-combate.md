@@ -65,11 +65,11 @@ public class UiTheme : ScriptableObject
 - [x] La barra del héroe baja al recibir daño y llega a 0 al morir.
 - [x] La barra de la base refleja `BaseResistanceChanged`.
 - [x] El texto de oleada muestra el índice y el total correctos.
-- [ ] Pausa detiene el juego y reanudar lo restaura a `timeScale = 1`.
-- [ ] Victoria y derrota muestran el panel correcto y solo una vez.
-- [ ] Reintentar reinicia el nivel con vida y oleadas desde cero.
+- [x] Pausa detiene el juego y reanudar lo restaura a `timeScale = 1`.
+- [x] Victoria y derrota muestran el panel correcto y solo una vez.
+- [x] Reintentar reinicia el nivel con vida y oleadas desde cero.
 - [ ] Ningún botón táctil queda cubierto por la muesca ni por el borde en un emulador de 20:9.
-- [ ] `EC.UI` no referencia `EC.Gameplay`.
+- [x] `EC.UI` no referencia `EC.Gameplay`.
 
 ---
 

@@ -27,10 +27,17 @@ namespace EC.UI
             screenSize = new Vector2Int(Screen.width, Screen.height);
             if (screenSize.x == 0 || screenSize.y == 0)
                 return;
-            rect.anchorMin = new Vector2(applied.xMin / screenSize.x, applied.yMin / screenSize.y);
-            rect.anchorMax = new Vector2(applied.xMax / screenSize.x, applied.yMax / screenSize.y);
+            AnchorsFor(applied, screenSize.x, screenSize.y, out var min, out var max);
+            rect.anchorMin = min;
+            rect.anchorMax = max;
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
+        }
+
+        public static void AnchorsFor(Rect safeArea, int width, int height, out Vector2 min, out Vector2 max)
+        {
+            min = new Vector2(safeArea.xMin / width, safeArea.yMin / height);
+            max = new Vector2(safeArea.xMax / width, safeArea.yMax / height);
         }
     }
 }
