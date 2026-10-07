@@ -25,4 +25,14 @@ namespace EC.Core
             Source = source;
         }
     }
+
+    public readonly struct HeroSpawned
+    {
+        public readonly GameObject Hero;
+
+        public HeroSpawned(GameObject hero)
+        {
+            Hero = hero;
+        }
+    }
 }
