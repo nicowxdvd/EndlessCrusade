@@ -1,6 +1,6 @@
 # SPEC 04 — Object pooling
 
-> **Estado:** Approved
+> **Estado:** Implementado
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-10-06
 > **Objetivo:** Implementar un servicio de pooling genérico para enemigos, tropas, proyectiles y efectos visuales sin asignaciones de memoria durante el combate.
@@ -63,12 +63,12 @@ Reglas:
 
 ## Criterios de aceptación
 
-- [ ] `Get` tras `Prewarm(prefab, 10)` no instancia objetos nuevos en las primeras 10 llamadas.
-- [ ] `Release` desactiva el objeto y lo devuelve al pool.
-- [ ] `OnSpawn` y `OnDespawn` se llaman una vez por ciclo.
-- [ ] El test PlayMode de 1000 ciclos registra 0 bytes asignados por frame.
-- [ ] `Release` de un objeto ajeno al pool no lanza excepción y escribe un warning.
-- [ ] El pool sobrevive a la carga de `Boot` a `Main`.
+- [x] `Get` tras `Prewarm(prefab, 10)` no instancia objetos nuevos en las primeras 10 llamadas.
+- [x] `Release` desactiva el objeto y lo devuelve al pool.
+- [x] `OnSpawn` y `OnDespawn` se llaman una vez por ciclo.
+- [x] El test PlayMode de 1000 ciclos registra 0 bytes asignados por frame.
+- [x] `Release` de un objeto ajeno al pool no lanza excepción y escribe un warning.
+- [x] El pool sobrevive a la carga de `Boot` a `Main`.
 
 ---
 
