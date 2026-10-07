@@ -1,6 +1,6 @@
 # SPEC 07 — Base defendible
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 03, SPEC 06
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear una estructura base configurable por nivel con barra de resistencia propia que publica `BaseDestroyed` al llegar a cero.
@@ -85,14 +85,14 @@ Objetivo de los enemigos: la base es un `IDamageable` del equipo Player, así qu
 
 ## Criterios de aceptación
 
-- [ ] La base muestra resistencia inicial igual a `maxResistance` y publica `BaseResistanceChanged` al inicializar.
-- [ ] Un enemigo en rango ataca la base y baja su resistencia.
-- [ ] `BaseResistanceChanged` se publica en cada daño aceptado.
-- [ ] La etapa visual cambia al cruzar 66% y 33%.
-- [ ] Al llegar a 0 se publica `BaseDestroyed` una sola vez.
-- [ ] La base no acepta daño del equipo Player ni de una `source` nula.
-- [ ] La base destruida ignora todo daño posterior.
-- [ ] `EnemyBrain` no necesita cambios para atacar la base.
+- [x] La base muestra resistencia inicial igual a `maxResistance` y publica `BaseResistanceChanged` al inicializar.
+- [x] Un enemigo en rango ataca la base y baja su resistencia.
+- [x] `BaseResistanceChanged` se publica en cada daño aceptado.
+- [x] La etapa visual cambia al cruzar 66% y 33%.
+- [x] Al llegar a 0 se publica `BaseDestroyed` una sola vez.
+- [x] La base no acepta daño del equipo Player ni de una `source` nula.
+- [x] La base destruida ignora todo daño posterior.
+- [x] `EnemyBrain` no necesita cambios para atacar la base.
 
 ---
 

@@ -1,6 +1,6 @@
 # SPEC 06 — Enemigos del nivel 1
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 03, SPEC 04
 > **Fecha:** 2026-10-06
 > **Objetivo:** Agregar el wargo (embestida rápida por tierra) y el murciélago (bandada aérea) con IA por FSM y aparición desde el pool.
@@ -66,12 +66,12 @@ Valores propuestos. Wargo: vida 40, velocidad 2.5, daño 12, embestida x2.2 a 5 
 
 ## Criterios de aceptación
 
-- [ ] El wargo avanza hacia la izquierda y embiste al llegar a 5 unidades del objetivo.
-- [ ] El murciélago vuela a 2.2 de altura con movimiento ondulado.
-- [ ] Un enemigo ataca al héroe si está en rango, y si no, sigue hacia la base.
-- [ ] Un enemigo muerto vuelve al pool y reaparece con vida completa.
-- [ ] `TargetFinder` ignora entidades del mismo equipo y entidades muertas.
-- [ ] 30 ciclos de spawn y muerte no asignan memoria por frame.
+- [x] El wargo avanza hacia la izquierda y embiste al llegar a 5 unidades del objetivo.
+- [x] El murciélago vuela a 2.2 de altura con movimiento ondulado.
+- [x] Un enemigo ataca al héroe si está en rango, y si no, sigue hacia la base.
+- [x] Un enemigo muerto vuelve al pool y reaparece con vida completa.
+- [x] `TargetFinder` ignora entidades del mismo equipo y entidades muertas.
+- [x] 30 ciclos de spawn y muerte no asignan memoria por frame.
 
 ---
 

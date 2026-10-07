@@ -1,6 +1,6 @@
 # SPEC 05 — Héroe Templario
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 02, SPEC 03
 > **Fecha:** 2026-10-06
 > **Objetivo:** Controlar al Templario con botones táctiles de movimiento horizontal y dos ataques, espada corta y látigo.
@@ -93,15 +93,15 @@ Input:
 
 ## Criterios de aceptación
 
-- [ ] El héroe se mueve a izquierda y derecha con teclado y con botones táctiles (Device Simulator).
-- [ ] El héroe no sale de los límites del carril.
-- [ ] La espada daña a un objetivo a 1.4 unidades y no a 2.
-- [ ] El látigo daña a un objetivo a 3.0 unidades.
-- [ ] Cada ataque respeta su cooldown y los cooldowns son independientes entre sí.
-- [ ] El héroe mirando a la izquierda o derecha ataca hacia ese lado.
-- [ ] El héroe en estado `Dead` no responde a la entrada.
-- [ ] `HeroSpawned` se publica una vez.
-- [ ] Los tests existentes de `AttackComponent` siguen en verde.
+- [x] El héroe se mueve a izquierda y derecha con teclado y con botones táctiles (Device Simulator).
+- [x] El héroe no sale de los límites del carril.
+- [x] La espada daña a un objetivo a 1.4 unidades y no a 2.
+- [x] El látigo daña a un objetivo a 3.0 unidades.
+- [x] Cada ataque respeta su cooldown y los cooldowns son independientes entre sí.
+- [x] El héroe mirando a la izquierda o derecha ataca hacia ese lado.
+- [x] El héroe en estado `Dead` no responde a la entrada.
+- [x] `HeroSpawned` se publica una vez.
+- [x] Los tests existentes de `AttackComponent` siguen en verde.
 
 ---
 
