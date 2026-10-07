@@ -1,6 +1,6 @@
 # SPEC 13 — Liderazgo e invocación de tropas
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Depende de:** SPEC 08, SPEC 09
 > **Fecha:** 2026-10-06
 > **Objetivo:** Agregar el recurso Liderazgo que se regenera con el tiempo, la interfaz de invocación y el Escudero como primera tropa.

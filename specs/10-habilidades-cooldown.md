@@ -1,6 +1,6 @@
 # SPEC 10 — Habilidades con cooldown
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Depende de:** SPEC 05, SPEC 09
 > **Fecha:** 2026-10-06
 > **Objetivo:** Agregar habilidades del héroe con cooldown, empezando por el agua bendita, y su botón en el HUD.
