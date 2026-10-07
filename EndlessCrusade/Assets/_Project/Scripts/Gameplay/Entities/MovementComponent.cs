@@ -28,8 +28,13 @@ namespace EC.Gameplay
 
         public void Step(float direction, float deltaTime)
         {
+            Step(direction, deltaTime, moveSpeed);
+        }
+
+        public void Step(float direction, float deltaTime, float speed)
+        {
             var position = transform.position;
-            position.x = ClampX(position.x + Mathf.Sign(direction) * moveSpeed * deltaTime, lane);
+            position.x = ClampX(position.x + Mathf.Sign(direction) * speed * deltaTime, lane);
             transform.position = position;
         }
 
