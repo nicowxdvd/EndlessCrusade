@@ -32,6 +32,13 @@ namespace EC.Core
             return true;
         }
 
+        public void Reset()
+        {
+            currentState = null;
+            Current = EntityState.Idle;
+            HasState = false;
+        }
+
         public void Tick(float deltaTime)
         {
             currentState?.Tick(deltaTime);
