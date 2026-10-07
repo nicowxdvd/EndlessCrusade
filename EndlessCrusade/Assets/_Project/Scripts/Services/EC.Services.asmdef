@@ -1,0 +1,14 @@
+{
+    "name": "EC.Services",
+    "rootNamespace": "EC.Services",
+    "references": ["EC.Core", "EC.Data"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
