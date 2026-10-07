@@ -1,0 +1,29 @@
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1a01",
+            "actions": [
+                { "name": "MoveLeft", "type": "Button", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1a11", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
+                { "name": "MoveRight", "type": "Button", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1a12", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
+                { "name": "AttackSword", "type": "Button", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1a13", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
+                { "name": "AttackWhip", "type": "Button", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1a14", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false }
+            ],
+            "bindings": [
+                { "name": "", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1b01", "path": "<Keyboard>/a", "interactions": "", "processors": "", "groups": "Keyboard", "action": "MoveLeft", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1b02", "path": "<Gamepad>/dpad/left", "interactions": "", "processors": "", "groups": "Touch", "action": "MoveLeft", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1b03", "path": "<Keyboard>/d", "interactions": "", "processors": "", "groups": "Keyboard", "action": "MoveRight", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1b04", "path": "<Gamepad>/dpad/right", "interactions": "", "processors": "", "groups": "Touch", "action": "MoveRight", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1b05", "path": "<Keyboard>/j", "interactions": "", "processors": "", "groups": "Keyboard", "action": "AttackSword", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1b06", "path": "<Gamepad>/buttonWest", "interactions": "", "processors": "", "groups": "Touch", "action": "AttackSword", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1b07", "path": "<Keyboard>/k", "interactions": "", "processors": "", "groups": "Keyboard", "action": "AttackWhip", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "6b1f3a52-0c1d-4a55-9a0e-5d2f0f8c1b08", "path": "<Gamepad>/buttonEast", "interactions": "", "processors": "", "groups": "Touch", "action": "AttackWhip", "isComposite": false, "isPartOfComposite": false }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        { "name": "Keyboard", "bindingGroup": "Keyboard", "devices": [ { "devicePath": "<Keyboard>", "isOptional": false, "isOR": false } ] },
+        { "name": "Touch", "bindingGroup": "Touch", "devices": [ { "devicePath": "<Gamepad>", "isOptional": false, "isOR": false } ] }
+    ]
+}
