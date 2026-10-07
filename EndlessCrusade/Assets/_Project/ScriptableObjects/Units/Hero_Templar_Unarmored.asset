@@ -21,6 +21,7 @@ MonoBehaviour:
   attackRange: 1.2
   attackCooldown: 1
   hurtDuration: 0.25
+  tags: 0
   prefab: {fileID: 3854953131137820374, guid: 23d7d0c7ecfb64e22aebaf5fb3b85fca, type: 3}
   sword:
     id: sword

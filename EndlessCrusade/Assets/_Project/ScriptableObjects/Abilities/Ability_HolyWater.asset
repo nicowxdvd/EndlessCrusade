@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c76cd29f40f8459e9f992d01e12f858, type: 3}
+  m_Name: Ability_HolyWater
+  m_EditorClassIdentifier: 
+  id: holy_water
+  displayName: Agua bendita
+  kind: 0
+  cooldown: 12
+  damage: 40
+  radius: 2.5
+  undeadMultiplier: 2
+  throwDistance: 6
+  icon: {fileID: 0}
+  projectilePrefab: {fileID: 4037783940721301793, guid: a5af2a2d069b446a2a31a9c30deb1fe2, type: 3}
+  explosionPrefab: {fileID: 4054864039648879781, guid: fbc04350188ee421498c0acd1dec4627, type: 3}
