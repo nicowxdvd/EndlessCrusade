@@ -19,3 +19,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 31070fe98866e45efa5a9563666395b8, type: 2}
   - {fileID: 11400000, guid: 96b8d103111b149eb863d17b67f9c8bd, type: 2}
   - {fileID: 11400000, guid: 4b79c201a875949a7a768cf73fe035d2, type: 2}
+  troopsEnabled: 1

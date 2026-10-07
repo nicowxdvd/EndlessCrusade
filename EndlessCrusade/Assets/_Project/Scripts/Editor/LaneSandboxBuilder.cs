@@ -209,5 +209,6 @@ public static class LaneSandboxBuilder
 
         var clamp = go.AddComponent<LaneCameraClamp>();
         clamp.config = config;
+        go.AddComponent<CameraShaker>();
     }
 }

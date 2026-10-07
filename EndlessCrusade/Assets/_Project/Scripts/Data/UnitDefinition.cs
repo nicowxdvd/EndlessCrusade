@@ -15,6 +15,7 @@ namespace EC.Data
         public float attackRange = 1.2f;
         public float attackCooldown = 1f;
         public float hurtDuration = 0.25f;
+        public CreatureTag tags;
         public GameObject prefab;
     }
 }

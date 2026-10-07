@@ -113,6 +113,8 @@ GameObject:
   - component: {fileID: 2461514840805577983}
   - component: {fileID: 198741232375748546}
   - component: {fileID: 7479393107378270733}
+  - component: {fileID: 8076829688419290143}
+  - component: {fileID: 4930133679671372144}
   - component: {fileID: 5082857913552632707}
   m_Layer: 0
   m_Name: Hero
@@ -165,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   team: 0
+  tags: 0
 --- !u!114 &198741232375748546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +197,35 @@ MonoBehaviour:
   damage: 10
   range: 1.2
   cooldown: 1
+--- !u!114 &8076829688419290143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854953131137820374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668ef020d478945a7badf4851bc12054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilities:
+  - {fileID: 11400000, guid: 993985ae977a84642b96f459ccc684e2, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  pool: {fileID: 0}
+--- !u!114 &4930133679671372144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854953131137820374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6931512f237724e90898c18d00a07326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5082857913552632707
 MonoBehaviour:
   m_ObjectHideFlags: 0

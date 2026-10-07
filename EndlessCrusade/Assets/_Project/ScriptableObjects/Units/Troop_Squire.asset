@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b591c890297e4c80954f79491ccee2a, type: 3}
+  m_Name: Troop_Squire
+  m_EditorClassIdentifier: 
+  id: squire
+  displayName: Escudero
+  team: 0
+  maxHealth: 120
+  moveSpeed: 2.2
+  attackDamage: 10
+  attackRange: 1.2
+  attackCooldown: 1
+  hurtDuration: 0.25
+  tags: 0
+  prefab: {fileID: 6711081455862478773, guid: ac616f3a053404fb49b034c8f1e18d66, type: 3}
+  leadershipCost: 30
+  summonCooldown: 6
+  unlockChapterId: 

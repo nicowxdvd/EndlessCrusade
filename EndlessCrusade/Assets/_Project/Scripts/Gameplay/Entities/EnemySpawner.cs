@@ -15,9 +15,18 @@ namespace EC.Gameplay
             var height = definition.kind == EnemyKind.Flying ? definition.flightHeight : 1f;
             var position = new Vector3(lane.spawnX, lane.groundY + height, 0f);
             var instance = pool.Get(definition.prefab, position, Quaternion.identity);
-            var brain = instance.GetComponent<EnemyBrain>();
-            brain.pool = pool;
-            brain.baseTarget = baseTarget;
+            if (instance.TryGetComponent<EnemyBrain>(out var brain))
+            {
+                brain.pool = pool;
+                brain.baseTarget = baseTarget;
+            }
+            if (instance.TryGetComponent<BossBrain>(out var bossBrain))
+            {
+                bossBrain.pool = pool;
+                bossBrain.baseTarget = baseTarget;
+            }
+            if (definition is BossDefinition)
+                EventBus<BossSpawned>.Publish(new BossSpawned(instance, definition.displayName));
             return instance;
         }
     }
