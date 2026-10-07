@@ -78,7 +78,10 @@ namespace EC.Gameplay
 
             hurtDuration = definition.hurtDuration;
             if (health != null)
+            {
                 health.Initialize(definition.maxHealth, definition.team);
+                health.tags = definition.tags;
+            }
 
             var movement = GetComponent<MovementComponent>();
             if (movement != null)

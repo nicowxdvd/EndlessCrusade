@@ -20,6 +20,7 @@ namespace EC.Gameplay
         InputAction moveRight;
         InputAction attackSword;
         InputAction attackWhip;
+        InputAction useAbility1;
 
         public int Facing { get; private set; } = 1;
 
@@ -39,6 +40,7 @@ namespace EC.Gameplay
             moveRight = controls.FindAction("MoveRight", true);
             attackSword = controls.FindAction("AttackSword", true);
             attackWhip = controls.FindAction("AttackWhip", true);
+            useAbility1 = controls.FindAction("UseAbility1", true);
             controls.Enable();
         }
 
@@ -57,6 +59,8 @@ namespace EC.Gameplay
         {
             if (moveLeft == null)
                 return;
+            if (useAbility1.WasPressedThisFrame())
+                EventBus<AbilityRequested>.Publish(new AbilityRequested(0));
             Apply(moveLeft.IsPressed(), moveRight.IsPressed(), attackSword.IsPressed(), attackWhip.IsPressed(), Time.time);
         }
 

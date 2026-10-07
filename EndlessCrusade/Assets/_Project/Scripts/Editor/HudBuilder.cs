@@ -80,6 +80,8 @@ public static class HudBuilder
         CreateTouchButton(safe, "Sword", "Espada", "<Gamepad>/buttonWest", new Vector2(1f, 0f), new Vector2(-(Margin * 2f + ButtonSize * 1.5f), Margin + ButtonSize * 0.5f), theme);
         CreateTouchButton(safe, "Whip", "Látigo", "<Gamepad>/buttonEast", new Vector2(1f, 0f), new Vector2(-(Margin + ButtonSize * 0.5f), Margin + ButtonSize * 0.5f), theme);
 
+        CreateAbilityButton(safe, theme);
+
         var pause = root.AddComponent<PausePanel>();
         var pauseButton = CreateButton(safe, "PauseButton", "II", new Vector2(1f, 1f), new Vector2(-Margin, -Margin * 2f - 60f), new Vector2(120f, 120f), theme);
         var pauseOutline = pauseButton.gameObject.AddComponent<Outline>();
@@ -199,6 +201,32 @@ public static class HudBuilder
         rect.gameObject.AddComponent<OnScreenButton>().controlPath = controlPath;
         var label = CreateLabel(rect, "Label", caption, 40f, new Vector2(0.5f, 0.5f), Vector2.zero, rect.sizeDelta, theme, theme.bodyFont);
         label.color = Color.white;
+    }
+
+    static void CreateAbilityButton(Transform parent, UiTheme theme)
+    {
+        var ability = AbilityBuilder.BuildAssets();
+        var position = new Vector2(-(Margin * 3f + ButtonSize * 2.5f), Margin + ButtonSize * 0.5f);
+        var button = CreateButton(parent, "Ability1", ability.displayName, new Vector2(1f, 0f), position, new Vector2(ButtonSize, ButtonSize), theme);
+        button.GetComponentInChildren<TMP_Text>().fontSize = 32f;
+
+        var fillRect = NewRect("CooldownFill", button.transform);
+        Stretch(fillRect);
+        fillRect.SetSiblingIndex(1);
+        var fill = fillRect.gameObject.AddComponent<Image>();
+        fill.sprite = HeroBuilder.LoadPlaceholderSprite();
+        fill.color = new Color(0f, 0f, 0f, 0.65f);
+        fill.type = Image.Type.Filled;
+        fill.fillMethod = Image.FillMethod.Radial360;
+        fill.fillOrigin = (int)Image.Origin360.Top;
+        fill.fillClockwise = false;
+        fill.fillAmount = 0f;
+        fill.raycastTarget = false;
+
+        var ability1 = button.gameObject.AddComponent<AbilityButton>();
+        ability1.slot = 0;
+        ability1.button = button;
+        ability1.cooldownFill = fill;
     }
 
     static GameObject CreateOverlay(Transform parent, string name, UiTheme theme)

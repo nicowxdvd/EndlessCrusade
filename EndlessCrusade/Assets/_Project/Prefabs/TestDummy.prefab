@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   team: 0
+  tags: 0
 --- !u!114 &636129711621253700
 MonoBehaviour:
   m_ObjectHideFlags: 0

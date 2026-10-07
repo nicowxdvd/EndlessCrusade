@@ -59,5 +59,23 @@ namespace EC.Gameplay
             }
             return best;
         }
+
+        public static int Collect(Vector3 center, float radius, Team enemyOf, List<IDamageable> results)
+        {
+            results.Clear();
+            var sqrRadius = radius * radius;
+            for (int i = 0; i < entries.Count; i++)
+            {
+                var entry = entries[i];
+                if (entry.Transform == null || entry.Target.Team == enemyOf || !entry.Target.IsAlive)
+                    continue;
+                var dx = entry.Transform.position.x - center.x;
+                var dy = entry.Transform.position.y - center.y;
+                if (dx * dx + dy * dy > sqrRadius)
+                    continue;
+                results.Add(entry.Target);
+            }
+            return results.Count;
+        }
     }
 }

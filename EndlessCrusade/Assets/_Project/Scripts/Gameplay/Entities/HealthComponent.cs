@@ -8,6 +8,7 @@ namespace EC.Gameplay
     {
         public int maxHealth = 100;
         public Team team;
+        public CreatureTag tags;
 
         public int Current { get; private set; }
         public Team Team => team;

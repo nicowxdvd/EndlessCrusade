@@ -57,7 +57,7 @@ public static class HeroBuilder
         return definition;
     }
 
-    static Sprite LoadPlaceholderSprite()
+    public static Sprite LoadPlaceholderSprite()
     {
         if (!File.Exists(SpritePath))
         {
@@ -85,6 +85,7 @@ public static class HeroBuilder
         var movement = go.AddComponent<MovementComponent>();
         movement.lane = AssetDatabase.LoadAssetAtPath<LaneConfig>(ConfigPath);
         go.AddComponent<AttackComponent>();
+        go.AddComponent<AbilityComponent>().abilities = new[] { AbilityBuilder.BuildAssets(), null, null };
 
         var visual = new GameObject("Sprite");
         visual.transform.SetParent(go.transform, false);

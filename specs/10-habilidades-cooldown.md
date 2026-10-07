@@ -1,6 +1,6 @@
 # SPEC 10 — Habilidades con cooldown
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 05, SPEC 09
 > **Fecha:** 2026-10-06
 > **Objetivo:** Agregar habilidades del héroe con cooldown, empezando por el agua bendita, y su botón en el HUD.
@@ -70,12 +70,12 @@ public readonly struct AbilityCooldownChanged { public readonly int Slot; public
 
 ## Criterios de aceptación
 
-- [ ] El agua bendita se lanza a `throwDistance` frente al héroe.
-- [ ] Daña a todos los enemigos en `radius` y daña `undeadMultiplier` veces más a los `Undead`.
-- [ ] Tras usarla, el botón se bloquea `cooldown` segundos.
-- [ ] El relleno radial del botón refleja el cooldown restante.
-- [ ] Usar la habilidad en cooldown no hace nada.
-- [ ] Proyectil y explosión no asignan memoria por frame (usan el pool).
+- [x] El agua bendita se lanza a `throwDistance` frente al héroe.
+- [x] Daña a todos los enemigos en `radius` y daña `undeadMultiplier` veces más a los `Undead`.
+- [x] Tras usarla, el botón se bloquea `cooldown` segundos.
+- [x] El relleno radial del botón refleja el cooldown restante.
+- [x] Usar la habilidad en cooldown no hace nada.
+- [x] Proyectil y explosión no asignan memoria por frame (usan el pool).
 
 ---
 
