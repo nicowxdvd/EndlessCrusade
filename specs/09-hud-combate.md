@@ -1,6 +1,6 @@
 # SPEC 09 — HUD de combate
 
-> **Estado:** Borrador
+> **Estado:** En progreso
 > **Depende de:** SPEC 05, SPEC 07, SPEC 08
 > **Fecha:** 2026-10-06
 > **Objetivo:** Mostrar vida del héroe, resistencia de la base, oleada actual, controles táctiles y pantallas de pausa, victoria y derrota con estilo gótico.
@@ -62,9 +62,9 @@ public class UiTheme : ScriptableObject
 
 ## Criterios de aceptación
 
-- [ ] La barra del héroe baja al recibir daño y llega a 0 al morir.
-- [ ] La barra de la base refleja `BaseResistanceChanged`.
-- [ ] El texto de oleada muestra el índice y el total correctos.
+- [x] La barra del héroe baja al recibir daño y llega a 0 al morir.
+- [x] La barra de la base refleja `BaseResistanceChanged`.
+- [x] El texto de oleada muestra el índice y el total correctos.
 - [ ] Pausa detiene el juego y reanudar lo restaura a `timeScale = 1`.
 - [ ] Victoria y derrota muestran el panel correcto y solo una vez.
 - [ ] Reintentar reinicia el nivel con vida y oleadas desde cero.
