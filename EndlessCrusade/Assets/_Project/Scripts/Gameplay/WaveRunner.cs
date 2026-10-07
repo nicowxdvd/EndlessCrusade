@@ -103,7 +103,9 @@ namespace EC.Gameplay
         void BuildSchedule(WaveDefinition wave)
         {
             schedule.Clear();
-            foreach (var entry in wave.entries)
+            if (wave.boss != null)
+                schedule.Add(new ScheduledSpawn(wave.bossStartDelay, wave.boss));
+            foreach (var entry in wave.entries ?? new SpawnEntry[0])
             {
                 if (entry.enemy == null)
                     continue;

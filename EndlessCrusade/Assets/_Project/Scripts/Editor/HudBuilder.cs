@@ -74,6 +74,11 @@ public static class HudBuilder
         presenter.heroBar = CreateBar(safe, "HeroBar", "Vida", new Vector2(0f, 1f), new Vector2(Margin, -Margin), theme.blood, theme);
         presenter.baseBar = CreateBar(safe, "BaseBar", "Base", new Vector2(1f, 1f), new Vector2(-Margin, -Margin), theme.gold, theme);
         presenter.waveLabel = CreateLabel(safe, "WaveLabel", "", 48f, new Vector2(0.5f, 1f), new Vector2(0f, -Margin), new Vector2(600f, 80f), theme, theme.titleFont);
+        presenter.bossBar = CreateBar(safe, "BossBar", "Jefe", new Vector2(0.5f, 1f), new Vector2(0f, -Margin * 2f - 80f), theme.blood, theme);
+        presenter.bossBar.fillOrigin = 0;
+        presenter.bossRoot = presenter.bossBar.transform.parent.gameObject;
+        presenter.bossLabel = presenter.bossRoot.transform.Find("Caption").GetComponent<TMP_Text>();
+        presenter.bossRoot.SetActive(false);
 
         CreateTouchButton(safe, "Left", "<", "<Gamepad>/dpad/left", new Vector2(0f, 0f), new Vector2(Margin + ButtonSize * 0.5f, Margin + ButtonSize * 0.5f), theme);
         CreateTouchButton(safe, "Right", ">", "<Gamepad>/dpad/right", new Vector2(0f, 0f), new Vector2(Margin * 2f + ButtonSize * 1.5f, Margin + ButtonSize * 0.5f), theme);

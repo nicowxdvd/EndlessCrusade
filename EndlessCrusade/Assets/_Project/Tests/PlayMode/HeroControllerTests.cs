@@ -230,5 +230,38 @@ namespace EC.Tests.PlayMode
             Assert.AreEqual(1, calls);
             Assert.AreSame(heroGo, published);
         }
-    }
+    
+        [Test]
+        public void Disoriented_InvertsMovementDirection()
+        {
+            var heroGo = SpawnHero(0f);
+            var hero = heroGo.GetComponent<HeroController>();
+            var movement = heroGo.GetComponent<MovementComponent>();
+
+            hero.Apply(true, false, false, false, 0f);
+            Assert.AreEqual(-1f, movement.Direction);
+
+            heroGo.GetComponent<StatusEffectComponent>().Apply(StatusEffectType.Disoriented, 3f);
+            hero.Apply(true, false, false, false, 0f);
+            Assert.AreEqual(1f, movement.Direction);
+            Assert.AreEqual(1, hero.Facing);
+
+            hero.Apply(false, true, false, false, 0f);
+            Assert.AreEqual(-1f, movement.Direction);
+        }
+
+        [Test]
+        public void AfterDisorientEnds_ControlsReturnToNormal()
+        {
+            var heroGo = SpawnHero(0f);
+            var hero = heroGo.GetComponent<HeroController>();
+            var status = heroGo.GetComponent<StatusEffectComponent>();
+            status.Apply(StatusEffectType.Disoriented, 1f);
+            status.Tick(1.1f);
+
+            hero.Apply(true, false, false, false, 0f);
+
+            Assert.AreEqual(-1f, heroGo.GetComponent<MovementComponent>().Direction);
+        }
+}
 }

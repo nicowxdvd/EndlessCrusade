@@ -1,6 +1,6 @@
 # SPEC 11 — Jefe Licántropo Gigante
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 06, SPEC 08
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear al Licántropo Gigante con embestida devastadora, rugido que desorienta y barra de vida de jefe.
@@ -68,13 +68,13 @@ Valores propuestos: vida 600, daño base 20, velocidad 1.6.
 
 ## Criterios de aceptación
 
-- [ ] La embestida muestra un aviso de 1 segundo antes de ejecutarse.
-- [ ] La embestida inflige `chargeDamage` al héroe o a la base si los alcanza.
-- [ ] Tras la embestida, el jefe queda aturdido `stunAfterCharge` segundos.
-- [ ] El rugido invierte los controles del héroe `disorientDuration` segundos.
-- [ ] Al 50% de vida el jefe se mueve `enrageSpeedMultiplier` veces más rápido.
-- [ ] La barra de jefe aparece al aparecer el jefe y refleja su vida.
-- [ ] Matar al jefe y a todos los enemigos termina el nivel con victoria.
+- [x] La embestida muestra un aviso de 1 segundo antes de ejecutarse.
+- [x] La embestida inflige `chargeDamage` al héroe o a la base si los alcanza.
+- [x] Tras la embestida, el jefe queda aturdido `stunAfterCharge` segundos.
+- [x] El rugido invierte los controles del héroe `disorientDuration` segundos.
+- [x] Al 50% de vida el jefe se mueve `enrageSpeedMultiplier` veces más rápido.
+- [x] La barra de jefe aparece al aparecer el jefe y refleja su vida.
+- [x] Matar al jefe y a todos los enemigos termina el nivel con victoria.
 
 ---
 

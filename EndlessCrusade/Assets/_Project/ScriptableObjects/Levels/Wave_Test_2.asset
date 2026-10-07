@@ -21,4 +21,6 @@ MonoBehaviour:
     count: 3
     interval: 1
     startDelay: 2
+  boss: {fileID: 0}
+  bossStartDelay: 0
   delayBeforeNext: 4
