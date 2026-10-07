@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace EC.Gameplay
 {
-    [RequireComponent(typeof(EntityController))]
+    [RequireComponent(typeof(EntityController), typeof(StatusEffectComponent))]
     public class HeroController : MonoBehaviour
     {
         public InputActionAsset controls;
@@ -14,6 +14,7 @@ namespace EC.Gameplay
 
         EntityController controller;
         MovementComponent movement;
+        StatusEffectComponent status;
         AttackComponent attack;
         HeroDefinition definition;
         InputAction moveLeft;
@@ -27,6 +28,7 @@ namespace EC.Gameplay
         {
             controller = GetComponent<EntityController>();
             movement = GetComponent<MovementComponent>();
+            status = GetComponent<StatusEffectComponent>();
             attack = GetComponent<AttackComponent>();
             definition = controller.definition as HeroDefinition;
         }
@@ -65,6 +67,8 @@ namespace EC.Gameplay
             if (!controller.Health.IsAlive)
                 return;
 
+            if (status != null && status.IsDisoriented)
+                (left, right) = (right, left);
             var direction = (right ? 1 : 0) - (left ? 1 : 0);
             if (direction != 0)
                 Facing = direction;
