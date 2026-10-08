@@ -1,4 +1,5 @@
 using EC.Core;
+using EC.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,7 @@ namespace EC.UI
         public string victoryText = "Victoria";
         public string defeatText = "Derrota";
         public string exitScene = "Main";
+        public StoryPlayer storyPlayer;
 
         bool shown;
 
@@ -30,7 +32,18 @@ namespace EC.UI
             if (shown)
                 return;
             shown = true;
-            title.text = evt.Outcome == LevelOutcome.Victory ? victoryText : defeatText;
+            var outro = LevelSession.Current != null ? LevelSession.Current.outro : null;
+            if (evt.Outcome == LevelOutcome.Victory && outro != null && storyPlayer != null)
+            {
+                storyPlayer.Play(outro, () => ShowResult(evt.Outcome));
+                return;
+            }
+            ShowResult(evt.Outcome);
+        }
+
+        void ShowResult(LevelOutcome outcome)
+        {
+            title.text = outcome == LevelOutcome.Victory ? victoryText : defeatText;
             panel.SetActive(true);
         }
 

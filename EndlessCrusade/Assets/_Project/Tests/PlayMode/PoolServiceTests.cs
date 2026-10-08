@@ -170,7 +170,7 @@ namespace EC.Tests.PlayMode
             while (!load.isDone) yield return null;
             for (int i = 0; i < 5; i++) yield return null;
 
-            Assert.AreEqual("LaneSandbox", SceneManager.GetActiveScene().name);
+            Assert.AreEqual("Main", SceneManager.GetActiveScene().name);
             var found = Object.FindFirstObjectByType<PoolService>();
             Assert.IsNotNull(found);
             Assert.AreEqual("DontDestroyOnLoad", found.gameObject.scene.name);

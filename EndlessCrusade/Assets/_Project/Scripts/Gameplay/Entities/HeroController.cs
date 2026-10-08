@@ -81,6 +81,12 @@ namespace EC.Gameplay
 
             movement.Direction = direction;
             controller.Request(direction != 0 ? EntityState.Move : EntityState.Idle);
+            if (direction != 0)
+                EventBus<HeroActed>.Publish(new HeroActed(HeroAction.Move));
+            if (sword)
+                EventBus<HeroActed>.Publish(new HeroActed(HeroAction.Sword));
+            if (whip)
+                EventBus<HeroActed>.Publish(new HeroActed(HeroAction.Whip));
 
             if (definition == null)
                 return;

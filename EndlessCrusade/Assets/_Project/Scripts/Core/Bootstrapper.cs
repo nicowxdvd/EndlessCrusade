@@ -5,7 +5,7 @@ namespace EC.Core
 {
     public class Bootstrapper : MonoBehaviour
     {
-        const string MainScene = "LaneSandbox";
+        const string MainScene = "Main";
         const int TargetFrameRate = 60;
 
         void Start()
