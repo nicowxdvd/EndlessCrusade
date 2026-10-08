@@ -1,6 +1,6 @@
 # SPEC 14 — Guardado local
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-10-06
 > **Objetivo:** Guardar progreso, monedas y mejoras en un JSON local versionado detrás de la interfaz `ISaveService`.
