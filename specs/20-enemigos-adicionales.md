@@ -1,6 +1,6 @@
 # SPEC 20 — Enemigos adicionales
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 06
 > **Fecha:** 2026-10-06
 > **Objetivo:** Agregar vampiro, goblin, duende, licántropo y troll de pantano con comportamientos propios mediante módulos reutilizables.
