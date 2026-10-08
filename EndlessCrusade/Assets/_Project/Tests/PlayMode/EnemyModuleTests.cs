@@ -4,7 +4,7 @@ using EC.Gameplay;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace EC.Tests.EditMode
+namespace EC.Tests.PlayMode
 {
     public class EnemyModuleTests
     {
@@ -128,7 +128,7 @@ namespace EC.Tests.EditMode
         public void Lifesteal_HealsThirtyPercentOfDamage()
         {
             var module = AddModule<LifestealModule>();
-            health.TakeDamage(60, null);
+            typeof(HealthComponent).GetProperty("Current").SetValue(health, 40);
             var attack = go.GetComponent<AttackComponent>();
             var victim = new GameObject("Victim").AddComponent<HealthComponent>();
             victim.Initialize(1000, Team.Player);

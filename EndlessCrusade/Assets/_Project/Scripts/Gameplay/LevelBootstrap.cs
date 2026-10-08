@@ -1,3 +1,4 @@
+using EC.Core;
 using EC.Data;
 using EC.Services;
 using UnityEngine;
