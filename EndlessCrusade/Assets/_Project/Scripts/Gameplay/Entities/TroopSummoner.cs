@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using EC.Core;
 using EC.Data;
+using EC.Services;
 using UnityEngine;
 
 namespace EC.Gameplay
 {
-    public enum SummonResult { Success, UnknownTroop, Disabled, NotEnoughLeadership, OnCooldown, LimitReached }
+    public enum SummonResult { Success, UnknownTroop, Disabled, NotEnoughLeadership, OnCooldown, LimitReached, Locked }
 
     public class TroopSummoner : MonoBehaviour
     {
         public LevelDefinition level;
+        public CampaignDefinition campaign;
         public TroopDefinition[] troops;
         public PoolService pool;
         public LaneConfig lane;
@@ -60,6 +62,8 @@ namespace EC.Gameplay
                 return SummonResult.Disabled;
 
             var troop = troops[index];
+            if (!IsUnlocked(troop))
+                return SummonResult.Locked;
             EnsureCooldowns();
             if (Time.time < readyAt[index])
                 return SummonResult.OnCooldown;
@@ -74,6 +78,13 @@ namespace EC.Gameplay
             return SummonResult.Success;
         }
 
+        public bool IsUnlocked(TroopDefinition troop)
+        {
+            if (campaign == null || SaveHost.Service == null)
+                return true;
+            return TroopUnlockRules.IsUnlocked(troop, campaign, SaveHost.Service.Current.progress.completedLevels);
+        }
+
         void Spawn(TroopDefinition troop)
         {
             var baseX = baseTarget != null ? baseTarget.position.x : 0f;
@@ -82,6 +93,9 @@ namespace EC.Gameplay
             var brain = instance.GetComponent<TroopBrain>();
             brain.pool = pool;
             brain.baseTarget = baseTarget;
+            var ranged = instance.GetComponent<RangedAttackComponent>();
+            if (ranged != null)
+                ranged.pool = pool;
             active.Add(instance);
         }
 

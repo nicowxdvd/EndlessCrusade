@@ -122,30 +122,39 @@ public static class HudBuilder
 
     static void CreateTroopBar(Transform parent, UiTheme theme, HudPresenter hud)
     {
-        var troop = TroopBuilder.BuildAssets();
+        var troops = TroopBuilder.BuildAssets();
         var troopBar = hud.gameObject.AddComponent<TroopBarPresenter>();
         var bar = NewRect("TroopBar", parent);
         bar.anchorMin = new Vector2(0.5f, 0f);
         bar.anchorMax = new Vector2(0.5f, 0f);
         bar.pivot = new Vector2(0.5f, 0f);
         bar.anchoredPosition = new Vector2(0f, Margin);
-        bar.sizeDelta = new Vector2(520f, 260f);
+        bar.sizeDelta = new Vector2(1000f, 260f);
         troopBar.bar = bar.gameObject;
+        troopBar.campaign = AssetDatabase.LoadAssetAtPath<EC.Data.CampaignDefinition>("Assets/_Project/ScriptableObjects/Campaign/Campaign_Main.asset");
 
         troopBar.leadershipFill = CreateBar(bar, "LeadershipBar", "", new Vector2(0f, 1f), new Vector2(0f, 0f), new Color(0.3f, 0.5f, 0.85f), theme);
         troopBar.leadershipLabel = troopBar.leadershipFill.transform.parent.Find("Caption").GetComponent<TMP_Text>();
 
-        var button = CreateButton(bar, "Summon_" + troop.id, troop.displayName + "\n" + troop.leadershipCost + " Fe", new Vector2(0.5f, 0f), new Vector2(0f, 80f), new Vector2(240f, 160f), theme);
-        var cooldown = NewRect("Cooldown", button.transform);
-        Stretch(cooldown);
-        var cooldownImage = cooldown.gameObject.AddComponent<Image>();
-        cooldownImage.color = new Color(0f, 0f, 0f, 0.6f);
-        cooldownImage.type = Image.Type.Filled;
-        cooldownImage.fillMethod = Image.FillMethod.Vertical;
-        cooldownImage.fillOrigin = 1;
-        cooldownImage.fillAmount = 0f;
-        cooldownImage.raycastTarget = false;
-        troopBar.slots = new[] { new TroopBarPresenter.Slot { troop = troop, button = button, cooldownFill = cooldownImage } };
+        const float SlotWidth = 190f;
+        var slotList = new TroopBarPresenter.Slot[troops.Length];
+        for (int i = 0; i < troops.Length; i++)
+        {
+            var troop = troops[i];
+            var x = (i - (troops.Length - 1) * 0.5f) * SlotWidth;
+            var button = CreateButton(bar, "Summon_" + troop.id, troop.displayName + "\n" + troop.leadershipCost + " Fe", new Vector2(0.5f, 0f), new Vector2(x, 80f), new Vector2(SlotWidth - 10f, 160f), theme);
+            var cooldown = NewRect("Cooldown", button.transform);
+            Stretch(cooldown);
+            var cooldownImage = cooldown.gameObject.AddComponent<Image>();
+            cooldownImage.color = new Color(0f, 0f, 0f, 0.6f);
+            cooldownImage.type = Image.Type.Filled;
+            cooldownImage.fillMethod = Image.FillMethod.Vertical;
+            cooldownImage.fillOrigin = 1;
+            cooldownImage.fillAmount = 0f;
+            cooldownImage.raycastTarget = false;
+            slotList[i] = new TroopBarPresenter.Slot { troop = troop, button = button, cooldownFill = cooldownImage };
+        }
+        troopBar.slots = slotList;
         bar.gameObject.SetActive(false);
     }
 
