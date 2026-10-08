@@ -11,6 +11,7 @@ namespace EC.Gameplay
     {
         public InputActionAsset controls;
         public SpriteRenderer sprite;
+        public SpriteStateAnimator animator;
 
         EntityController controller;
         MovementComponent movement;
@@ -91,12 +92,12 @@ namespace EC.Gameplay
             if (definition == null)
                 return;
             if (sword)
-                Perform(definition.sword, direction, now);
+                Perform(definition.sword, "attack_sword", direction, now);
             if (whip)
-                Perform(definition.whip, direction, now);
+                Perform(definition.whip, "attack_whip", direction, now);
         }
 
-        void Perform(MeleeAttackDefinition attackDefinition, int direction, float now)
+        void Perform(MeleeAttackDefinition attackDefinition, string clipId, int direction, float now)
         {
             if (!attack.IsReady(attackDefinition, now))
                 return;
@@ -106,6 +107,8 @@ namespace EC.Gameplay
                 return;
 
             attack.TryAttack(attackDefinition, target, now);
+            if (animator != null)
+                animator.Play(clipId);
             controller.Request(direction != 0 ? EntityState.Move : EntityState.Idle);
         }
 

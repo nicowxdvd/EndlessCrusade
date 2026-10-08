@@ -41,7 +41,7 @@ Solo el capítulo 1 está definido en la historia original. Los capítulos 2 a 4
 
 ## Fases de desarrollo
 
-El trabajo se divide en 30 especificaciones en `specs/`. Cada una se define con `/spec` y se implementa con `/spec-impl`.
+El trabajo se divide en 31 especificaciones en `specs/`. Cada una se define con `/spec` y se implementa con `/spec-impl`.
 
 ### Fase 0 — Fundaciones
 
@@ -57,6 +57,7 @@ El trabajo se divide en 30 especificaciones en `specs/`. Cada una se define con 
 | Spec | Contenido |
 | --- | --- |
 | [05](specs/05-heroe-templario.md) | Héroe Templario con espada y látigo |
+| [31](specs/31-arte-sprites-25d.md) | Arte de sprites 2.5D del héroe |
 | [06](specs/06-enemigos-nivel-1.md) | Wargo y murciélago |
 | [07](specs/07-base-defendible.md) | Base con resistencia |
 | [08](specs/08-oleadas.md) | Oleadas, victoria y derrota |
