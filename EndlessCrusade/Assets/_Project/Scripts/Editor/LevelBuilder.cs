@@ -35,6 +35,7 @@ public static class LevelBuilder
         CampaignBuilder.Build(level);
         EmporiumBuilder.Build();
         EquipmentBuilder.Build();
+        PachinkoBuilder.Build();
         EditorBuildSettings.scenes = new[]
         {
             new EditorBuildSettingsScene(BootScenePath, true),
@@ -42,6 +43,7 @@ public static class LevelBuilder
             new EditorBuildSettingsScene(CampaignBuilder.ScenePath, true),
             new EditorBuildSettingsScene(EmporiumBuilder.ScenePath, true),
             new EditorBuildSettingsScene(EquipmentBuilder.ScenePath, true),
+            new EditorBuildSettingsScene(PachinkoBuilder.ScenePath, true),
             new EditorBuildSettingsScene(LevelScenePath, true),
             new EditorBuildSettingsScene(SandboxScenePath, true)
         };

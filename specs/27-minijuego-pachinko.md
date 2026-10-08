@@ -1,6 +1,6 @@
 # SPEC 27 — Minijuego Pachinko
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 15
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear el minijuego Pachinko con física 2D, consumo de boletos y tabla de premios ponderada en un ScriptableObject.

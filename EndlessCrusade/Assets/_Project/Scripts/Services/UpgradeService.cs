@@ -76,6 +76,14 @@ namespace EC.Services
             return PurchaseResult.Success;
         }
 
+        public void GrantConsumable(string id, int amount)
+        {
+            if (amount <= 0)
+                return;
+            SetCount(id, GetCount(id) + amount);
+            save.Save();
+        }
+
         public bool TryConsume(string id)
         {
             var count = GetCount(id);

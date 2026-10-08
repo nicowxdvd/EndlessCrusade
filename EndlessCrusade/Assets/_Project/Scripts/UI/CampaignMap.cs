@@ -11,6 +11,7 @@ namespace EC.UI
         public CampaignDefinition campaign;
         public EquipmentCatalog equipmentCatalog;
         public string equipmentScene = "Equipment";
+        public string pachinkoScene = "Pachinko";
         public RectTransform content;
         public GameObject chapterTemplate;
         public GameObject nodeTemplate;
@@ -61,6 +62,11 @@ namespace EC.UI
         {
             LevelSession.Current = level;
             SceneFlow.Load(levelScene);
+        }
+
+        public void OpenPachinko()
+        {
+            SceneFlow.Load(pachinkoScene);
         }
 
         public void OpenEquipment()

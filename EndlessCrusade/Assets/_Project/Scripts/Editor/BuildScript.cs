@@ -9,7 +9,7 @@ public static class BuildScript
         var output = Environment.GetEnvironmentVariable("EC_APK_PATH") ?? "Builds/EndlessCrusade.apk";
         var options = new BuildPlayerOptions
         {
-            scenes = new[] { "Assets/_Project/Scenes/Boot.unity", "Assets/_Project/Scenes/Main.unity", "Assets/_Project/Scenes/CampaignMap.unity", "Assets/_Project/Scenes/Emporium.unity", "Assets/_Project/Scenes/Equipment.unity", "Assets/_Project/Scenes/Level.unity", "Assets/_Project/Scenes/Sandbox/LaneSandbox.unity" },
+            scenes = new[] { "Assets/_Project/Scenes/Boot.unity", "Assets/_Project/Scenes/Main.unity", "Assets/_Project/Scenes/CampaignMap.unity", "Assets/_Project/Scenes/Emporium.unity", "Assets/_Project/Scenes/Equipment.unity", "Assets/_Project/Scenes/Pachinko.unity", "Assets/_Project/Scenes/Level.unity", "Assets/_Project/Scenes/Sandbox/LaneSandbox.unity" },
             locationPathName = output,
             target = BuildTarget.Android,
             options = BuildOptions.Development
