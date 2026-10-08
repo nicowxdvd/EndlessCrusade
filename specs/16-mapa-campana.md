@@ -1,6 +1,6 @@
 # SPEC 16 — Mapa de campaña
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Depende de:** SPEC 12, SPEC 14
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear el mapa de campaña con cuatro capítulos y desbloqueo secuencial de niveles según el progreso guardado.
