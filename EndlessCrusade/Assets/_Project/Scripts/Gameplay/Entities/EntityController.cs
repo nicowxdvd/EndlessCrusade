@@ -8,6 +8,8 @@ namespace EC.Gameplay
     {
         public UnitDefinition definition;
         public float hurtDuration = 0.25f;
+        public float healthMultiplier = 1f;
+        public float damageMultiplier = 1f;
 
         StateMachine machine;
         HealthComponent health;
@@ -79,7 +81,7 @@ namespace EC.Gameplay
             hurtDuration = definition.hurtDuration;
             if (health != null)
             {
-                health.Initialize(definition.maxHealth, definition.team);
+                health.Initialize(Mathf.RoundToInt(definition.maxHealth * healthMultiplier), definition.team);
                 health.tags = definition.tags;
             }
 
@@ -90,7 +92,7 @@ namespace EC.Gameplay
             var attack = GetComponent<AttackComponent>();
             if (attack != null)
             {
-                attack.damage = definition.attackDamage;
+                attack.damage = Mathf.RoundToInt(definition.attackDamage * damageMultiplier);
                 attack.range = definition.attackRange;
                 attack.cooldown = definition.attackCooldown;
             }

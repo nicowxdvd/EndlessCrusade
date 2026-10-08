@@ -12,4 +12,6 @@ namespace EC.Core
         public readonly float Normalized;
         public AbilityCooldownChanged(int slot, float normalized) { Slot = slot; Normalized = normalized; }
     }
+
+    public readonly struct AbilityCooldownResetRequested { }
 }

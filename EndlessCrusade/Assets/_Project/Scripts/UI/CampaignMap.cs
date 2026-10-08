@@ -14,6 +14,7 @@ namespace EC.UI
         public GameObject nodeTemplate;
         public string levelScene = "Level";
         public string menuScene = "Main";
+        public string emporiumScene = "Emporium";
 
         void Start()
         {
@@ -53,6 +54,11 @@ namespace EC.UI
         {
             LevelSession.Current = level;
             SceneFlow.Load(levelScene);
+        }
+
+        public void OpenEmporium()
+        {
+            SceneFlow.Load(emporiumScene);
         }
 
         public void Back()

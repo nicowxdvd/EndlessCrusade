@@ -93,6 +93,13 @@ namespace EC.Gameplay
             var brain = instance.GetComponent<TroopBrain>();
             brain.pool = pool;
             brain.baseTarget = baseTarget;
+            var multiplier = LevelModifiers.Current.TroopMultiplier(troop.id);
+            if (multiplier != 1f && instance.TryGetComponent<EntityController>(out var controller))
+            {
+                controller.healthMultiplier = multiplier;
+                controller.damageMultiplier = multiplier;
+                controller.ResetState();
+            }
             var ranged = instance.GetComponent<RangedAttackComponent>();
             if (ranged != null)
                 ranged.pool = pool;
