@@ -18,23 +18,41 @@ namespace EC.Gameplay
         MovementComponent movement;
         AttackComponent attack;
         float baseSpeed;
+        IEnemyModule[] modules;
         float chargeTimeLeft;
         bool chargeUsed;
         float bobPhase;
         float deadTime;
 
+        public EntityController Controller => controller;
+        public HealthComponent Health { get; private set; }
+        public MovementComponent Movement => movement;
+        public AttackComponent Attack => attack;
+        public float SpeedMultiplier { get; set; } = 1f;
+
         void Awake()
         {
             controller = GetComponent<EntityController>();
+            Health = GetComponent<HealthComponent>();
             movement = GetComponent<MovementComponent>();
             attack = GetComponent<AttackComponent>();
             definition = controller.definition as EnemyDefinition;
             baseSpeed = controller.definition != null ? controller.definition.moveSpeed : movement.moveSpeed;
+            modules = GetComponents<IEnemyModule>();
+            InitializeModules();
+        }
+
+        void InitializeModules()
+        {
+            SpeedMultiplier = 1f;
+            for (int i = 0; i < modules.Length; i++)
+                modules[i].Initialize(this);
         }
 
         public void OnSpawn()
         {
             controller.ResetState();
+            InitializeModules();
             movement.moveSpeed = baseSpeed;
             chargeTimeLeft = 0f;
             chargeUsed = false;
@@ -56,6 +74,9 @@ namespace EC.Gameplay
                 return;
             }
 
+            for (int i = 0; i < modules.Length; i++)
+                modules[i].Tick(Time.deltaTime);
+
             var team = controller.Health.Team;
             var target = TargetFinder.FindNearest(transform.position, team, attack.range);
             attack.Target = target;
@@ -63,7 +84,6 @@ namespace EC.Gameplay
             if (target != null)
             {
                 chargeTimeLeft = 0f;
-                movement.moveSpeed = baseSpeed;
                 controller.Request(EntityState.Attack);
             }
             else
@@ -79,6 +99,11 @@ namespace EC.Gameplay
                     controller.Request(EntityState.Move);
                 }
             }
+
+            var speed = baseSpeed * SpeedMultiplier;
+            if (chargeTimeLeft > 0f)
+                speed *= definition.chargeSpeedMultiplier;
+            movement.moveSpeed = speed;
 
             if (definition != null && definition.kind == EnemyKind.Flying)
                 UpdateFlight(target != null);
@@ -105,8 +130,6 @@ namespace EC.Gameplay
             if (chargeTimeLeft > 0f)
             {
                 chargeTimeLeft -= Time.deltaTime;
-                if (chargeTimeLeft <= 0f)
-                    movement.moveSpeed = baseSpeed;
                 return;
             }
 
@@ -121,7 +144,6 @@ namespace EC.Gameplay
 
             chargeUsed = true;
             chargeTimeLeft = definition.chargeDuration;
-            movement.moveSpeed = baseSpeed * definition.chargeSpeedMultiplier;
         }
 
         void UpdateFlight(bool attacking)

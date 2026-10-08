@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using EC.Core;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace EC.Gameplay
         public int maxHealth = 100;
         public Team team;
         public CreatureTag tags;
+
+        readonly List<IDamageModifier> modifiers = new List<IDamageModifier>();
 
         public int Current { get; private set; }
         public Team Team => team;
@@ -40,9 +43,30 @@ namespace EC.Gameplay
             Current = max;
         }
 
+        public void AddModifier(IDamageModifier modifier)
+        {
+            if (!modifiers.Contains(modifier))
+                modifiers.Add(modifier);
+        }
+
+        public void Heal(int amount)
+        {
+            if (!IsAlive || amount <= 0 || Current >= maxHealth)
+                return;
+
+            Current = Mathf.Min(maxHealth, Current + amount);
+            EventBus<HealthChanged>.Publish(new HealthChanged(gameObject, Current, maxHealth));
+        }
+
         public void TakeDamage(int amount, GameObject source)
         {
-            if (!IsAlive || amount <= 0)
+            if (!IsAlive)
+                return;
+
+            for (int i = 0; i < modifiers.Count; i++)
+                amount = modifiers[i].Modify(amount, source);
+
+            if (amount <= 0)
                 return;
 
             Current = Mathf.Max(0, Current - amount);

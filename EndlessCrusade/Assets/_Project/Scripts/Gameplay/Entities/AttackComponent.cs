@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using EC.Core;
 using EC.Data;
@@ -13,6 +14,8 @@ namespace EC.Gameplay
         public float cooldown = 1f;
 
         public IDamageable Target { get; set; }
+
+        public event Action<int> Hit;
 
         EntityController controller;
         float lastAttackTime = float.NegativeInfinity;
@@ -41,6 +44,7 @@ namespace EC.Gameplay
 
             lastAttackTime = now;
             target.TakeDamage(damage, gameObject);
+            Hit?.Invoke(damage);
             return true;
         }
 
@@ -64,6 +68,7 @@ namespace EC.Gameplay
 
             lastAttackTimes[attack.id] = now;
             target.TakeDamage(attack.damage, gameObject);
+            Hit?.Invoke(attack.damage);
             return true;
         }
     }
