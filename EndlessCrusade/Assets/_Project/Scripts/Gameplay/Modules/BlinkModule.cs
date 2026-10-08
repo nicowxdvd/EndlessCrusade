@@ -1,3 +1,4 @@
+using EC.Core;
 using UnityEngine;
 
 namespace EC.Gameplay
