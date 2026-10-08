@@ -104,6 +104,8 @@ namespace EC.Gameplay
         void OnDied()
         {
             machine.Transition(EntityState.Dead);
+            if (definition is EnemyDefinition enemy && enemy.goldDrop > 0)
+                EventBus<GoldDropped>.Publish(new GoldDropped(enemy.goldDrop));
         }
 
         void EndHurt()

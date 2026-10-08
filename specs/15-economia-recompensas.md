@@ -1,6 +1,6 @@
 # SPEC 15 — Economía y recompensas
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 12, SPEC 14
 > **Fecha:** 2026-10-06
 > **Objetivo:** Introducir oro (moneda blanda) y reliquias (moneda dura) con recompensas al terminar cada nivel.

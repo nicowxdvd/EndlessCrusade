@@ -14,5 +14,6 @@ namespace EC.Data
         public WaveDefinition[] waves;
         public bool troopsEnabled;
         public bool tutorial;
+        public LevelReward reward = new LevelReward();
     }
 }
