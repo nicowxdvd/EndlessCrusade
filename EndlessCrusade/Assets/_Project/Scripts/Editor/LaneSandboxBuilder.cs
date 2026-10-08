@@ -34,7 +34,7 @@ public static class LaneSandboxBuilder
         EditorSceneManager.SaveScene(scene, ScenePath);
     }
 
-    static void CreateRain(Camera cam)
+    public static void CreateRain(Camera cam)
     {
         var go = new GameObject("Rain");
         go.transform.SetParent(cam.transform, false);
@@ -79,7 +79,7 @@ public static class LaneSandboxBuilder
         return material;
     }
 
-    static void CreateVolume()
+    public static void CreateVolume()
     {
         var go = new GameObject("Global Volume");
         var volume = go.AddComponent<Volume>();
@@ -87,7 +87,7 @@ public static class LaneSandboxBuilder
         volume.sharedProfile = AssetDatabase.LoadAssetAtPath<VolumeProfile>(VolumeProfilePath);
     }
 
-    static void CreateLights(LaneConfig config)
+    public static void CreateLights(LaneConfig config)
     {
         var moon = new GameObject("Moon Light");
         moon.transform.rotation = Quaternion.Euler(50f, -30f, 0f);
@@ -105,7 +105,7 @@ public static class LaneSandboxBuilder
         lanternLight.range = 9f;
     }
 
-    static void CreateBackground(LaneConfig config)
+    public static void CreateBackground(LaneConfig config)
     {
         var cameraRange = 2f * LaneCameraClamp.MaxCenterX(config.laneHalfLength, config.cameraOrthoSize, 16f / 9f);
         var width = 2f * config.laneHalfLength + cameraRange;
@@ -164,7 +164,7 @@ public static class LaneSandboxBuilder
         return material;
     }
 
-    static void CreateGround(LaneConfig config)
+    public static void CreateGround(LaneConfig config)
     {
         var ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.name = "Ground";
@@ -172,7 +172,7 @@ public static class LaneSandboxBuilder
         ground.transform.localScale = new Vector3(2f * config.laneHalfLength / 10f, 1f, config.laneDepth / 10f);
     }
 
-    static Camera CreateCamera(LaneConfig config)
+    public static Camera CreateCamera(LaneConfig config)
     {
         var go = new GameObject("Main Camera") { tag = "MainCamera" };
         go.AddComponent<AudioListener>();
@@ -186,11 +186,14 @@ public static class LaneSandboxBuilder
         return cam;
     }
 
-    static void CreateFollowCamera(LaneConfig config, Camera cam)
+    public static void CreateFollowCamera(LaneConfig config, Camera cam, bool followHero = false)
     {
         var target = new GameObject("CameraTarget");
         target.transform.position = new Vector3(0f, config.groundY, 0f);
-        target.AddComponent<SandboxCameraDriver>();
+        if (followHero)
+            target.AddComponent<CameraFollowHero>();
+        else
+            target.AddComponent<SandboxCameraDriver>();
 
         var pitch = Quaternion.Euler(config.cameraPitch, 0f, 0f);
         var go = new GameObject("CM Lane Camera");
