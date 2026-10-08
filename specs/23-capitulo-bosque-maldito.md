@@ -1,6 +1,6 @@
 # SPEC 23 — Capítulo 3: El Bosque Maldito
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Depende de:** SPEC 19, SPEC 20
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear los cuatro niveles del bosque maldito con el campamento como base y el Troll de Pantano Gigante como jefe.

@@ -1,6 +1,6 @@
 # SPEC 22 — Capítulo 2: La Aldea
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Depende de:** SPEC 19, SPEC 20
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear los cuatro niveles del capítulo de la aldea con la capilla como base y un jefe propio.

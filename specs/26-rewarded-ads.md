@@ -1,6 +1,6 @@
 # SPEC 26 — Anuncios con recompensa
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Depende de:** SPEC 15
 > **Fecha:** 2026-10-06
 > **Objetivo:** Integrar AdMob con video recompensado para duplicar oro, reanimar al héroe y obtener reliquias gratis.
