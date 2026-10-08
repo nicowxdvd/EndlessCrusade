@@ -110,7 +110,20 @@ public static class HeroBuilder
         visualController.shieldLayer = CreateLayer(visual.transform, "Layer_Shield", 2);
         visualController.weaponLayer = CreateLayer(visual.transform, "Layer_Weapon", 3);
 
+        var animations = HeroSpriteImporter.ChosenSet();
+        SpriteStateAnimator spriteAnimator = null;
+        if (animations != null)
+        {
+            spriteAnimator = go.AddComponent<SpriteStateAnimator>();
+            spriteAnimator.animations = animations;
+            spriteAnimator.target = renderer;
+            spriteAnimator.controller = go.GetComponent<EntityController>();
+            visual.transform.localScale = Vector3.one;
+            renderer.color = Color.white;
+        }
+
         var hero = go.AddComponent<HeroController>();
+        hero.animator = spriteAnimator;
         hero.controls = AssetDatabase.LoadAssetAtPath<InputActionAsset>(ControlsPath);
         hero.sprite = renderer;
 
