@@ -9,7 +9,9 @@
         "EC.Gameplay",
         "EC.UI",
         "EC.Services",
-        "Unity.Cinemachine"
+        "Unity.Cinemachine",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
     ],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],
