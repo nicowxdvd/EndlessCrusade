@@ -1,6 +1,6 @@
 # SPEC 12 — Nivel 1: El Despertar en las Afueras
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 10, SPEC 11
 > **Fecha:** 2026-10-06
 > **Objetivo:** Armar el nivel 1 completo con introducción narrativa en viñetas, tutorial, oleadas de wargos y murciélagos y el Licántropo Gigante como jefe.
