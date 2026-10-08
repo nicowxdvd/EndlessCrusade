@@ -1,7 +1,7 @@
 {
     "name": "EC.Services",
     "rootNamespace": "EC.Services",
-    "references": ["EC.Core", "EC.Data"],
+    "references": ["EC.Core", "EC.Data", "Unity.RenderPipelines.Core.Runtime", "Unity.RenderPipelines.Universal.Runtime"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

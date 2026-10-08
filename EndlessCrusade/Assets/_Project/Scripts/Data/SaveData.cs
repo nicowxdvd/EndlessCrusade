@@ -62,6 +62,7 @@ namespace EC.Data
     {
         public float musicVolume = 0.8f;
         public float sfxVolume = 1f;
+        public int qualityOverride;
     }
 
     [Serializable]
