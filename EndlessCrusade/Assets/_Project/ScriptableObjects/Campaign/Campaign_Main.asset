@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df60548d460624aa3be0f3488d0af3c3, type: 3}
+  m_Name: Campaign_Main
+  m_EditorClassIdentifier: 
+  chapters:
+  - {fileID: 11400000, guid: 8010604560a024f718a06b9c27fd0661, type: 2}
+  - {fileID: 11400000, guid: d868522fc8f0b44bbb70be1d899dff26, type: 2}
+  - {fileID: 11400000, guid: fb566651eb28e491e9861085654ce297, type: 2}
+  - {fileID: 11400000, guid: d265b8b521e364cbc9f753c1c029f754, type: 2}

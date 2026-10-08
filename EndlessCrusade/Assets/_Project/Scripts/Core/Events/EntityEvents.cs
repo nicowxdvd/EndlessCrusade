@@ -35,4 +35,11 @@ namespace EC.Core
             Hero = hero;
         }
     }
+
+    public readonly struct EntityHurt
+    {
+        public readonly GameObject Source;
+
+        public EntityHurt(GameObject source) { Source = source; }
+    }
 }

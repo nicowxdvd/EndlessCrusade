@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   definition: {fileID: 11400000, guid: de64d556cdb9b495683e461d1bff1802, type: 2}
   spriteRenderer: {fileID: 1753439674377505431}
+  resistanceMultiplier: 1
 --- !u!114 &350099763156251231
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 # SPEC 30 — Release en Android
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 29
 > **Fecha:** 2026-10-06
 > **Objetivo:** Preparar firma, iconos, splash, política de privacidad y subida a Play Console en testing interno con un bundle firmado.

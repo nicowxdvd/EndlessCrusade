@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d8af3a1952b2419796c03c71abeb55f, type: 3}
+  m_Name: Base_forest_camp
+  m_EditorClassIdentifier: 
+  id: forest_camp
+  displayName: Campamento en el bosque
+  maxResistance: 850
+  prefab: {fileID: 6525144227892309682, guid: 07623a0845be14514b41f1ff364cb9ab, type: 3}
+  damageStages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

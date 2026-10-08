@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0353de83c1e0049c08ba152f46ad3e2c, type: 3}
+  m_Name: ch4_catedral
+  m_EditorClassIdentifier: 
+  id: ch4_catedral
+  displayName: La Catedral
+  levels:
+  - {fileID: 11400000, guid: daf2e0899e62f48b2b17cc499373b54b, type: 2}
+  - {fileID: 11400000, guid: 6ddc61631d6b044df8b276ea932ce46f, type: 2}
+  - {fileID: 11400000, guid: a2ddb00abceaa4d699c37b229b1ce721, type: 2}
+  - {fileID: 11400000, guid: 66a931e2c52bd4850a3bbf8c9e9284e9, type: 2}
+  - {fileID: 11400000, guid: 8af842de1b1994edc8fe4770528945e4, type: 2}
+  rewardEquipmentIds: []
+  mapArt: {fileID: 0}

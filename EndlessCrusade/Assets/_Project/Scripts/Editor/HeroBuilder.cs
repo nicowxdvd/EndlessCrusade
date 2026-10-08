@@ -77,6 +77,16 @@ public static class HeroBuilder
         return AssetDatabase.LoadAssetAtPath<Sprite>(SpritePath);
     }
 
+    static SpriteRenderer CreateLayer(Transform parent, string name, int order)
+    {
+        var layer = new GameObject(name);
+        layer.transform.SetParent(parent, false);
+        var renderer = layer.AddComponent<SpriteRenderer>();
+        renderer.sortingOrder = order;
+        renderer.enabled = false;
+        return renderer;
+    }
+
     static void CreatePrefab(HeroDefinition definition)
     {
         var go = new GameObject("Hero");
@@ -95,7 +105,25 @@ public static class HeroBuilder
         renderer.sprite = LoadPlaceholderSprite();
         renderer.color = new Color(0.85f, 0.85f, 0.9f);
 
+        var visualController = go.AddComponent<HeroVisualController>();
+        visualController.armorLayer = CreateLayer(visual.transform, "Layer_Armor", 1);
+        visualController.shieldLayer = CreateLayer(visual.transform, "Layer_Shield", 2);
+        visualController.weaponLayer = CreateLayer(visual.transform, "Layer_Weapon", 3);
+
+        var animations = HeroSpriteImporter.ChosenSet();
+        SpriteStateAnimator spriteAnimator = null;
+        if (animations != null)
+        {
+            spriteAnimator = go.AddComponent<SpriteStateAnimator>();
+            spriteAnimator.animations = animations;
+            spriteAnimator.target = renderer;
+            spriteAnimator.controller = go.GetComponent<EntityController>();
+            visual.transform.localScale = Vector3.one;
+            renderer.color = Color.white;
+        }
+
         var hero = go.AddComponent<HeroController>();
+        hero.animator = spriteAnimator;
         hero.controls = AssetDatabase.LoadAssetAtPath<InputActionAsset>(ControlsPath);
         hero.sprite = renderer;
 

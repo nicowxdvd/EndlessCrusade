@@ -1,3 +1,6 @@
+using EC.Core;
+using EC.Data;
+using EC.Services;
 using EC.UI;
 using TMPro;
 using UnityEditor;
@@ -74,6 +77,9 @@ public static class HudBuilder
         presenter.heroBar = CreateBar(safe, "HeroBar", "Vida", new Vector2(0f, 1f), new Vector2(Margin, -Margin), theme.blood, theme);
         presenter.baseBar = CreateBar(safe, "BaseBar", "Base", new Vector2(1f, 1f), new Vector2(-Margin, -Margin), theme.gold, theme);
         presenter.waveLabel = CreateLabel(safe, "WaveLabel", "", 48f, new Vector2(0.5f, 1f), new Vector2(0f, -Margin), new Vector2(600f, 80f), theme, theme.titleFont);
+        presenter.goldLabel = CreateLabel(safe, "GoldLabel", "", 40f, new Vector2(0f, 1f), new Vector2(Margin + 260f, -Margin * 2f - 70f), new Vector2(520f, 70f), theme, theme.bodyFont);
+        presenter.goldLabel.color = theme.gold;
+        root.AddComponent<RewardTracker>();
         presenter.bossBar = CreateBar(safe, "BossBar", "Jefe", new Vector2(0.5f, 1f), new Vector2(0f, -Margin * 2f - 80f), theme.blood, theme);
         presenter.bossBar.fillOrigin = 0;
         presenter.bossRoot = presenter.bossBar.transform.parent.gameObject;
@@ -86,6 +92,8 @@ public static class HudBuilder
         CreateTouchButton(safe, "Whip", "Látigo", "<Gamepad>/buttonEast", new Vector2(1f, 0f), new Vector2(-(Margin + ButtonSize * 0.5f), Margin + ButtonSize * 0.5f), theme);
 
         CreateAbilityButton(safe, theme);
+        CreatePotionButton(safe, theme);
+        CreateEquipmentButtons(safe, theme);
         CreateTroopBar(safe, theme, presenter);
 
         var pause = root.AddComponent<PausePanel>();
@@ -102,44 +110,68 @@ public static class HudBuilder
         pause.panel.SetActive(false);
 
         var result = root.AddComponent<ResultPanel>();
+        result.exitScene = "CampaignMap";
         result.panel = CreateOverlay(safe, "ResultPanel", theme);
         result.title = CreateLabel(result.panel.transform, "Title", "", 120f, new Vector2(0.5f, 0.5f), new Vector2(0f, 180f), new Vector2(1000f, 180f), theme, theme.titleFont);
         result.title.color = theme.gold;
-        var retry = CreateButton(result.panel.transform, "RetryButton", "Reintentar", new Vector2(0.5f, 0.5f), new Vector2(0f, -40f), new Vector2(480f, 120f), theme);
-        var exit = CreateButton(result.panel.transform, "ExitButton", "Salir", new Vector2(0.5f, 0.5f), new Vector2(0f, -200f), new Vector2(480f, 120f), theme);
+        result.rewardsLabel = CreateLabel(result.panel.transform, "Rewards", "", 44f, new Vector2(0.5f, 0.5f), new Vector2(0f, 20f), new Vector2(900f, 240f), theme, theme.bodyFont);
+        var retry = CreateButton(result.panel.transform, "RetryButton", "Reintentar", new Vector2(0.5f, 0.5f), new Vector2(0f, -140f), new Vector2(480f, 120f), theme);
+        var exit = CreateButton(result.panel.transform, "ExitButton", "Salir", new Vector2(0.5f, 0.5f), new Vector2(0f, -290f), new Vector2(480f, 120f), theme);
         UnityEventTools.AddPersistentListener(retry.onClick, result.Retry);
         UnityEventTools.AddPersistentListener(exit.onClick, result.Exit);
+        result.doubleGoldButton = CreateButton(result.panel.transform, "DoubleGoldButton", "Duplicar oro (anuncio)", new Vector2(0.5f, 0.5f), new Vector2(0f, -440f), new Vector2(720f, 110f), theme);
+        UnityEventTools.AddPersistentListener(result.doubleGoldButton.onClick, result.DoubleGold);
+        result.doubleGoldButton.gameObject.SetActive(false);
         result.panel.SetActive(false);
+
+        var revive = root.AddComponent<ReviveOfferPanel>();
+        revive.panel = CreateOverlay(safe, "ReviveOfferPanel", theme);
+        var reviveTitle = CreateLabel(revive.panel.transform, "Title", "Reanimar al héroe", 80f, new Vector2(0.5f, 0.5f), new Vector2(0f, 160f), new Vector2(1200f, 140f), theme, theme.titleFont);
+        reviveTitle.color = theme.gold;
+        var reviveYes = CreateButton(revive.panel.transform, "AcceptButton", "Ver anuncio y continuar", new Vector2(0.5f, 0.5f), new Vector2(0f, -40f), new Vector2(720f, 120f), theme);
+        var reviveNo = CreateButton(revive.panel.transform, "DeclineButton", "Rendirse", new Vector2(0.5f, 0.5f), new Vector2(0f, -200f), new Vector2(720f, 120f), theme);
+        UnityEventTools.AddPersistentListener(reviveYes.onClick, revive.Accept);
+        UnityEventTools.AddPersistentListener(reviveNo.onClick, revive.Decline);
+        revive.panel.SetActive(false);
 
         return root;
     }
 
     static void CreateTroopBar(Transform parent, UiTheme theme, HudPresenter hud)
     {
-        var troop = TroopBuilder.BuildAssets();
+        var troops = TroopBuilder.BuildAssets();
         var troopBar = hud.gameObject.AddComponent<TroopBarPresenter>();
         var bar = NewRect("TroopBar", parent);
         bar.anchorMin = new Vector2(0.5f, 0f);
         bar.anchorMax = new Vector2(0.5f, 0f);
         bar.pivot = new Vector2(0.5f, 0f);
         bar.anchoredPosition = new Vector2(0f, Margin);
-        bar.sizeDelta = new Vector2(520f, 260f);
+        bar.sizeDelta = new Vector2(1000f, 260f);
         troopBar.bar = bar.gameObject;
+        troopBar.campaign = AssetDatabase.LoadAssetAtPath<EC.Data.CampaignDefinition>("Assets/_Project/ScriptableObjects/Campaign/Campaign_Main.asset");
 
         troopBar.leadershipFill = CreateBar(bar, "LeadershipBar", "", new Vector2(0f, 1f), new Vector2(0f, 0f), new Color(0.3f, 0.5f, 0.85f), theme);
         troopBar.leadershipLabel = troopBar.leadershipFill.transform.parent.Find("Caption").GetComponent<TMP_Text>();
 
-        var button = CreateButton(bar, "Summon_" + troop.id, troop.displayName + "\n" + troop.leadershipCost + " Fe", new Vector2(0.5f, 0f), new Vector2(0f, 80f), new Vector2(240f, 160f), theme);
-        var cooldown = NewRect("Cooldown", button.transform);
-        Stretch(cooldown);
-        var cooldownImage = cooldown.gameObject.AddComponent<Image>();
-        cooldownImage.color = new Color(0f, 0f, 0f, 0.6f);
-        cooldownImage.type = Image.Type.Filled;
-        cooldownImage.fillMethod = Image.FillMethod.Vertical;
-        cooldownImage.fillOrigin = 1;
-        cooldownImage.fillAmount = 0f;
-        cooldownImage.raycastTarget = false;
-        troopBar.slots = new[] { new TroopBarPresenter.Slot { troop = troop, button = button, cooldownFill = cooldownImage } };
+        const float SlotWidth = 190f;
+        var slotList = new TroopBarPresenter.Slot[troops.Length];
+        for (int i = 0; i < troops.Length; i++)
+        {
+            var troop = troops[i];
+            var x = (i - (troops.Length - 1) * 0.5f) * SlotWidth;
+            var button = CreateButton(bar, "Summon_" + troop.id, troop.displayName + "\n" + troop.leadershipCost + " Fe", new Vector2(0.5f, 0f), new Vector2(x, 80f), new Vector2(SlotWidth - 10f, 160f), theme);
+            var cooldown = NewRect("Cooldown", button.transform);
+            Stretch(cooldown);
+            var cooldownImage = cooldown.gameObject.AddComponent<Image>();
+            cooldownImage.color = new Color(0f, 0f, 0f, 0.6f);
+            cooldownImage.type = Image.Type.Filled;
+            cooldownImage.fillMethod = Image.FillMethod.Vertical;
+            cooldownImage.fillOrigin = 1;
+            cooldownImage.fillAmount = 0f;
+            cooldownImage.raycastTarget = false;
+            slotList[i] = new TroopBarPresenter.Slot { troop = troop, button = button, cooldownFill = cooldownImage };
+        }
+        troopBar.slots = slotList;
         bar.gameObject.SetActive(false);
     }
 
@@ -218,9 +250,32 @@ public static class HudBuilder
         image.color = new Color(theme.background.r, theme.background.g, theme.background.b, 0.85f);
         var button = rect.gameObject.AddComponent<Button>();
         button.targetGraphic = image;
+        rect.gameObject.AddComponent<UiClickSound>();
         var label = CreateLabel(rect, "Label", caption, 44f, new Vector2(0.5f, 0.5f), Vector2.zero, dimensions, theme, theme.bodyFont);
         label.color = theme.gold;
         return button;
+    }
+
+    public static Slider CreateSlider(Transform parent, string name, Vector2 anchor, Vector2 position, Vector2 dimensions)
+    {
+        var resources = new DefaultControls.Resources
+        {
+            standard = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd"),
+            background = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Background.psd"),
+            knob = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd")
+        };
+        var go = DefaultControls.CreateSlider(resources);
+        go.name = name;
+        go.transform.SetParent(parent, false);
+        var rect = (RectTransform)go.transform;
+        rect.anchorMin = anchor;
+        rect.anchorMax = anchor;
+        rect.anchoredPosition = position;
+        rect.sizeDelta = dimensions;
+        var slider = go.GetComponent<Slider>();
+        slider.minValue = 0f;
+        slider.maxValue = 1f;
+        return slider;
     }
 
     static void CreateTouchButton(Transform parent, string name, string caption, string controlPath, Vector2 anchor, Vector2 position, UiTheme theme)
@@ -236,6 +291,47 @@ public static class HudBuilder
         rect.gameObject.AddComponent<OnScreenButton>().controlPath = controlPath;
         var label = CreateLabel(rect, "Label", caption, 40f, new Vector2(0.5f, 0.5f), Vector2.zero, rect.sizeDelta, theme, theme.bodyFont);
         label.color = Color.white;
+    }
+
+    static void CreateEquipmentButtons(Transform parent, UiTheme theme)
+    {
+        var rowOne = Margin * 2f + ButtonSize * 1.5f;
+        var rowTwo = Margin * 3f + ButtonSize * 2.5f;
+        CreateCommandButton(parent, theme, "BlockButton", "Escudo", HeroCommandKind.Block, EquipmentSlot.Shield, new Vector2(-(Margin + ButtonSize * 0.5f), rowOne));
+        CreateCommandButton(parent, theme, "HeavyButton", "Maza", HeroCommandKind.Heavy, EquipmentSlot.HeavyWeapon, new Vector2(-(Margin * 2f + ButtonSize * 1.5f), rowOne));
+        CreateCommandButton(parent, theme, "RangedButton", "Ballesta", HeroCommandKind.Ranged, EquipmentSlot.RangedWeapon, new Vector2(-(Margin + ButtonSize * 0.5f), rowTwo));
+
+        for (int slot = 1; slot <= 2; slot++)
+        {
+            var position = new Vector2(-(Margin * (3f + slot) + ButtonSize * (2.5f + slot)), Margin + ButtonSize * 0.5f);
+            var button = CreateButton(parent, "Ability" + (slot + 1), "", new Vector2(1f, 0f), position, new Vector2(ButtonSize, ButtonSize), theme);
+            var label = button.GetComponentInChildren<TMP_Text>();
+            label.fontSize = 28f;
+            var ability = button.gameObject.AddComponent<AbilityButton>();
+            ability.slot = slot;
+            ability.button = button;
+            ability.caption = label;
+        }
+    }
+
+    static void CreateCommandButton(Transform parent, UiTheme theme, string name, string caption, HeroCommandKind kind, EquipmentSlot slot, Vector2 position)
+    {
+        var button = CreateButton(parent, name, caption, new Vector2(1f, 0f), position, new Vector2(ButtonSize, ButtonSize * 0.7f), theme);
+        button.GetComponentInChildren<TMP_Text>().fontSize = 30f;
+        var command = button.gameObject.AddComponent<HeroCommandButton>();
+        command.kind = kind;
+        command.requiredSlot = slot;
+    }
+
+    static void CreatePotionButton(Transform parent, UiTheme theme)
+    {
+        var position = new Vector2(-(Margin * 3f + ButtonSize * 2.5f), Margin * 2f + ButtonSize * 1.5f);
+        var button = CreateButton(parent, "PotionButton", "Poma", new Vector2(1f, 0f), position, new Vector2(ButtonSize, ButtonSize * 0.7f), theme);
+        var label = button.GetComponentInChildren<TMP_Text>();
+        label.fontSize = 32f;
+        var potion = button.gameObject.AddComponent<ConsumableButton>();
+        potion.button = button;
+        potion.label = label;
     }
 
     static void CreateAbilityButton(Transform parent, UiTheme theme)

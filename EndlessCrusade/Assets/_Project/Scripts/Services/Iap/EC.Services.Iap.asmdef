@@ -1,0 +1,14 @@
+{
+    "name": "EC.Services.Iap",
+    "rootNamespace": "EC.Services.Iap",
+    "references": ["EC.Core", "EC.Data", "EC.Services", "UnityEngine.Purchasing"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": ["EC_IAP"],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

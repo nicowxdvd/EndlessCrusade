@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563a3804427c431b9a9013793039280, type: 3}
+  m_Name: Level_4_3
+  m_EditorClassIdentifier: 
+  id: lv_4_3
+  displayName: El claustro
+  baseDefinition: {fileID: 11400000, guid: 5b92276101e874958991348b6e9969e6, type: 2}
+  environmentPrefab: {fileID: 1880070494283067578, guid: d08cca4c7eaaa4fcab08b32053f9296a, type: 3}
+  intro: {fileID: 0}
+  outro: {fileID: 0}
+  epilogue: {fileID: 0}
+  waves:
+  - {fileID: 11400000, guid: 20f11a0636f4d4793802f36991b103b2, type: 2}
+  - {fileID: 11400000, guid: 707e0a2aa253a4926afebfff34919b9c, type: 2}
+  - {fileID: 11400000, guid: f01f3bf225d8c4085a697e3b17b8896c, type: 2}
+  - {fileID: 11400000, guid: 30d6e331fad5a4f309c5a7ae4c36ecf3, type: 2}
+  - {fileID: 11400000, guid: d4bc49a08042d481db3d48e7173cb707, type: 2}
+  - {fileID: 11400000, guid: e07c796941ebd4877b899695d5e012de, type: 2}
+  - {fileID: 11400000, guid: 2a11f089efc984e0fa420f958a172536, type: 2}
+  - {fileID: 11400000, guid: a290975579f5c40ccad1b924d6588ba7, type: 2}
+  troopsEnabled: 1
+  tutorial: 0
+  reward:
+    goldFirstClear: 560
+    goldReplay: 224
+    gemsFirstClear: 2
+    ticketsFirstClear: 1

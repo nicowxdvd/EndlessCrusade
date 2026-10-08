@@ -1,6 +1,6 @@
 # SPEC 19 — Tropas adicionales
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 13, SPEC 16
 > **Fecha:** 2026-10-06
 > **Objetivo:** Agregar Campesino, Ballestero, Sacerdote y Paladín como tropas invocables con desbloqueo por capítulo.

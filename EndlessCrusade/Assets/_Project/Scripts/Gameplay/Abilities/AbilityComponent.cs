@@ -11,6 +11,8 @@ namespace EC.Gameplay
         public AbilityDefinition[] abilities = new AbilityDefinition[MaxSlots];
         public PoolService pool;
 
+        static readonly System.Collections.Generic.List<IDamageable> judged = new System.Collections.Generic.List<IDamageable>(32);
+
         CooldownTimer[] timers;
         HealthComponent health;
         HeroController hero;
@@ -27,17 +29,20 @@ namespace EC.Gameplay
         void OnEnable()
         {
             EventBus<AbilityRequested>.Subscribe(OnAbilityRequested);
+            EventBus<AbilityCooldownResetRequested>.Subscribe(OnCooldownResetRequested);
         }
 
         void OnDisable()
         {
             EventBus<AbilityRequested>.Unsubscribe(OnAbilityRequested);
+            EventBus<AbilityCooldownResetRequested>.Unsubscribe(OnCooldownResetRequested);
         }
 
         void Start()
         {
             if (pool == null)
                 pool = FindFirstObjectByType<PoolService>();
+            ApplyLoadout();
             for (int i = 0; i < timers.Length; i++)
                 if (timers[i] != null)
                     EventBus<AbilityCooldownChanged>.Publish(new AbilityCooldownChanged(i, timers[i].Normalized));
@@ -54,6 +59,14 @@ namespace EC.Gameplay
                 timer.Tick(dt);
                 EventBus<AbilityCooldownChanged>.Publish(new AbilityCooldownChanged(i, timer.Normalized));
             }
+        }
+
+        void OnCooldownResetRequested(AbilityCooldownResetRequested evt)
+        {
+            BuildTimers();
+            for (int i = 0; i < timers.Length; i++)
+                if (timers[i] != null)
+                    EventBus<AbilityCooldownChanged>.Publish(new AbilityCooldownChanged(i, timers[i].Normalized));
         }
 
         public void BuildTimers()
@@ -82,7 +95,43 @@ namespace EC.Gameplay
             EventBus<AbilityCooldownChanged>.Publish(new AbilityCooldownChanged(slot, timers[slot].Normalized));
             if (definition.kind == AbilityKind.ThrownArea)
                 Throw(definition);
+            else if (definition.kind == AbilityKind.Heal)
+                Bless(definition);
+            else if (definition.kind == AbilityKind.ScreenDamage)
+                Judge(definition);
             return true;
+        }
+
+        void ApplyLoadout()
+        {
+            var miracles = HeroLoadoutHolder.Current.miracles;
+            if (miracles.Count == 0)
+                return;
+            if (abilities == null || abilities.Length < MaxSlots)
+                System.Array.Resize(ref abilities, MaxSlots);
+            for (int i = 0; i < miracles.Count && i + 1 < MaxSlots; i++)
+                abilities[i + 1] = miracles[i];
+            BuildTimers();
+        }
+
+        void Bless(AbilityDefinition definition)
+        {
+            if (health != null)
+                health.Heal(Mathf.RoundToInt(health.maxHealth * definition.healFraction));
+            if (TryGetComponent<StatusEffectComponent>(out var status))
+                status.Clear();
+        }
+
+        void Judge(AbilityDefinition definition)
+        {
+            var team = health != null ? health.Team : Team.Player;
+            TargetFinder.Collect(transform.position, definition.radius, team, judged);
+            for (int i = 0; i < judged.Count; i++)
+            {
+                var tags = judged[i] is HealthComponent target ? target.tags : CreatureTag.None;
+                judged[i].TakeDamage(HolyWaterProjectile.ComputeDamage(definition, tags), gameObject);
+            }
+            judged.Clear();
         }
 
         void OnAbilityRequested(AbilityRequested evt)

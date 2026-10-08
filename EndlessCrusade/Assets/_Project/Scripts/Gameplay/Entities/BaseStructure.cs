@@ -8,6 +8,7 @@ namespace EC.Gameplay
     {
         public BaseDefinition definition;
         public SpriteRenderer spriteRenderer;
+        public float resistanceMultiplier = 1f;
 
         bool initialized;
 
@@ -37,7 +38,7 @@ namespace EC.Gameplay
         {
             definition = newDefinition;
             initialized = true;
-            Max = newDefinition.maxResistance;
+            Max = Mathf.RoundToInt(newDefinition.maxResistance * resistanceMultiplier);
             Current = Max;
             ApplyStage();
             EventBus<BaseResistanceChanged>.Publish(new BaseResistanceChanged(Current, Max));

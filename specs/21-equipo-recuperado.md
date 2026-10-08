@@ -1,6 +1,6 @@
 # SPEC 21 — Equipo recuperado
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 10, SPEC 16
 > **Fecha:** 2026-10-06
 > **Objetivo:** Hacer que el héroe recupere armadura, escudo, maza, ballesta y milagros al completar capítulos, con cambio visual del sprite.

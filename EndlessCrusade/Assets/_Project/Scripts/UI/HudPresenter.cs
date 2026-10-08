@@ -1,4 +1,5 @@
 using EC.Core;
+using EC.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +14,12 @@ namespace EC.UI
         public GameObject bossRoot;
         public Image bossBar;
         public TMP_Text bossLabel;
+        public TMP_Text goldLabel;
 
         GameObject hero;
         GameObject boss;
+        int runGold;
+        int balance;
 
         void OnEnable()
         {
@@ -25,6 +29,11 @@ namespace EC.UI
             EventBus<WaveStarted>.Subscribe(OnWaveStarted);
             EventBus<BossSpawned>.Subscribe(OnBossSpawned);
             EventBus<EntityDied>.Subscribe(OnEntityDied);
+            EventBus<GoldDropped>.Subscribe(OnGoldDropped);
+            EventBus<CurrencyChanged>.Subscribe(OnCurrencyChanged);
+            balance = SaveHost.Service != null ? CurrencyService.Instance.Balance(CurrencyType.Gold) : 0;
+            runGold = 0;
+            RefreshGold();
         }
 
         void OnDisable()
@@ -35,6 +44,33 @@ namespace EC.UI
             EventBus<WaveStarted>.Unsubscribe(OnWaveStarted);
             EventBus<BossSpawned>.Unsubscribe(OnBossSpawned);
             EventBus<EntityDied>.Unsubscribe(OnEntityDied);
+            EventBus<GoldDropped>.Unsubscribe(OnGoldDropped);
+            EventBus<CurrencyChanged>.Unsubscribe(OnCurrencyChanged);
+        }
+
+        void OnGoldDropped(GoldDropped evt)
+        {
+            runGold += evt.Amount;
+            RefreshGold();
+        }
+
+        void OnCurrencyChanged(CurrencyChanged evt)
+        {
+            if (evt.Type != CurrencyType.Gold)
+                return;
+            balance = evt.Balance;
+            RefreshGold();
+        }
+
+        void RefreshGold()
+        {
+            if (goldLabel != null)
+                goldLabel.text = FormatGold(balance, runGold);
+        }
+
+        public static string FormatGold(int balance, int run)
+        {
+            return run > 0 ? "Oro " + balance + " (+" + run + ")" : "Oro " + balance;
         }
 
         void OnHeroSpawned(HeroSpawned evt)

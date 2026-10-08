@@ -1,0 +1,22 @@
+{
+    "name": "EC.Services.Firebase",
+    "rootNamespace": "EC.Services.Firebase",
+    "references": ["EC.Core", "EC.Data", "EC.Services"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Firebase.App.dll",
+        "Firebase.Platform.dll",
+        "Firebase.TaskExtension.dll",
+        "Firebase.Auth.dll",
+        "Firebase.Firestore.dll",
+        "Firebase.Analytics.dll",
+        "Firebase.Crashlytics.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": ["EC_FIREBASE"],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

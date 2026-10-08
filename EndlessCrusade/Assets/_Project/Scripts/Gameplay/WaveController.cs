@@ -11,6 +11,7 @@ namespace EC.Gameplay
         public EnemySpawner spawner;
         public float startCountdown = 3f;
         public bool deferStart;
+        public ReviveService revive;
 
         readonly List<EnemyDefinition> pending = new List<EnemyDefinition>();
         readonly HashSet<GameObject> spawned = new HashSet<GameObject>();
@@ -61,7 +62,19 @@ namespace EC.Gameplay
             if (spawned.Remove(evt.Source))
                 runner.NotifyEnemyDied();
             else if (evt.Source.GetComponent<HeroController>() != null)
-                runner.Defeat();
+                OnHeroDied(evt.Source);
+        }
+
+        void OnHeroDied(GameObject hero)
+        {
+            if (revive != null && revive.TryRevive(hero))
+                return;
+            if (revive != null && revive.CanOfferAd)
+            {
+                revive.BeginAdOffer(hero, runner.Defeat);
+                return;
+            }
+            runner.Defeat();
         }
 
         void OnBaseDestroyed(BaseDestroyed evt)

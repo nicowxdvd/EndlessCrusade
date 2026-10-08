@@ -15,7 +15,8 @@ namespace EC.Services
 
         static readonly List<Func<SaveData, SaveData>> Steps = new List<Func<SaveData, SaveData>>
         {
-            MigrateV0ToV1
+            MigrateV0ToV1,
+            MigrateV1ToV2
         };
 
         public static int ReadVersion(string json)
@@ -45,10 +46,18 @@ namespace EC.Services
             return data;
         }
 
+        static SaveData MigrateV1ToV2(SaveData data)
+        {
+            if (data.profile != null && data.profile.ads == null)
+                data.profile.ads = new AdLimitsData();
+            return data;
+        }
+
         static SaveData Normalize(SaveData d)
         {
             if (string.IsNullOrEmpty(d.playerId)) d.playerId = Guid.NewGuid().ToString();
             if (d.profile == null) d.profile = new ProfileData();
+            if (d.profile.ads == null) d.profile.ads = new AdLimitsData();
             if (d.profile.processedTransactionIds == null) d.profile.processedTransactionIds = new List<string>();
             if (d.progress == null) d.progress = new ProgressData();
             if (d.progress.completedLevels == null) d.progress.completedLevels = new List<string>();

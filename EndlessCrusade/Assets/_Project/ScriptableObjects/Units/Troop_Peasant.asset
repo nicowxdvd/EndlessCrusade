@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b591c890297e4c80954f79491ccee2a, type: 3}
+  m_Name: Troop_Peasant
+  m_EditorClassIdentifier: 
+  id: peasant
+  displayName: Campesino
+  team: 0
+  maxHealth: 50
+  moveSpeed: 2.6
+  attackDamage: 6
+  attackRange: 1
+  attackCooldown: 1
+  hurtDuration: 0.25
+  tags: 0
+  prefab: {fileID: 8524093916347673541, guid: f0f150fdaa2844fbfa35be5369df6fc7, type: 3}
+  leadershipCost: 15
+  summonCooldown: 3
+  unlockChapterId: ch2_aldea

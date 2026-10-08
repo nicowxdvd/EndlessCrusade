@@ -12,8 +12,8 @@ using UnityEngine.UI;
 
 public static class LevelBuilder
 {
-    const string LevelsFolder = "Assets/_Project/ScriptableObjects/Levels";
-    const string StoriesFolder = "Assets/_Project/ScriptableObjects/Stories";
+    public const string LevelsFolder = "Assets/_Project/ScriptableObjects/Levels";
+    public const string StoriesFolder = "Assets/_Project/ScriptableObjects/Stories";
     const string ConfigPath = "Assets/_Project/ScriptableObjects/Lane/LaneConfig_Default.asset";
     const string WargPath = "Assets/_Project/ScriptableObjects/Units/Enemy_Warg.asset";
     const string BatPath = "Assets/_Project/ScriptableObjects/Units/Enemy_Bat.asset";
@@ -29,12 +29,23 @@ public static class LevelBuilder
     public static void BuildAll()
     {
         var level = BuildAssets();
+        CampaignBuilder.BuildAssets(level);
         BuildLevelScene(level);
-        BuildMainScene(level);
+        BuildMainScene();
+        CampaignBuilder.Build(level);
+        EmporiumBuilder.Build();
+        EquipmentBuilder.Build();
+        PachinkoBuilder.Build();
+        AudioBuilder.Build();
+        QualityBuilder.BuildPipelines();
         EditorBuildSettings.scenes = new[]
         {
             new EditorBuildSettingsScene(BootScenePath, true),
             new EditorBuildSettingsScene(MainScenePath, true),
+            new EditorBuildSettingsScene(CampaignBuilder.ScenePath, true),
+            new EditorBuildSettingsScene(EmporiumBuilder.ScenePath, true),
+            new EditorBuildSettingsScene(EquipmentBuilder.ScenePath, true),
+            new EditorBuildSettingsScene(PachinkoBuilder.ScenePath, true),
             new EditorBuildSettingsScene(LevelScenePath, true),
             new EditorBuildSettingsScene(SandboxScenePath, true)
         };
@@ -75,6 +86,7 @@ public static class LevelBuilder
         level.waves = waves;
         level.troopsEnabled = false;
         level.tutorial = true;
+        level.reward = new LevelReward { goldFirstClear = 150, goldReplay = 60, gemsFirstClear = 5, ticketsFirstClear = 1 };
         EditorUtility.SetDirty(level);
         AssetDatabase.SaveAssets();
         return level;
@@ -112,6 +124,12 @@ public static class LevelBuilder
         bootstrap.lane = config;
         bootstrap.waves = waves;
         bootstrap.spawner = spawner;
+        bootstrap.catalog = EmporiumBuilder.BuildAssets();
+        bootstrap.equipmentCatalog = EquipmentBuilder.BuildAssets();
+        bootstrap.pool = spawner.pool;
+        bootstrap.boltPrefab = TroopBuilder.CreateBoltPrefab();
+        bootstrap.summoner = TroopBuilder.CreateSummoner(config, level, spawner.pool);
+        waves.revive = waves.gameObject.AddComponent<ReviveService>();
 
         HeroBuilder.SpawnHero(config);
         AddLevelUi(GameObject.Find("HudCanvas"));
@@ -159,7 +177,7 @@ public static class LevelBuilder
         hud.GetComponent<ResultPanel>().storyPlayer = story;
     }
 
-    static void BuildMainScene(LevelDefinition level)
+    static void BuildMainScene()
     {
         var theme = HudBuilder.LoadOrCreateTheme();
         var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -184,8 +202,27 @@ public static class LevelBuilder
         var play = HudBuilder.CreateButton(canvasObject.transform, "PlayButton", "Jugar", new Vector2(0.5f, 0.5f), new Vector2(0f, -120f), new Vector2(520f, 140f), theme);
 
         var menu = canvasObject.AddComponent<MainMenu>();
-        menu.firstLevel = level;
         UnityEventTools.AddPersistentListener(play.onClick, menu.Play);
+
+        var settings = canvasObject.AddComponent<SettingsPanel>();
+        var settingsButton = HudBuilder.CreateButton(canvasObject.transform, "SettingsButton", "Ajustes", new Vector2(0.5f, 0.5f), new Vector2(0f, -300f), new Vector2(520f, 140f), theme);
+        UnityEventTools.AddPersistentListener(settingsButton.onClick, settings.Open);
+
+        settings.panel = HudBuilder.CreateOverlay(canvasObject.transform, "SettingsPanel", theme);
+        var settingsTitle = HudBuilder.CreateLabel(settings.panel.transform, "Title", "Ajustes", 96f, new Vector2(0.5f, 0.5f), new Vector2(0f, 300f), new Vector2(800f, 140f), theme, theme.titleFont);
+        settingsTitle.color = theme.gold;
+        HudBuilder.CreateLabel(settings.panel.transform, "MusicLabel", "Música", 48f, new Vector2(0.5f, 0.5f), new Vector2(0f, 150f), new Vector2(600f, 70f), theme, theme.bodyFont);
+        settings.musicSlider = HudBuilder.CreateSlider(settings.panel.transform, "MusicSlider", new Vector2(0.5f, 0.5f), new Vector2(0f, 70f), new Vector2(800f, 60f));
+        HudBuilder.CreateLabel(settings.panel.transform, "SfxLabel", "Efectos", 48f, new Vector2(0.5f, 0.5f), new Vector2(0f, -40f), new Vector2(600f, 70f), theme, theme.bodyFont);
+        settings.sfxSlider = HudBuilder.CreateSlider(settings.panel.transform, "SfxSlider", new Vector2(0.5f, 0.5f), new Vector2(0f, -120f), new Vector2(800f, 60f));
+        UnityEventTools.AddPersistentListener(settings.musicSlider.onValueChanged, settings.OnSliderChanged);
+        UnityEventTools.AddPersistentListener(settings.sfxSlider.onValueChanged, settings.OnSliderChanged);
+        var qualityButton = HudBuilder.CreateButton(settings.panel.transform, "QualityButton", "", new Vector2(0.5f, 0.5f), new Vector2(0f, -250f), new Vector2(560f, 110f), theme);
+        settings.qualityLabel = qualityButton.GetComponentInChildren<TMP_Text>();
+        UnityEventTools.AddPersistentListener(qualityButton.onClick, settings.CycleQuality);
+        var settingsClose = HudBuilder.CreateButton(settings.panel.transform, "CloseButton", "Cerrar", new Vector2(0.5f, 0.5f), new Vector2(0f, -400f), new Vector2(480f, 120f), theme);
+        UnityEventTools.AddPersistentListener(settingsClose.onClick, settings.Close);
+        settings.panel.SetActive(false);
 
         var eventSystem = new GameObject("EventSystem");
         eventSystem.AddComponent<EventSystem>();
@@ -194,7 +231,7 @@ public static class LevelBuilder
         EditorSceneManager.SaveScene(scene, MainScenePath);
     }
 
-    static StorySequence Story(string assetName, string id, params string[] texts)
+    public static StorySequence Story(string assetName, string id, params string[] texts)
     {
         var sequence = LoadOrCreate<StorySequence>(StoriesFolder + "/" + assetName + ".asset");
         sequence.id = id;
@@ -205,14 +242,19 @@ public static class LevelBuilder
         return sequence;
     }
 
-    static SpawnEntry Entry(EnemyDefinition enemy, int count, float interval, float startDelay)
+    public static SpawnEntry Entry(EnemyDefinition enemy, int count, float interval, float startDelay)
     {
         return new SpawnEntry { enemy = enemy, count = count, interval = interval, startDelay = startDelay };
     }
 
     static WaveDefinition Wave(int number, float delayBeforeNext, BossDefinition boss, float bossStartDelay, params SpawnEntry[] entries)
     {
-        var wave = LoadOrCreate<WaveDefinition>(LevelsFolder + "/Wave_1_1_" + number + ".asset");
+        return WaveFor("1_1", number, delayBeforeNext, boss, bossStartDelay, entries);
+    }
+
+    public static WaveDefinition WaveFor(string levelKey, int number, float delayBeforeNext, BossDefinition boss, float bossStartDelay, params SpawnEntry[] entries)
+    {
+        var wave = LoadOrCreate<WaveDefinition>(LevelsFolder + "/Wave_" + levelKey + "_" + number + ".asset");
         wave.entries = entries;
         wave.delayBeforeNext = delayBeforeNext;
         wave.boss = boss;
@@ -221,13 +263,13 @@ public static class LevelBuilder
         return wave;
     }
 
-    static void EnsureFolder(string parent, string name)
+    public static void EnsureFolder(string parent, string name)
     {
         if (!AssetDatabase.IsValidFolder(parent + "/" + name))
             AssetDatabase.CreateFolder(parent, name);
     }
 
-    static T LoadOrCreate<T>(string path) where T : ScriptableObject
+    public static T LoadOrCreate<T>(string path) where T : ScriptableObject
     {
         var asset = AssetDatabase.LoadAssetAtPath<T>(path);
         if (asset == null)

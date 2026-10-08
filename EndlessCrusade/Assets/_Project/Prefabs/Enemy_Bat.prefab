@@ -105,6 +105,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   definition: {fileID: 11400000, guid: 4cde2c1ba64ca4297b7a2f7b1868f90d, type: 2}
   hurtDuration: 0.25
+  healthMultiplier: 1
+  damageMultiplier: 1
+  bonusHealth: 0
 --- !u!114 &4327732176343117798
 MonoBehaviour:
   m_ObjectHideFlags: 0

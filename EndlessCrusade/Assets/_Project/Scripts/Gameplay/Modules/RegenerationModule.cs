@@ -7,17 +7,21 @@ namespace EC.Gameplay
         public float healthPerSecond = 3f;
 
         HealthComponent health;
+        AreaStrikeModule strike;
         float accumulated;
 
         public void Initialize(EnemyBrain brain)
         {
             health = brain.Health;
+            strike = brain.GetComponent<AreaStrikeModule>();
             accumulated = 0f;
         }
 
         public void Tick(float deltaTime)
         {
             if (health == null || !health.IsAlive)
+                return;
+            if (strike != null && strike.Vulnerable)
                 return;
             if (health.Current >= health.maxHealth)
             {

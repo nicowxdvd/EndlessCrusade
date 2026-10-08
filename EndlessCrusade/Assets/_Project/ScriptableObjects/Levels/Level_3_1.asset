@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563a3804427c431b9a9013793039280, type: 3}
+  m_Name: Level_3_1
+  m_EditorClassIdentifier: 
+  id: lv_3_1
+  displayName: Senda sin luz
+  baseDefinition: {fileID: 11400000, guid: 71b4cefd975614164880ad160f4d9993, type: 2}
+  environmentPrefab: {fileID: 8329511634925585365, guid: 59e1801ea0be94358ba077d821f90c3c, type: 3}
+  intro: {fileID: 11400000, guid: 7b95b7e0be6834c41abf869592e577bf, type: 2}
+  outro: {fileID: 0}
+  epilogue: {fileID: 0}
+  waves:
+  - {fileID: 11400000, guid: 631ad8d5cf3b74eb4b99b7bcaf061695, type: 2}
+  - {fileID: 11400000, guid: 07b72ce3ad5ac41d88d2a0d386636a90, type: 2}
+  - {fileID: 11400000, guid: cb5c1508732e24a98889b36b76e28fa3, type: 2}
+  - {fileID: 11400000, guid: 2eb1e2bdd8aa143b9b08fc352fff86ae, type: 2}
+  - {fileID: 11400000, guid: e5297344023b34eaba7d272f5e94b705, type: 2}
+  - {fileID: 11400000, guid: 21e80a1b409a24fd8a18cb3b6ef478d7, type: 2}
+  troopsEnabled: 1
+  tutorial: 0
+  reward:
+    goldFirstClear: 360
+    goldReplay: 144
+    gemsFirstClear: 2
+    ticketsFirstClear: 1

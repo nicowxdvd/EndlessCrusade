@@ -1,6 +1,6 @@
 # SPEC 25 — Compras dentro de la aplicación
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 15, SPEC 18
 > **Fecha:** 2026-10-06
 > **Objetivo:** Integrar compras in-app en Google Play para paquetes de reliquias con Unity IAP.

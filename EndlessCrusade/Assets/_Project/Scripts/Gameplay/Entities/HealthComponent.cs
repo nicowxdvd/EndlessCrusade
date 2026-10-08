@@ -58,6 +58,12 @@ namespace EC.Gameplay
             EventBus<HealthChanged>.Publish(new HealthChanged(gameObject, Current, maxHealth));
         }
 
+        public void Revive(int health)
+        {
+            Current = Mathf.Clamp(health, 1, maxHealth);
+            EventBus<HealthChanged>.Publish(new HealthChanged(gameObject, Current, maxHealth));
+        }
+
         public void TakeDamage(int amount, GameObject source)
         {
             if (!IsAlive)
@@ -80,6 +86,7 @@ namespace EC.Gameplay
             else
             {
                 Damaged?.Invoke();
+                EventBus<EntityHurt>.Publish(new EntityHurt(gameObject));
             }
         }
     }

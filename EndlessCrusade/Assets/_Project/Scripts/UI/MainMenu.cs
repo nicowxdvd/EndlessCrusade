@@ -1,18 +1,15 @@
-using EC.Data;
+using EC.Core;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace EC.UI
 {
     public class MainMenu : MonoBehaviour
     {
-        public LevelDefinition firstLevel;
-        public string levelScene = "Level";
+        public string mapScene = "CampaignMap";
 
         public void Play()
         {
-            LevelSession.Current = firstLevel;
-            SceneManager.LoadScene(levelScene);
+            SceneFlow.Load(mapScene);
         }
     }
 }

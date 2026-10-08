@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e1dcde192bc4cca89c62db64c12d5c, type: 3}
+  m_Name: Enemy_vampire
+  m_EditorClassIdentifier: 
+  id: vampire
+  displayName: Vampiro
+  team: 1
+  maxHealth: 90
+  moveSpeed: 2.2
+  attackDamage: 15
+  attackRange: 1.2
+  attackCooldown: 1
+  hurtDuration: 0.25
+  tags: 1
+  prefab: {fileID: 4228972866735105491, guid: 01aadd1e5234049d7a1af1a6e8ac28dc, type: 3}
+  kind: 0
+  goldDrop: 5
+  chargeRange: 5
+  chargeSpeedMultiplier: 2.2
+  chargeDuration: 0.8
+  flightHeight: 2.2
+  bobAmplitude: 0.4
+  bobFrequency: 2

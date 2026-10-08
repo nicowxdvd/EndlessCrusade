@@ -1,6 +1,6 @@
 # SPEC 28 — Audio
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 12
 > **Fecha:** 2026-10-06
 > **Objetivo:** Agregar música por capítulo y efectos de sonido con un `AudioManager` y mezcla por categorías.

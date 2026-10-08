@@ -20,6 +20,7 @@ MonoBehaviour:
   radius: 2.5
   undeadMultiplier: 2
   throwDistance: 6
+  healFraction: 0.25
   icon: {fileID: 0}
   projectilePrefab: {fileID: 4037783940721301793, guid: a5af2a2d069b446a2a31a9c30deb1fe2, type: 3}
   explosionPrefab: {fileID: 4054864039648879781, guid: fbc04350188ee421498c0acd1dec4627, type: 3}

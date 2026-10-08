@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d8af3a1952b2419796c03c71abeb55f, type: 3}
+  m_Name: Base_village_chapel
+  m_EditorClassIdentifier: 
+  id: village_chapel
+  displayName: Capilla de la aldea
+  maxResistance: 700
+  prefab: {fileID: 8413444870477251611, guid: 3179334efdbe84daeb79acce98e8a5e3, type: 3}
+  damageStages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

@@ -1,4 +1,6 @@
+using EC.Core;
 using EC.Data;
+using EC.Services;
 using UnityEngine;
 
 namespace EC.Gameplay
@@ -9,6 +11,11 @@ namespace EC.Gameplay
         public LaneConfig lane;
         public WaveController waves;
         public EnemySpawner spawner;
+        public ShopCatalog catalog;
+        public EquipmentCatalog equipmentCatalog;
+        public PoolService pool;
+        public GameObject boltPrefab;
+        public TroopSummoner summoner;
 
         void Awake()
         {
@@ -20,12 +27,26 @@ namespace EC.Gameplay
             }
             LevelSession.Current = level;
 
+            LevelModifiers.Current = catalog != null && SaveHost.Service != null
+                ? StatModifierSet.Compute(catalog.upgrades, UpgradeService.Instance.GetLevel)
+                : new StatModifierSet();
+
             if (level.environmentPrefab != null)
                 Instantiate(level.environmentPrefab).name = "Environment";
 
             var baseTransform = SpawnBase(level);
             if (baseTransform != null)
                 spawner.baseTarget = baseTransform;
+
+            HeroLoadoutHolder.Current = equipmentCatalog != null && SaveHost.Service != null
+                ? HeroLoadout.Compute(equipmentCatalog, SaveHost.Service.Current.equipment.equipped)
+                : new HeroLoadout();
+
+            if (summoner != null)
+            {
+                summoner.level = level;
+                summoner.baseTarget = baseTransform;
+            }
 
             waves.level = level;
             waves.deferStart = true;
@@ -38,7 +59,15 @@ namespace EC.Gameplay
                 return null;
             var instance = Instantiate(definition.prefab, new Vector3(lane.baseX, lane.groundY + 1.5f, 0f), Quaternion.identity);
             instance.name = "Base";
-            instance.GetComponent<BaseStructure>().definition = definition;
+            var structure = instance.GetComponent<BaseStructure>();
+            structure.definition = definition;
+            structure.resistanceMultiplier = LevelModifiers.Current.baseResistance;
+            if (LevelModifiers.Current.baseCrossbows && boltPrefab != null)
+            {
+                var crossbows = instance.AddComponent<BattlementCrossbows>();
+                crossbows.pool = pool != null ? pool : spawner.pool;
+                crossbows.boltPrefab = boltPrefab;
+            }
             return instance.transform;
         }
     }

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563a3804427c431b9a9013793039280, type: 3}
+  m_Name: Level_1_1
+  m_EditorClassIdentifier: 
+  id: lv_1_1
+  displayName: El Despertar en las Afueras
+  baseDefinition: {fileID: 11400000, guid: de64d556cdb9b495683e461d1bff1802, type: 2}
+  environmentPrefab: {fileID: 2994522806568241270, guid: fa9fd85b27d3a456eb0ce51aa785938a, type: 3}
+  intro: {fileID: 11400000, guid: dea72594166354104acf1c53f22b9e9d, type: 2}
+  outro: {fileID: 11400000, guid: 0c19ba2a853154a628502db3eee40e3f, type: 2}
+  epilogue: {fileID: 0}
+  waves:
+  - {fileID: 11400000, guid: b1129ccfc6bbe481991470b338187238, type: 2}
+  - {fileID: 11400000, guid: 8d9af453bc859427690b6b8e019a2929, type: 2}
+  - {fileID: 11400000, guid: b68a62383d4c94111a148ec656bdc76e, type: 2}
+  - {fileID: 11400000, guid: 7c1fd705426f54198a41d0a6e05fb4b3, type: 2}
+  - {fileID: 11400000, guid: aac19b062155a479e9802584eb973e0f, type: 2}
+  troopsEnabled: 0
+  tutorial: 1
+  reward:
+    goldFirstClear: 150
+    goldReplay: 60
+    gemsFirstClear: 5
+    ticketsFirstClear: 1

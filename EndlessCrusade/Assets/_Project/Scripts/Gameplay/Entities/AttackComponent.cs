@@ -43,9 +43,14 @@ namespace EC.Gameplay
                 return false;
 
             lastAttackTime = now;
-            target.TakeDamage(damage, gameObject);
-            Hit?.Invoke(damage);
+            Deliver(target, damage);
             return true;
+        }
+
+        protected virtual void Deliver(IDamageable target, int amount)
+        {
+            target.TakeDamage(amount, gameObject);
+            Hit?.Invoke(amount);
         }
 
         public bool IsReady(MeleeAttackDefinition attack, float now)

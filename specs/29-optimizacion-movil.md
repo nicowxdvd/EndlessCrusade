@@ -1,6 +1,6 @@
 # SPEC 29 — Optimización móvil
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Depende de:** SPEC 24
 > **Fecha:** 2026-10-06
 > **Objetivo:** Perfilar memoria y tiempo de frame en un dispositivo Android de gama baja y lograr 60 FPS estables con niveles de calidad automáticos.
