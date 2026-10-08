@@ -1,6 +1,6 @@
 # SPEC 31 — Arte de sprites 2.5D del héroe
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Depende de:** SPEC 02, SPEC 03, SPEC 05
 > **Fecha:** 2026-10-07
 > **Objetivo:** Definir el pipeline de arte 2D del Templario (formato, importación, atlas y animación por estado de la FSM), producir dos versiones del héroe (pixel art e ilustrada) con IA, compararlas en `LaneSandbox` y reemplazar el placeholder con la ganadora.
