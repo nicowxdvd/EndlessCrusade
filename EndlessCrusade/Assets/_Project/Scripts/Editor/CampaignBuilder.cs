@@ -159,6 +159,9 @@ public static class CampaignBuilder
         var equipment = HudBuilder.CreateButton(safe, "EquipmentButton", "Equipo", new Vector2(1f, 0f), new Vector2(-740f, 100f), new Vector2(420f, 120f), theme);
         UnityEventTools.AddPersistentListener(equipment.onClick, map.OpenEquipment);
 
+        var pachinko = HudBuilder.CreateButton(safe, "PachinkoButton", "Pachinko", new Vector2(1f, 0f), new Vector2(-1220f, 100f), new Vector2(420f, 120f), theme);
+        UnityEventTools.AddPersistentListener(pachinko.onClick, map.OpenPachinko);
+
         var eventSystem = new GameObject("EventSystem");
         eventSystem.AddComponent<EventSystem>();
         eventSystem.AddComponent<InputSystemUIInputModule>();
