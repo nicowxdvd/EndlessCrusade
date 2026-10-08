@@ -1,6 +1,6 @@
 # SPEC 18 — Firebase: autenticación, nube y analítica
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 14
 > **Fecha:** 2026-10-06
 > **Objetivo:** Integrar Firebase con Auth anónima, sincronización del guardado en Firestore, Analytics y Crashlytics.
