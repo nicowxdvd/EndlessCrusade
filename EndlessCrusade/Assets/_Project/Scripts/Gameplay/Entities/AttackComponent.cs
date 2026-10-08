@@ -60,6 +60,21 @@ namespace EC.Gameplay
             return !lastAttackTimes.TryGetValue(attack.id, out var last) || now - last >= attack.cooldown;
         }
 
+        public void MarkUsed(MeleeAttackDefinition attack, float now)
+        {
+            lastAttackTimes[attack.id] = now;
+        }
+
+        public bool Strike(MeleeAttackDefinition attack, IDamageable target)
+        {
+            if (target == null || !target.IsAlive || target.Team == controller.Health.Team)
+                return false;
+
+            target.TakeDamage(attack.damage, gameObject);
+            Hit?.Invoke(attack.damage);
+            return true;
+        }
+
         public bool TryAttack(MeleeAttackDefinition attack, IDamageable target, float now)
         {
             if (attack == null)
