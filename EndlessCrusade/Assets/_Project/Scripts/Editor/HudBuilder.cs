@@ -38,7 +38,7 @@ public static class HudBuilder
         eventSystem.AddComponent<InputSystemUIInputModule>();
     }
 
-    static UiTheme LoadOrCreateTheme()
+    public static UiTheme LoadOrCreateTheme()
     {
         if (!AssetDatabase.IsValidFolder(ThemeFolder))
             AssetDatabase.CreateFolder("Assets/_Project/ScriptableObjects", "UI");
@@ -143,14 +143,14 @@ public static class HudBuilder
         bar.gameObject.SetActive(false);
     }
 
-    static RectTransform NewRect(string name, Transform parent)
+    public static RectTransform NewRect(string name, Transform parent)
     {
         var go = new GameObject(name);
         go.transform.SetParent(parent, false);
         return go.AddComponent<RectTransform>();
     }
 
-    static void Stretch(RectTransform rect)
+    public static void Stretch(RectTransform rect)
     {
         rect.anchorMin = Vector2.zero;
         rect.anchorMax = Vector2.one;
@@ -187,7 +187,7 @@ public static class HudBuilder
         return image;
     }
 
-    static TMP_Text CreateLabel(Transform parent, string name, string content, float size, Vector2 anchor, Vector2 position, Vector2 dimensions, UiTheme theme, TMP_FontAsset font)
+    public static TMP_Text CreateLabel(Transform parent, string name, string content, float size, Vector2 anchor, Vector2 position, Vector2 dimensions, UiTheme theme, TMP_FontAsset font)
     {
         var rect = NewRect(name, parent);
         rect.anchorMin = anchor;
@@ -206,7 +206,7 @@ public static class HudBuilder
         return text;
     }
 
-    static Button CreateButton(Transform parent, string name, string caption, Vector2 anchor, Vector2 position, Vector2 dimensions, UiTheme theme)
+    public static Button CreateButton(Transform parent, string name, string caption, Vector2 anchor, Vector2 position, Vector2 dimensions, UiTheme theme)
     {
         var rect = NewRect(name, parent);
         rect.anchorMin = anchor;
@@ -264,7 +264,7 @@ public static class HudBuilder
         ability1.cooldownFill = fill;
     }
 
-    static GameObject CreateOverlay(Transform parent, string name, UiTheme theme)
+    public static GameObject CreateOverlay(Transform parent, string name, UiTheme theme)
     {
         var rect = NewRect(name, parent);
         Stretch(rect);

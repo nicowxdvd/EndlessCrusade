@@ -9,7 +9,6 @@ namespace EC.Gameplay
         public LaneConfig lane;
         public WaveController waves;
         public EnemySpawner spawner;
-        public GameObject[] hiddenWithoutTroops;
 
         void Awake()
         {
@@ -30,9 +29,6 @@ namespace EC.Gameplay
 
             waves.level = level;
             waves.deferStart = true;
-
-            foreach (var item in hiddenWithoutTroops)
-                item.SetActive(level.troopsEnabled);
         }
 
         Transform SpawnBase(LevelDefinition level)
