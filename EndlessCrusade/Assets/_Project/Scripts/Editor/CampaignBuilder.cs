@@ -148,6 +148,9 @@ public static class CampaignBuilder
         var back = HudBuilder.CreateButton(safe, "BackButton", "Volver", new Vector2(0f, 0f), new Vector2(260f, 100f), new Vector2(420f, 120f), theme);
         UnityEventTools.AddPersistentListener(back.onClick, map.Back);
 
+        var emporium = HudBuilder.CreateButton(safe, "EmporiumButton", "Emporium", new Vector2(1f, 0f), new Vector2(-260f, 100f), new Vector2(420f, 120f), theme);
+        UnityEventTools.AddPersistentListener(emporium.onClick, map.OpenEmporium);
+
         var eventSystem = new GameObject("EventSystem");
         eventSystem.AddComponent<EventSystem>();
         eventSystem.AddComponent<InputSystemUIInputModule>();

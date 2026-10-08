@@ -11,6 +11,7 @@ namespace EC.Gameplay
         public EnemySpawner spawner;
         public float startCountdown = 3f;
         public bool deferStart;
+        public ReviveService revive;
 
         readonly List<EnemyDefinition> pending = new List<EnemyDefinition>();
         readonly HashSet<GameObject> spawned = new HashSet<GameObject>();
@@ -60,7 +61,7 @@ namespace EC.Gameplay
                 return;
             if (spawned.Remove(evt.Source))
                 runner.NotifyEnemyDied();
-            else if (evt.Source.GetComponent<HeroController>() != null)
+            else if (evt.Source.GetComponent<HeroController>() != null && (revive == null || !revive.TryRevive(evt.Source)))
                 runner.Defeat();
         }
 

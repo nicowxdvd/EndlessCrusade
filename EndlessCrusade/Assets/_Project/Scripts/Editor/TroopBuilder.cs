@@ -31,6 +31,12 @@ public static class TroopBuilder
 
     public static void SpawnSummoner(LaneConfig config, LevelDefinition level)
     {
+        var summoner = CreateSummoner(config, level, Object.FindFirstObjectByType<PoolService>());
+        summoner.baseTarget = Object.FindFirstObjectByType<BaseStructure>().transform;
+    }
+
+    public static TroopSummoner CreateSummoner(LaneConfig config, LevelDefinition level, PoolService pool)
+    {
         var troops = BuildAssets();
         var go = new GameObject("TroopSummoner");
         var leadership = go.AddComponent<LeadershipComponent>();
@@ -40,8 +46,8 @@ public static class TroopBuilder
         summoner.campaign = AssetDatabase.LoadAssetAtPath<CampaignDefinition>(CampaignPath);
         summoner.troops = troops;
         summoner.lane = config;
-        summoner.pool = Object.FindFirstObjectByType<PoolService>();
-        summoner.baseTarget = Object.FindFirstObjectByType<BaseStructure>().transform;
+        summoner.pool = pool;
+        return summoner;
     }
 
     static TroopDefinition Build(string key, string id, string displayName, Role role, int health, int damage, float range, float cooldown, float speed, int cost, float summonCooldown, string unlockChapter, Color color, GameObject bolt)
@@ -99,7 +105,7 @@ public static class TroopBuilder
         return prefab;
     }
 
-    static GameObject CreateBoltPrefab()
+    public static GameObject CreateBoltPrefab()
     {
         var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
         go.name = "Bolt";

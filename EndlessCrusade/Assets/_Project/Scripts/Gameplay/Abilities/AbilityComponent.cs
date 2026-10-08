@@ -27,11 +27,13 @@ namespace EC.Gameplay
         void OnEnable()
         {
             EventBus<AbilityRequested>.Subscribe(OnAbilityRequested);
+            EventBus<AbilityCooldownResetRequested>.Subscribe(OnCooldownResetRequested);
         }
 
         void OnDisable()
         {
             EventBus<AbilityRequested>.Unsubscribe(OnAbilityRequested);
+            EventBus<AbilityCooldownResetRequested>.Unsubscribe(OnCooldownResetRequested);
         }
 
         void Start()
@@ -54,6 +56,14 @@ namespace EC.Gameplay
                 timer.Tick(dt);
                 EventBus<AbilityCooldownChanged>.Publish(new AbilityCooldownChanged(i, timer.Normalized));
             }
+        }
+
+        void OnCooldownResetRequested(AbilityCooldownResetRequested evt)
+        {
+            BuildTimers();
+            for (int i = 0; i < timers.Length; i++)
+                if (timers[i] != null)
+                    EventBus<AbilityCooldownChanged>.Publish(new AbilityCooldownChanged(i, timers[i].Normalized));
         }
 
         public void BuildTimers()

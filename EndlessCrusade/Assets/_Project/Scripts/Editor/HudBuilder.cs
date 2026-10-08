@@ -90,6 +90,7 @@ public static class HudBuilder
         CreateTouchButton(safe, "Whip", "Látigo", "<Gamepad>/buttonEast", new Vector2(1f, 0f), new Vector2(-(Margin + ButtonSize * 0.5f), Margin + ButtonSize * 0.5f), theme);
 
         CreateAbilityButton(safe, theme);
+        CreatePotionButton(safe, theme);
         CreateTroopBar(safe, theme, presenter);
 
         var pause = root.AddComponent<PausePanel>();
@@ -251,6 +252,17 @@ public static class HudBuilder
         rect.gameObject.AddComponent<OnScreenButton>().controlPath = controlPath;
         var label = CreateLabel(rect, "Label", caption, 40f, new Vector2(0.5f, 0.5f), Vector2.zero, rect.sizeDelta, theme, theme.bodyFont);
         label.color = Color.white;
+    }
+
+    static void CreatePotionButton(Transform parent, UiTheme theme)
+    {
+        var position = new Vector2(-(Margin * 3f + ButtonSize * 2.5f), Margin * 2f + ButtonSize * 1.5f);
+        var button = CreateButton(parent, "PotionButton", "Poma", new Vector2(1f, 0f), position, new Vector2(ButtonSize, ButtonSize * 0.7f), theme);
+        var label = button.GetComponentInChildren<TMP_Text>();
+        label.fontSize = 32f;
+        var potion = button.gameObject.AddComponent<ConsumableButton>();
+        potion.button = button;
+        potion.label = label;
     }
 
     static void CreateAbilityButton(Transform parent, UiTheme theme)

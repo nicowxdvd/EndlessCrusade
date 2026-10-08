@@ -18,6 +18,8 @@ namespace EC.Gameplay
         StatusEffectComponent status;
         AttackComponent attack;
         HeroDefinition definition;
+        MeleeAttackDefinition swordAttack;
+        MeleeAttackDefinition whipAttack;
         InputAction moveLeft;
         InputAction moveRight;
         InputAction attackSword;
@@ -33,6 +35,7 @@ namespace EC.Gameplay
             status = GetComponent<StatusEffectComponent>();
             attack = GetComponent<AttackComponent>();
             definition = controller.definition as HeroDefinition;
+            ApplyModifiers(new StatModifierSet());
         }
 
         void OnEnable()
@@ -55,6 +58,10 @@ namespace EC.Gameplay
 
         void Start()
         {
+            var modifiers = LevelModifiers.Current;
+            ApplyModifiers(modifiers);
+            controller.healthMultiplier = modifiers.heroHealth;
+            controller.ResetState();
             EventBus<HeroSpawned>.Publish(new HeroSpawned(gameObject));
         }
 
@@ -65,6 +72,21 @@ namespace EC.Gameplay
             if (useAbility1.WasPressedThisFrame())
                 EventBus<AbilityRequested>.Publish(new AbilityRequested(0));
             Apply(moveLeft.IsPressed(), moveRight.IsPressed(), attackSword.IsPressed(), attackWhip.IsPressed(), Time.time);
+        }
+
+        void ApplyModifiers(StatModifierSet modifiers)
+        {
+            if (definition == null)
+                return;
+            swordAttack = Scale(definition.sword, modifiers.swordDamage, modifiers.cooldown);
+            whipAttack = Scale(definition.whip, modifiers.whipDamage, modifiers.cooldown);
+        }
+
+        static MeleeAttackDefinition Scale(MeleeAttackDefinition source, float damage, float cooldown)
+        {
+            if (source == null)
+                return null;
+            return new MeleeAttackDefinition { id = source.id, damage = Mathf.RoundToInt(source.damage * damage), range = source.range, cooldown = source.cooldown * cooldown };
         }
 
         public void Apply(bool left, bool right, bool sword, bool whip, float now)
@@ -92,9 +114,9 @@ namespace EC.Gameplay
             if (definition == null)
                 return;
             if (sword)
-                Perform(definition.sword, "attack_sword", direction, now);
+                Perform(swordAttack, "attack_sword", direction, now);
             if (whip)
-                Perform(definition.whip, "attack_whip", direction, now);
+                Perform(whipAttack, "attack_whip", direction, now);
         }
 
         void Perform(MeleeAttackDefinition attackDefinition, string clipId, int direction, float now)

@@ -1,6 +1,6 @@
 # SPEC 17 — Emporium de mejoras
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 13, SPEC 15
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear la tienda Emporium con mejoras de héroe, tropas y base, y con consumibles comprables con oro o reliquias.
