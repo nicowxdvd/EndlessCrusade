@@ -12,6 +12,21 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/Main.unity
     guid: f098b1fb307534a2fabed41a0e46bc1e
   - enabled: 1
+    path: Assets/_Project/Scenes/CampaignMap.unity
+    guid: 00092c0fceb63497295aa7532488816b
+  - enabled: 1
+    path: Assets/_Project/Scenes/Emporium.unity
+    guid: d9d76899167794b5eaaefe720594840c
+  - enabled: 1
+    path: Assets/_Project/Scenes/Equipment.unity
+    guid: 78ac8777db04d4184b463c60448b4899
+  - enabled: 1
+    path: Assets/_Project/Scenes/Pachinko.unity
+    guid: 4002ecb95335a476b8145f56f8137b2c
+  - enabled: 1
+    path: Assets/_Project/Scenes/Level.unity
+    guid: 7543588190b794c0890dc8cacc133b49
+  - enabled: 1
     path: Assets/_Project/Scenes/Sandbox/LaneSandbox.unity
     guid: c993e3f66248a4557afd172a37c037ef
   m_configObjects:

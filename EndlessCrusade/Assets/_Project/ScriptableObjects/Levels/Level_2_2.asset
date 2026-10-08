@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563a3804427c431b9a9013793039280, type: 3}
+  m_Name: Level_2_2
+  m_EditorClassIdentifier: 
+  id: lv_2_2
+  displayName: Tejados y sombras
+  baseDefinition: {fileID: 11400000, guid: 5147cac22735c4f229051b21b7f5fd18, type: 2}
+  environmentPrefab: {fileID: 8782887152493638495, guid: 3d70e43bac2664093a373035c2b5d4e6, type: 3}
+  intro: {fileID: 0}
+  outro: {fileID: 0}
+  epilogue: {fileID: 0}
+  waves:
+  - {fileID: 11400000, guid: 898b39bd82742403e8f57da06649c9cc, type: 2}
+  - {fileID: 11400000, guid: 143e2f4d739da4d91ad3112c252c9a75, type: 2}
+  - {fileID: 11400000, guid: 8ed9018f1bb704ac58005f74441f720e, type: 2}
+  - {fileID: 11400000, guid: a80228df4069740539cbc01ba053e124, type: 2}
+  - {fileID: 11400000, guid: 29be26d5b98ae486e901d13d4a98f9f2, type: 2}
+  - {fileID: 11400000, guid: 6884e5eecf4d14e049f755b932bc08bc, type: 2}
+  troopsEnabled: 1
+  tutorial: 0
+  reward:
+    goldFirstClear: 280
+    goldReplay: 112
+    gemsFirstClear: 2
+    ticketsFirstClear: 1

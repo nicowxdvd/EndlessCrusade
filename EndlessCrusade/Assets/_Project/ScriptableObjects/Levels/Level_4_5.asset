@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563a3804427c431b9a9013793039280, type: 3}
+  m_Name: Level_4_5
+  m_EditorClassIdentifier: 
+  id: lv_4_5
+  displayName: "El Se\xF1or Vampiro"
+  baseDefinition: {fileID: 11400000, guid: 5b92276101e874958991348b6e9969e6, type: 2}
+  environmentPrefab: {fileID: 1880070494283067578, guid: d08cca4c7eaaa4fcab08b32053f9296a, type: 3}
+  intro: {fileID: 11400000, guid: d56e5eebf60e94d8c8ef2185f2ddc9c8, type: 2}
+  outro: {fileID: 11400000, guid: cc966425901244d1c9d09433756b8915, type: 2}
+  epilogue: {fileID: 11400000, guid: b0f632089ae8e4ef2a44e7a18dc3dcc2, type: 2}
+  waves:
+  - {fileID: 11400000, guid: e76a03ab3a43f452a90ec858b22c1112, type: 2}
+  - {fileID: 11400000, guid: 5f94d698ad41c4581a9d994f3c98ad76, type: 2}
+  - {fileID: 11400000, guid: da99493f07c724227a4d3765a470c96b, type: 2}
+  - {fileID: 11400000, guid: a577ef5c3e22b4512b1ef6110e13c559, type: 2}
+  troopsEnabled: 1
+  tutorial: 0
+  reward:
+    goldFirstClear: 640
+    goldReplay: 256
+    gemsFirstClear: 5
+    ticketsFirstClear: 2

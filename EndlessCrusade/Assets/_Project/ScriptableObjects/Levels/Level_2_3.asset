@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563a3804427c431b9a9013793039280, type: 3}
+  m_Name: Level_2_3
+  m_EditorClassIdentifier: 
+  id: lv_2_3
+  displayName: Primera sangre
+  baseDefinition: {fileID: 11400000, guid: 5147cac22735c4f229051b21b7f5fd18, type: 2}
+  environmentPrefab: {fileID: 8782887152493638495, guid: 3d70e43bac2664093a373035c2b5d4e6, type: 3}
+  intro: {fileID: 0}
+  outro: {fileID: 0}
+  epilogue: {fileID: 0}
+  waves:
+  - {fileID: 11400000, guid: 9f8e72049ba884243bd994da19a21c77, type: 2}
+  - {fileID: 11400000, guid: e1dde487b2ec54abd9e0768d33967d78, type: 2}
+  - {fileID: 11400000, guid: 168d2af7fbc104c5db0d41a136f36f51, type: 2}
+  - {fileID: 11400000, guid: 6dd66ea29fa1f48d2a6dca0b50567295, type: 2}
+  - {fileID: 11400000, guid: 55717e40adde046a6962c28435995f8b, type: 2}
+  - {fileID: 11400000, guid: 0e0caf15b9586442ab9f004536c469ec, type: 2}
+  troopsEnabled: 1
+  tutorial: 0
+  reward:
+    goldFirstClear: 320
+    goldReplay: 128
+    gemsFirstClear: 2
+    ticketsFirstClear: 1

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563a3804427c431b9a9013793039280, type: 3}
+  m_Name: Level_2_1
+  m_EditorClassIdentifier: 
+  id: lv_2_1
+  displayName: Calles sitiadas
+  baseDefinition: {fileID: 11400000, guid: 5147cac22735c4f229051b21b7f5fd18, type: 2}
+  environmentPrefab: {fileID: 8782887152493638495, guid: 3d70e43bac2664093a373035c2b5d4e6, type: 3}
+  intro: {fileID: 11400000, guid: 6e75450c854b14ed18a4e752d95c41d0, type: 2}
+  outro: {fileID: 0}
+  epilogue: {fileID: 0}
+  waves:
+  - {fileID: 11400000, guid: 293ab733447c74977bf130e0d028a1d9, type: 2}
+  - {fileID: 11400000, guid: d3bf5a12c3b544fd19dcac4d619fedec, type: 2}
+  - {fileID: 11400000, guid: 159cdb81654004834a64798a955a3450, type: 2}
+  - {fileID: 11400000, guid: 5d76dcff8ab8c4b6ba3d0182b6ddb9ab, type: 2}
+  - {fileID: 11400000, guid: f089b0a9d71714fefb808814a9f80abf, type: 2}
+  troopsEnabled: 1
+  tutorial: 0
+  reward:
+    goldFirstClear: 240
+    goldReplay: 96
+    gemsFirstClear: 2
+    ticketsFirstClear: 1
