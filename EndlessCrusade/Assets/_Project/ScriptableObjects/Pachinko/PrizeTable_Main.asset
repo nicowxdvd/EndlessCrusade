@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9bad23cac064fdea69b43806b71b23, type: 3}
+  m_Name: PrizeTable_Main
+  m_EditorClassIdentifier: 
+  entries:
+  - id: gold_100
+    displayName: 100 de oro
+    kind: 0
+    amount: 100
+    itemId: 
+    weight: 40
+  - id: gold_500
+    displayName: 500 de oro
+    kind: 0
+    amount: 500
+    itemId: 
+    weight: 20
+  - id: gems_5
+    displayName: 5 reliquias
+    kind: 1
+    amount: 5
+    itemId: 
+    weight: 20
+  - id: gems_25
+    displayName: 25 reliquias
+    kind: 1
+    amount: 25
+    itemId: 
+    weight: 5
+  - id: potion
+    displayName: Poma de Agua Bendita
+    kind: 2
+    amount: 1
+    itemId: holy_water_potion
+    weight: 10
+  - id: elixir
+    displayName: "Elixir de Resurrecci\xF3n"
+    kind: 2
+    amount: 1
+    itemId: elixir_revive
+    weight: 5

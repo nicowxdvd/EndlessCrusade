@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0353de83c1e0049c08ba152f46ad3e2c, type: 3}
+  m_Name: ch2_aldea
+  m_EditorClassIdentifier: 
+  id: ch2_aldea
+  displayName: La Aldea
+  levels:
+  - {fileID: 11400000, guid: 19ae6f7fc55c145e4b5a56be5ae5d92f, type: 2}
+  - {fileID: 11400000, guid: 3aa8f14bfb0574873b698d30aa1551d5, type: 2}
+  - {fileID: 11400000, guid: 5975f6b1fe6124892a21b55729c7cb86, type: 2}
+  - {fileID: 11400000, guid: 0f3bad0324e9a4f099967846cc4acbbe, type: 2}
+  rewardEquipmentIds:
+  - armor_templar
+  - miracle_blessing
+  mapArt: {fileID: 0}

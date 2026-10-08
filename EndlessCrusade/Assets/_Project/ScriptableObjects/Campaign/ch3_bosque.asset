@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0353de83c1e0049c08ba152f46ad3e2c, type: 3}
+  m_Name: ch3_bosque
+  m_EditorClassIdentifier: 
+  id: ch3_bosque
+  displayName: El Bosque Maldito
+  levels:
+  - {fileID: 11400000, guid: 08650f5c3e34b4117b1589ce4e5030aa, type: 2}
+  - {fileID: 11400000, guid: 55549747b001c4f529aef5361ab93a58, type: 2}
+  - {fileID: 11400000, guid: 7085c2387b0694040ba2d3de478d7523, type: 2}
+  - {fileID: 11400000, guid: bcd09d4e3ad664a2c980b97932c95aec, type: 2}
+  rewardEquipmentIds:
+  - shield_templar
+  - mace_templar
+  - crossbow_templar
+  - miracle_judgment
+  mapArt: {fileID: 0}

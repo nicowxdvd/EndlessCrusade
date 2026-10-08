@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563a3804427c431b9a9013793039280, type: 3}
+  m_Name: Level_2_4
+  m_EditorClassIdentifier: 
+  id: lv_2_4
+  displayName: "El Capit\xE1n Vampiro"
+  baseDefinition: {fileID: 11400000, guid: 5147cac22735c4f229051b21b7f5fd18, type: 2}
+  environmentPrefab: {fileID: 8782887152493638495, guid: 3d70e43bac2664093a373035c2b5d4e6, type: 3}
+  intro: {fileID: 11400000, guid: c44dc9c24cdd743a6b2d03cf8a526afd, type: 2}
+  outro: {fileID: 11400000, guid: 1126a1b8b446d45e4a289fdfd0ca0e3b, type: 2}
+  epilogue: {fileID: 0}
+  waves:
+  - {fileID: 11400000, guid: 5b950ea6cf3be43218954f4d18e6a119, type: 2}
+  - {fileID: 11400000, guid: 0c6801885871340a9bf60e85e8195e74, type: 2}
+  - {fileID: 11400000, guid: 89eb04dd3d9734e8688aa4618003298e, type: 2}
+  - {fileID: 11400000, guid: 7a7f43c11389d4cc09c68b099a147b59, type: 2}
+  - {fileID: 11400000, guid: 38d9f5b53e30c4d93b9d079c39b2b9d2, type: 2}
+  - {fileID: 11400000, guid: ad2473dd38c824cd28fde7482c245069, type: 2}
+  - {fileID: 11400000, guid: 65ee7412e8201470d8c3bbf539eb88f0, type: 2}
+  troopsEnabled: 1
+  tutorial: 0
+  reward:
+    goldFirstClear: 360
+    goldReplay: 144
+    gemsFirstClear: 5
+    ticketsFirstClear: 2

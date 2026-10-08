@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b591c890297e4c80954f79491ccee2a, type: 3}
+  m_Name: Troop_Crossbowman
+  m_EditorClassIdentifier: 
+  id: crossbowman
+  displayName: Ballestero
+  team: 0
+  maxHealth: 60
+  moveSpeed: 2
+  attackDamage: 14
+  attackRange: 8
+  attackCooldown: 1.5
+  hurtDuration: 0.25
+  tags: 0
+  prefab: {fileID: 4566663936617413055, guid: 296fcf4af2d5b4370953e44bb9d5a8c1, type: 3}
+  leadershipCost: 45
+  summonCooldown: 8
+  unlockChapterId: ch2_aldea
