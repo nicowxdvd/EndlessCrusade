@@ -1,6 +1,6 @@
 # SPEC 24 — Capítulo 4: La Catedral
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 22, SPEC 23
 > **Fecha:** 2026-10-06
 > **Objetivo:** Crear los cinco niveles finales con el portón del monasterio como base y el Señor Vampiro como jefe final, con epílogo.

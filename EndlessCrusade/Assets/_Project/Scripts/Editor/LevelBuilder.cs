@@ -12,8 +12,8 @@ using UnityEngine.UI;
 
 public static class LevelBuilder
 {
-    const string LevelsFolder = "Assets/_Project/ScriptableObjects/Levels";
-    const string StoriesFolder = "Assets/_Project/ScriptableObjects/Stories";
+    public const string LevelsFolder = "Assets/_Project/ScriptableObjects/Levels";
+    public const string StoriesFolder = "Assets/_Project/ScriptableObjects/Stories";
     const string ConfigPath = "Assets/_Project/ScriptableObjects/Lane/LaneConfig_Default.asset";
     const string WargPath = "Assets/_Project/ScriptableObjects/Units/Enemy_Warg.asset";
     const string BatPath = "Assets/_Project/ScriptableObjects/Units/Enemy_Bat.asset";
@@ -207,7 +207,7 @@ public static class LevelBuilder
         EditorSceneManager.SaveScene(scene, MainScenePath);
     }
 
-    static StorySequence Story(string assetName, string id, params string[] texts)
+    public static StorySequence Story(string assetName, string id, params string[] texts)
     {
         var sequence = LoadOrCreate<StorySequence>(StoriesFolder + "/" + assetName + ".asset");
         sequence.id = id;
@@ -218,14 +218,19 @@ public static class LevelBuilder
         return sequence;
     }
 
-    static SpawnEntry Entry(EnemyDefinition enemy, int count, float interval, float startDelay)
+    public static SpawnEntry Entry(EnemyDefinition enemy, int count, float interval, float startDelay)
     {
         return new SpawnEntry { enemy = enemy, count = count, interval = interval, startDelay = startDelay };
     }
 
     static WaveDefinition Wave(int number, float delayBeforeNext, BossDefinition boss, float bossStartDelay, params SpawnEntry[] entries)
     {
-        var wave = LoadOrCreate<WaveDefinition>(LevelsFolder + "/Wave_1_1_" + number + ".asset");
+        return WaveFor("1_1", number, delayBeforeNext, boss, bossStartDelay, entries);
+    }
+
+    public static WaveDefinition WaveFor(string levelKey, int number, float delayBeforeNext, BossDefinition boss, float bossStartDelay, params SpawnEntry[] entries)
+    {
+        var wave = LoadOrCreate<WaveDefinition>(LevelsFolder + "/Wave_" + levelKey + "_" + number + ".asset");
         wave.entries = entries;
         wave.delayBeforeNext = delayBeforeNext;
         wave.boss = boss;
@@ -234,13 +239,13 @@ public static class LevelBuilder
         return wave;
     }
 
-    static void EnsureFolder(string parent, string name)
+    public static void EnsureFolder(string parent, string name)
     {
         if (!AssetDatabase.IsValidFolder(parent + "/" + name))
             AssetDatabase.CreateFolder(parent, name);
     }
 
-    static T LoadOrCreate<T>(string path) where T : ScriptableObject
+    public static T LoadOrCreate<T>(string path) where T : ScriptableObject
     {
         var asset = AssetDatabase.LoadAssetAtPath<T>(path);
         if (asset == null)
