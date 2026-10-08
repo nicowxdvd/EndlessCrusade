@@ -36,6 +36,7 @@ public static class LevelBuilder
         EmporiumBuilder.Build();
         EquipmentBuilder.Build();
         PachinkoBuilder.Build();
+        AudioBuilder.Build();
         EditorBuildSettings.scenes = new[]
         {
             new EditorBuildSettingsScene(BootScenePath, true),
@@ -201,6 +202,23 @@ public static class LevelBuilder
 
         var menu = canvasObject.AddComponent<MainMenu>();
         UnityEventTools.AddPersistentListener(play.onClick, menu.Play);
+
+        var settings = canvasObject.AddComponent<SettingsPanel>();
+        var settingsButton = HudBuilder.CreateButton(canvasObject.transform, "SettingsButton", "Ajustes", new Vector2(0.5f, 0.5f), new Vector2(0f, -300f), new Vector2(520f, 140f), theme);
+        UnityEventTools.AddPersistentListener(settingsButton.onClick, settings.Open);
+
+        settings.panel = HudBuilder.CreateOverlay(canvasObject.transform, "SettingsPanel", theme);
+        var settingsTitle = HudBuilder.CreateLabel(settings.panel.transform, "Title", "Ajustes", 96f, new Vector2(0.5f, 0.5f), new Vector2(0f, 300f), new Vector2(800f, 140f), theme, theme.titleFont);
+        settingsTitle.color = theme.gold;
+        HudBuilder.CreateLabel(settings.panel.transform, "MusicLabel", "Música", 48f, new Vector2(0.5f, 0.5f), new Vector2(0f, 150f), new Vector2(600f, 70f), theme, theme.bodyFont);
+        settings.musicSlider = HudBuilder.CreateSlider(settings.panel.transform, "MusicSlider", new Vector2(0.5f, 0.5f), new Vector2(0f, 70f), new Vector2(800f, 60f));
+        HudBuilder.CreateLabel(settings.panel.transform, "SfxLabel", "Efectos", 48f, new Vector2(0.5f, 0.5f), new Vector2(0f, -40f), new Vector2(600f, 70f), theme, theme.bodyFont);
+        settings.sfxSlider = HudBuilder.CreateSlider(settings.panel.transform, "SfxSlider", new Vector2(0.5f, 0.5f), new Vector2(0f, -120f), new Vector2(800f, 60f));
+        UnityEventTools.AddPersistentListener(settings.musicSlider.onValueChanged, settings.OnSliderChanged);
+        UnityEventTools.AddPersistentListener(settings.sfxSlider.onValueChanged, settings.OnSliderChanged);
+        var settingsClose = HudBuilder.CreateButton(settings.panel.transform, "CloseButton", "Cerrar", new Vector2(0.5f, 0.5f), new Vector2(0f, -280f), new Vector2(480f, 120f), theme);
+        UnityEventTools.AddPersistentListener(settingsClose.onClick, settings.Close);
+        settings.panel.SetActive(false);
 
         var eventSystem = new GameObject("EventSystem");
         eventSystem.AddComponent<EventSystem>();

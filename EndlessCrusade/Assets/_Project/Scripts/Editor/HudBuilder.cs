@@ -250,9 +250,32 @@ public static class HudBuilder
         image.color = new Color(theme.background.r, theme.background.g, theme.background.b, 0.85f);
         var button = rect.gameObject.AddComponent<Button>();
         button.targetGraphic = image;
+        rect.gameObject.AddComponent<UiClickSound>();
         var label = CreateLabel(rect, "Label", caption, 44f, new Vector2(0.5f, 0.5f), Vector2.zero, dimensions, theme, theme.bodyFont);
         label.color = theme.gold;
         return button;
+    }
+
+    public static Slider CreateSlider(Transform parent, string name, Vector2 anchor, Vector2 position, Vector2 dimensions)
+    {
+        var resources = new DefaultControls.Resources
+        {
+            standard = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd"),
+            background = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Background.psd"),
+            knob = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd")
+        };
+        var go = DefaultControls.CreateSlider(resources);
+        go.name = name;
+        go.transform.SetParent(parent, false);
+        var rect = (RectTransform)go.transform;
+        rect.anchorMin = anchor;
+        rect.anchorMax = anchor;
+        rect.anchoredPosition = position;
+        rect.sizeDelta = dimensions;
+        var slider = go.GetComponent<Slider>();
+        slider.minValue = 0f;
+        slider.maxValue = 1f;
+        return slider;
     }
 
     static void CreateTouchButton(Transform parent, string name, string caption, string controlPath, Vector2 anchor, Vector2 position, UiTheme theme)
