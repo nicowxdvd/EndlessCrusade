@@ -20,6 +20,12 @@ namespace EC.Gameplay
         HeroDefinition definition;
         MeleeAttackDefinition swordAttack;
         MeleeAttackDefinition whipAttack;
+        MeleeAttackDefinition heavyAttack;
+        HeroDefense defense;
+        PoolService pool;
+        float nextRangedTime;
+
+        const float RangedBoltSpeed = 16f;
         InputAction moveLeft;
         InputAction moveRight;
         InputAction attackSword;
@@ -40,6 +46,7 @@ namespace EC.Gameplay
 
         void OnEnable()
         {
+            EventBus<HeroCommand>.Subscribe(OnCommand);
             if (controls == null)
                 return;
             moveLeft = controls.FindAction("MoveLeft", true);
@@ -52,6 +59,7 @@ namespace EC.Gameplay
 
         void OnDisable()
         {
+            EventBus<HeroCommand>.Unsubscribe(OnCommand);
             if (controls != null)
                 controls.Disable();
         }
@@ -61,7 +69,13 @@ namespace EC.Gameplay
             var modifiers = LevelModifiers.Current;
             ApplyModifiers(modifiers);
             controller.healthMultiplier = modifiers.heroHealth;
+            var loadout = HeroLoadoutHolder.Current;
+            controller.bonusHealth = loadout.bonusHealth;
             controller.ResetState();
+            defense = new HeroDefense(loadout.damageReduction, loadout.blockFraction);
+            controller.Health.AddModifier(defense);
+            if (loadout.heavyWeapon != null)
+                heavyAttack = Scale(loadout.heavyWeapon.attackOverride, modifiers.swordDamage, modifiers.cooldown);
             EventBus<HeroSpawned>.Publish(new HeroSpawned(gameObject));
         }
 
@@ -119,19 +133,72 @@ namespace EC.Gameplay
                 Perform(whipAttack, "attack_whip", direction, now);
         }
 
-        void Perform(MeleeAttackDefinition attackDefinition, string clipId, int direction, float now)
+        IDamageable Perform(MeleeAttackDefinition attackDefinition, string clipId, int direction, float now)
         {
-            if (!attack.IsReady(attackDefinition, now))
-                return;
+            if (attackDefinition == null || !attack.IsReady(attackDefinition, now))
+                return null;
             var candidates = FindObjectsByType<HealthComponent>(FindObjectsSortMode.None);
             var target = SelectTarget(transform.position.x, Facing, controller.Health.Team, attackDefinition.range, candidates);
             if (target == null || !controller.Request(EntityState.Attack))
-                return;
+                return null;
 
             attack.TryAttack(attackDefinition, target, now);
             if (animator != null)
                 animator.Play(clipId);
             controller.Request(direction != 0 ? EntityState.Move : EntityState.Idle);
+            return target;
+        }
+
+        void OnCommand(HeroCommand command)
+        {
+            if (controller == null || !controller.Health.IsAlive)
+                return;
+            switch (command.Kind)
+            {
+                case HeroCommandKind.Block:
+                    if (defense != null)
+                        defense.Blocking = command.Pressed;
+                    break;
+                case HeroCommandKind.Heavy:
+                    if (command.Pressed)
+                        PerformHeavy(Time.time);
+                    break;
+                case HeroCommandKind.Ranged:
+                    if (command.Pressed)
+                        FireRanged(Time.time);
+                    break;
+            }
+        }
+
+        void PerformHeavy(float now)
+        {
+            var weapon = HeroLoadoutHolder.Current.heavyWeapon;
+            var target = Perform(heavyAttack, "attack_sword", 0, now);
+            if (target == null || weapon == null || weapon.stunSeconds <= 0f || !(target is Component component))
+                return;
+            if (!component.TryGetComponent<StatusEffectComponent>(out var status))
+                status = component.gameObject.AddComponent<StatusEffectComponent>();
+            status.Apply(StatusEffectType.Stunned, weapon.stunSeconds);
+        }
+
+        void FireRanged(float now)
+        {
+            var weapon = HeroLoadoutHolder.Current.rangedWeapon;
+            if (weapon == null || weapon.attackOverride == null || weapon.projectilePrefab == null || now < nextRangedTime)
+                return;
+            var candidates = FindObjectsByType<HealthComponent>(FindObjectsSortMode.None);
+            var target = SelectTarget(transform.position.x, Facing, controller.Health.Team, weapon.attackOverride.range, candidates);
+            if (target == null || !(target is Component component))
+                return;
+            if (pool == null)
+                pool = FindFirstObjectByType<PoolService>();
+            if (pool == null)
+                return;
+
+            nextRangedTime = now + weapon.attackOverride.cooldown * LevelModifiers.Current.cooldown;
+            var instance = pool.Get(weapon.projectilePrefab, transform.position + Vector3.up * 0.6f, Quaternion.identity);
+            var damage = Mathf.RoundToInt(weapon.attackOverride.damage * LevelModifiers.Current.swordDamage);
+            instance.GetComponent<Bolt>().Launch(pool, target, component.transform, damage, gameObject, RangedBoltSpeed);
         }
 
         public static IDamageable SelectTarget(float originX, int facing, Team team, float range, IEnumerable<HealthComponent> candidates)

@@ -34,10 +34,10 @@ public static class CampaignBuilder
 
         var chapters = new[]
         {
-            Chapter("ch1_afueras", "Las Afueras", firstLevel),
-            Chapter("ch2_aldea", "La Aldea"),
-            Chapter("ch3_bosque", "El Bosque Maldito"),
-            Chapter("ch4_catedral", "La Catedral")
+            Chapter("ch1_afueras", "Las Afueras", null, firstLevel),
+            Chapter("ch2_aldea", "La Aldea", new[] { EquipmentBuilder.ArmorId, EquipmentBuilder.BlessingId }),
+            Chapter("ch3_bosque", "El Bosque Maldito", new[] { EquipmentBuilder.ShieldId, EquipmentBuilder.MaceId, EquipmentBuilder.CrossbowId, EquipmentBuilder.JudgmentId }),
+            Chapter("ch4_catedral", "La Catedral", null)
         };
 
         var campaign = LoadOrCreate<CampaignDefinition>(CampaignPath);
@@ -47,12 +47,13 @@ public static class CampaignBuilder
         return campaign;
     }
 
-    static ChapterDefinition Chapter(string id, string displayName, params LevelDefinition[] levels)
+    static ChapterDefinition Chapter(string id, string displayName, string[] rewards, params LevelDefinition[] levels)
     {
         var chapter = LoadOrCreate<ChapterDefinition>(Folder + "/" + id + ".asset");
         chapter.id = id;
         chapter.displayName = displayName;
         chapter.levels = levels;
+        chapter.rewardEquipmentIds = rewards;
         EditorUtility.SetDirty(chapter);
         return chapter;
     }
@@ -141,6 +142,7 @@ public static class CampaignBuilder
 
         var map = canvasObject.AddComponent<CampaignMap>();
         map.campaign = campaign;
+        map.equipmentCatalog = EquipmentBuilder.BuildAssets();
         map.content = content;
         map.chapterTemplate = chapterTemplate.gameObject;
         map.nodeTemplate = nodeButton.gameObject;
@@ -150,6 +152,9 @@ public static class CampaignBuilder
 
         var emporium = HudBuilder.CreateButton(safe, "EmporiumButton", "Emporium", new Vector2(1f, 0f), new Vector2(-260f, 100f), new Vector2(420f, 120f), theme);
         UnityEventTools.AddPersistentListener(emporium.onClick, map.OpenEmporium);
+
+        var equipment = HudBuilder.CreateButton(safe, "EquipmentButton", "Equipo", new Vector2(1f, 0f), new Vector2(-740f, 100f), new Vector2(420f, 120f), theme);
+        UnityEventTools.AddPersistentListener(equipment.onClick, map.OpenEquipment);
 
         var eventSystem = new GameObject("EventSystem");
         eventSystem.AddComponent<EventSystem>();

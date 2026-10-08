@@ -34,12 +34,14 @@ public static class LevelBuilder
         BuildMainScene();
         CampaignBuilder.Build(level);
         EmporiumBuilder.Build();
+        EquipmentBuilder.Build();
         EditorBuildSettings.scenes = new[]
         {
             new EditorBuildSettingsScene(BootScenePath, true),
             new EditorBuildSettingsScene(MainScenePath, true),
             new EditorBuildSettingsScene(CampaignBuilder.ScenePath, true),
             new EditorBuildSettingsScene(EmporiumBuilder.ScenePath, true),
+            new EditorBuildSettingsScene(EquipmentBuilder.ScenePath, true),
             new EditorBuildSettingsScene(LevelScenePath, true),
             new EditorBuildSettingsScene(SandboxScenePath, true)
         };
@@ -119,6 +121,7 @@ public static class LevelBuilder
         bootstrap.waves = waves;
         bootstrap.spawner = spawner;
         bootstrap.catalog = EmporiumBuilder.BuildAssets();
+        bootstrap.equipmentCatalog = EquipmentBuilder.BuildAssets();
         bootstrap.pool = spawner.pool;
         bootstrap.boltPrefab = TroopBuilder.CreateBoltPrefab();
         bootstrap.summoner = TroopBuilder.CreateSummoner(config, level, spawner.pool);

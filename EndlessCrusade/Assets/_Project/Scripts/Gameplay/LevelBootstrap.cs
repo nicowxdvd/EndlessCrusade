@@ -11,6 +11,7 @@ namespace EC.Gameplay
         public WaveController waves;
         public EnemySpawner spawner;
         public ShopCatalog catalog;
+        public EquipmentCatalog equipmentCatalog;
         public PoolService pool;
         public GameObject boltPrefab;
         public TroopSummoner summoner;
@@ -35,6 +36,10 @@ namespace EC.Gameplay
             var baseTransform = SpawnBase(level);
             if (baseTransform != null)
                 spawner.baseTarget = baseTransform;
+
+            HeroLoadoutHolder.Current = equipmentCatalog != null && SaveHost.Service != null
+                ? HeroLoadout.Compute(equipmentCatalog, SaveHost.Service.Current.equipment.equipped)
+                : new HeroLoadout();
 
             if (summoner != null)
             {
