@@ -29,6 +29,7 @@ public static class LevelBuilder
     public static void BuildAll()
     {
         var level = BuildAssets();
+        CampaignBuilder.BuildAssets(level);
         BuildLevelScene(level);
         BuildMainScene();
         CampaignBuilder.Build(level);

@@ -11,6 +11,8 @@ namespace EC.Gameplay
         public float aggroRange = 10f;
         public float rallyOffset = 3f;
         public float rallyTolerance = 0.4f;
+        public bool support;
+        public float supportDistance = 3.5f;
 
         EntityController controller;
         MovementComponent movement;
@@ -50,6 +52,20 @@ namespace EC.Gameplay
             if (targetTransform != null)
             {
                 var dx = targetTransform.position.x - position.x;
+                if (support)
+                {
+                    attack.Target = null;
+                    if (Mathf.Abs(dx) <= supportDistance)
+                    {
+                        controller.Request(EntityState.Idle);
+                    }
+                    else
+                    {
+                        movement.Direction = dx;
+                        controller.Request(EntityState.Move);
+                    }
+                    return;
+                }
                 if (Mathf.Abs(dx) <= attack.range)
                 {
                     attack.Target = target;

@@ -1,5 +1,6 @@
 using EC.Core;
 using EC.Data;
+using EC.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ namespace EC.UI
         }
 
         public GameObject bar;
+        public CampaignDefinition campaign;
         public Image leadershipFill;
         public TMP_Text leadershipLabel;
         public Slot[] slots;
@@ -34,6 +36,7 @@ namespace EC.UI
             {
                 var id = slots[i].troop.id;
                 slots[i].button.onClick.AddListener(() => Request(id));
+                slots[i].button.gameObject.SetActive(IsUnlocked(slots[i].troop));
             }
             if (bar != null)
                 bar.SetActive(false);
@@ -59,6 +62,13 @@ namespace EC.UI
                 return;
             for (int i = 0; i < slots.Length; i++)
                 Refresh(i);
+        }
+
+        bool IsUnlocked(TroopDefinition troop)
+        {
+            if (campaign == null || SaveHost.Service == null)
+                return true;
+            return TroopUnlockRules.IsUnlocked(troop, campaign, SaveHost.Service.Current.progress.completedLevels);
         }
 
         public void Request(string troopId)
