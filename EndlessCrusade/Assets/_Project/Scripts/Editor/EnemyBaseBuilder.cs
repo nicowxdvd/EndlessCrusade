@@ -117,9 +117,9 @@ public static class EnemyBaseBuilder
         return prefab;
     }
 
-    static GameObject CreateBasePrefab(BaseDefinition definition)
+    public static GameObject CreateBasePrefab(BaseDefinition definition, string name = "Base_CabinRuins")
     {
-        var go = new GameObject("Base_CabinRuins");
+        var go = new GameObject(name);
         go.transform.localScale = Vector3.one * 4f;
         var renderer = go.AddComponent<SpriteRenderer>();
         renderer.sprite = definition.damageStages[0];
@@ -127,12 +127,12 @@ public static class EnemyBaseBuilder
         structure.definition = definition;
         structure.spriteRenderer = renderer;
         go.AddComponent<BillboardSprite>();
-        var prefab = PrefabUtility.SaveAsPrefabAsset(go, PrefabsFolder + "/Base_CabinRuins.prefab");
+        var prefab = PrefabUtility.SaveAsPrefabAsset(go, PrefabsFolder + "/" + name + ".prefab");
         Object.DestroyImmediate(go);
         return prefab;
     }
 
-    static Material ColorMaterial(string name, Color color)
+    public static Material ColorMaterial(string name, Color color)
     {
         var path = MaterialsFolder + "/" + name + ".mat";
         var material = AssetDatabase.LoadAssetAtPath<Material>(path);
@@ -146,7 +146,7 @@ public static class EnemyBaseBuilder
         return material;
     }
 
-    static Sprite CreateStageSprite(string name, Color color)
+    public static Sprite CreateStageSprite(string name, Color color)
     {
         var path = SpritesFolder + "/" + name + ".png";
         if (!File.Exists(path))

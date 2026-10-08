@@ -35,9 +35,9 @@ public static class CampaignBuilder
         var chapters = new[]
         {
             Chapter("ch1_afueras", "Las Afueras", null, firstLevel),
-            Chapter("ch2_aldea", "La Aldea", new[] { EquipmentBuilder.ArmorId, EquipmentBuilder.BlessingId }),
-            Chapter("ch3_bosque", "El Bosque Maldito", new[] { EquipmentBuilder.ShieldId, EquipmentBuilder.MaceId, EquipmentBuilder.CrossbowId, EquipmentBuilder.JudgmentId }),
-            Chapter("ch4_catedral", "La Catedral", null)
+            Chapter("ch2_aldea", "La Aldea", new[] { EquipmentBuilder.ArmorId, EquipmentBuilder.BlessingId }, ChapterBuilder.BuildChapter(2)),
+            Chapter("ch3_bosque", "El Bosque Maldito", new[] { EquipmentBuilder.ShieldId, EquipmentBuilder.MaceId, EquipmentBuilder.CrossbowId, EquipmentBuilder.JudgmentId }, ChapterBuilder.BuildChapter(3)),
+            Chapter("ch4_catedral", "La Catedral", null, ChapterBuilder.BuildChapter(4))
         };
 
         var campaign = LoadOrCreate<CampaignDefinition>(CampaignPath);
