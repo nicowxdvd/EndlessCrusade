@@ -61,8 +61,20 @@ namespace EC.Gameplay
                 return;
             if (spawned.Remove(evt.Source))
                 runner.NotifyEnemyDied();
-            else if (evt.Source.GetComponent<HeroController>() != null && (revive == null || !revive.TryRevive(evt.Source)))
-                runner.Defeat();
+            else if (evt.Source.GetComponent<HeroController>() != null)
+                OnHeroDied(evt.Source);
+        }
+
+        void OnHeroDied(GameObject hero)
+        {
+            if (revive != null && revive.TryRevive(hero))
+                return;
+            if (revive != null && revive.CanOfferAd)
+            {
+                revive.BeginAdOffer(hero, runner.Defeat);
+                return;
+            }
+            runner.Defeat();
         }
 
         void OnBaseDestroyed(BaseDestroyed evt)

@@ -6,7 +6,7 @@ namespace EC.Data
     [Serializable]
     public class SaveData
     {
-        public const int CurrentVersion = 1;
+        public const int CurrentVersion = 2;
 
         public int version = CurrentVersion;
         public string playerId;
@@ -27,6 +27,7 @@ namespace EC.Data
         public int tickets;
         public long lastDailyClaimUtc;
         public List<string> processedTransactionIds = new List<string>();
+        public AdLimitsData ads = new AdLimitsData();
     }
 
     [Serializable]
@@ -61,5 +62,13 @@ namespace EC.Data
     {
         public float musicVolume = 0.8f;
         public float sfxVolume = 1f;
+    }
+
+    [Serializable]
+    public class AdLimitsData
+    {
+        public long lastFreeGemsUtc;
+        public int freeGemsToday;
+        public long dayStartUtc;
     }
 }

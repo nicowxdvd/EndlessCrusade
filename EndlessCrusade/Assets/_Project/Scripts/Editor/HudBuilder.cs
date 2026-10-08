@@ -119,7 +119,20 @@ public static class HudBuilder
         var exit = CreateButton(result.panel.transform, "ExitButton", "Salir", new Vector2(0.5f, 0.5f), new Vector2(0f, -290f), new Vector2(480f, 120f), theme);
         UnityEventTools.AddPersistentListener(retry.onClick, result.Retry);
         UnityEventTools.AddPersistentListener(exit.onClick, result.Exit);
+        result.doubleGoldButton = CreateButton(result.panel.transform, "DoubleGoldButton", "Duplicar oro (anuncio)", new Vector2(0.5f, 0.5f), new Vector2(0f, -440f), new Vector2(720f, 110f), theme);
+        UnityEventTools.AddPersistentListener(result.doubleGoldButton.onClick, result.DoubleGold);
+        result.doubleGoldButton.gameObject.SetActive(false);
         result.panel.SetActive(false);
+
+        var revive = root.AddComponent<ReviveOfferPanel>();
+        revive.panel = CreateOverlay(safe, "ReviveOfferPanel", theme);
+        var reviveTitle = CreateLabel(revive.panel.transform, "Title", "Reanimar al héroe", 80f, new Vector2(0.5f, 0.5f), new Vector2(0f, 160f), new Vector2(1200f, 140f), theme, theme.titleFont);
+        reviveTitle.color = theme.gold;
+        var reviveYes = CreateButton(revive.panel.transform, "AcceptButton", "Ver anuncio y continuar", new Vector2(0.5f, 0.5f), new Vector2(0f, -40f), new Vector2(720f, 120f), theme);
+        var reviveNo = CreateButton(revive.panel.transform, "DeclineButton", "Rendirse", new Vector2(0.5f, 0.5f), new Vector2(0f, -200f), new Vector2(720f, 120f), theme);
+        UnityEventTools.AddPersistentListener(reviveYes.onClick, revive.Accept);
+        UnityEventTools.AddPersistentListener(reviveNo.onClick, revive.Decline);
+        revive.panel.SetActive(false);
 
         return root;
     }

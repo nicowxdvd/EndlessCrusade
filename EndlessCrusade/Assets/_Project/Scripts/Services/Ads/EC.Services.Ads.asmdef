@@ -1,0 +1,14 @@
+{
+    "name": "EC.Services.Ads",
+    "rootNamespace": "EC.Services.Ads",
+    "references": ["EC.Core", "EC.Data", "EC.Services", "GoogleMobileAds"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": ["EC_ADMOB"],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -79,6 +79,7 @@ namespace EC.UI
 
             if (tab == Tab.Gems)
             {
+                AddFreeGemsRow();
                 foreach (var product in catalog.iapProducts)
                     AddProductRow(product);
                 return;
@@ -117,6 +118,23 @@ namespace EC.UI
             row.buyLabel.text = full ? "Lleno" : consumable.cost + " " + CurrencyName(consumable.currency);
             row.buyButton.interactable = !full;
             row.buyButton.onClick.AddListener(() => Buy(() => service.TryBuyConsumable(consumable)));
+        }
+
+        void AddFreeGemsRow()
+        {
+            var ads = AdRewardService.Instance;
+            var canClaim = ads.CanClaimFreeGems();
+            var row = NewRow("Reliquias gratis", AdLimitRules.FreeGemsAmount + " reliquias por anuncio");
+            row.buyLabel.text = canClaim ? "Ver anuncio" : (ads.IsReady(AdPlacement.FreeGems) ? "En " + AdLimitRules.FormatCountdown(ads.MillisUntilFreeGems()) : "No disponible");
+            row.buyButton.interactable = canClaim;
+            row.buyButton.onClick.AddListener(ClaimFreeGems);
+        }
+
+        async void ClaimFreeGems()
+        {
+            var claimed = await AdRewardService.Instance.ClaimFreeGemsAsync();
+            Refresh();
+            messageLabel.text = claimed ? "" : "No se pudo reclamar";
         }
 
         void AddProductRow(IapProductDefinition product)
