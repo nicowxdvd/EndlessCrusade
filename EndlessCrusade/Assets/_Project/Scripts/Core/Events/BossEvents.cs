@@ -17,4 +17,12 @@ namespace EC.Core
 
         public CameraShakeRequested(float intensity, float duration) { Intensity = intensity; Duration = duration; }
     }
+
+    public readonly struct BossPhaseChanged
+    {
+        public readonly GameObject Boss;
+        public readonly int Phase;
+
+        public BossPhaseChanged(GameObject boss, int phase) { Boss = boss; Phase = phase; }
+    }
 }

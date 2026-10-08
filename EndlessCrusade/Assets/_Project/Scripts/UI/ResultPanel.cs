@@ -1,5 +1,6 @@
 using EC.Core;
 using EC.Data;
+using EC.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,7 @@ namespace EC.UI
         public TMP_Text rewardsLabel;
 
         bool shown;
+        bool firstClear;
 
         void OnEnable()
         {
@@ -53,13 +55,34 @@ namespace EC.UI
             if (shown)
                 return;
             shown = true;
-            var outro = LevelSession.Current != null ? LevelSession.Current.outro : null;
-            if (evt.Outcome == LevelOutcome.Victory && outro != null && storyPlayer != null)
+            var level = LevelSession.Current;
+            if (evt.Outcome != LevelOutcome.Victory || level == null || storyPlayer == null)
             {
-                storyPlayer.Play(outro, () => ShowResult(evt.Outcome));
+                ShowResult(evt.Outcome);
                 return;
             }
-            ShowResult(evt.Outcome);
+
+            var epilogue = firstClear ? level.epilogue : null;
+            if (level.outro != null)
+                storyPlayer.Play(level.outro, () => PlayEpilogue(epilogue, evt.Outcome));
+            else
+                PlayEpilogue(epilogue, evt.Outcome);
+        }
+
+        void PlayEpilogue(StorySequence epilogue, LevelOutcome outcome)
+        {
+            if (epilogue == null)
+            {
+                ShowResult(outcome);
+                return;
+            }
+            storyPlayer.Play(epilogue, () => ShowResult(outcome));
+        }
+
+        void Start()
+        {
+            var level = LevelSession.Current;
+            firstClear = level != null && SaveHost.Service != null && !SaveHost.Service.Current.progress.completedLevels.Contains(level.id);
         }
 
         void ShowResult(LevelOutcome outcome)

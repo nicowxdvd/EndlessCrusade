@@ -11,6 +11,7 @@ namespace EC.Data
         public GameObject environmentPrefab;
         public StorySequence intro;
         public StorySequence outro;
+        public StorySequence epilogue;
         public WaveDefinition[] waves;
         public bool troopsEnabled;
         public bool tutorial;

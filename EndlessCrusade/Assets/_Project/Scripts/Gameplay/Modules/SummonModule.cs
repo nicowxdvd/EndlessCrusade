@@ -40,12 +40,17 @@ namespace EC.Gameplay
 
         void Spawn(int index)
         {
-            var position = transform.position + new Vector3(OffsetFor(index, count, spread), 1f, 0f);
-            var instance = brain.pool.Get(minion.prefab, position, Quaternion.identity);
+            SpawnAround(brain, transform.position, minion, index, count, spread);
+        }
+
+        public static void SpawnAround(EnemyBrain owner, Vector3 origin, EnemyDefinition definition, int index, int total, float spacing)
+        {
+            var position = origin + new Vector3(OffsetFor(index, total, spacing), 1f, 0f);
+            var instance = owner.pool.Get(definition.prefab, position, Quaternion.identity);
             if (!instance.TryGetComponent<EnemyBrain>(out var minionBrain))
                 return;
-            minionBrain.pool = brain.pool;
-            minionBrain.baseTarget = brain.baseTarget;
+            minionBrain.pool = owner.pool;
+            minionBrain.baseTarget = owner.baseTarget;
         }
     }
 }

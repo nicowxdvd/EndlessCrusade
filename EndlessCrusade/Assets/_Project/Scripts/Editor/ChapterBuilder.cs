@@ -29,6 +29,7 @@ public static class ChapterBuilder
         public string[][] introTexts;
         public string[][] outroTexts;
         public System.Func<BossDefinition> boss;
+        public string[] epilogueTexts;
     }
 
     [MenuItem("EC/Level/Build Chapters 2 to 4")]
@@ -66,6 +67,7 @@ public static class ChapterBuilder
             level.environmentPrefab = environment;
             level.intro = spec.introTexts[i] != null ? LevelBuilder.Story("Intro_" + key, "story_" + key + "_intro", spec.introTexts[i]) : null;
             level.outro = spec.outroTexts[i] != null ? LevelBuilder.Story("Outro_" + key, "story_" + key + "_outro", spec.outroTexts[i]) : null;
+            level.epilogue = isLast && spec.epilogueTexts != null ? LevelBuilder.Story("Epilogue_" + key, "story_" + key + "_epilogue", spec.epilogueTexts) : null;
             level.waves = waves;
             level.troopsEnabled = true;
             level.tutorial = false;
@@ -114,10 +116,10 @@ public static class ChapterBuilder
                     number = 3,
                     baseId = "forest_camp", baseName = "Campamento en el bosque", baseResistance = 850, baseColor = new Color(0.35f, 0.4f, 0.3f),
                     envName = "Env_CursedForest", envTint = new Color(0.6f, 1.2f, 0.7f),
-                    levelNames = new[] { "Senda sin luz", "Raíces y niebla", "El pantano hambriento", "El Troll de Pantano Gigante" },
-                    levelEnemies = new[] { new[] { "werewolf", "goblin" }, new[] { "warg", "imp", "bat" }, new[] { "swamp_troll", "goblin" }, new[] { "swamp_troll", "werewolf", "imp" } },
-                    waveCounts = new[] { 5, 6, 6, 7 },
-                    startCounts = new[] { 3, 5, 2, 3 },
+                    levelNames = new[] { "Senda sin luz", "El pantano hambriento", "Niebla y alas", "El Troll de Pantano Gigante" },
+                    levelEnemies = new[] { new[] { "werewolf", "imp" }, new[] { "swamp_troll", "goblin" }, new[] { "vampire", "bat", "werewolf" }, new[] { "swamp_troll", "werewolf", "vampire", "imp" } },
+                    waveCounts = new[] { 6, 6, 7, 7 },
+                    startCounts = new[] { 3, 2, 3, 3 },
                     introTexts = new[]
                     {
                         new[] { "El bosque maldito se cierra sobre el Templario. Un campamento abandonado es el único refugio.", "Algo antiguo se mueve entre los árboles." },
@@ -132,7 +134,7 @@ public static class ChapterBuilder
                         null,
                         new[] { "El troll se hunde en el fango. Entre sus restos, el Templario halla un escudo, una maza y una ballesta.", "El rastro del bebé sigue hacia la catedral del Señor Vampiro." }
                     },
-                    boss = SwampTrollGiant
+                    boss = BogTrollGiant
                 };
             default:
                 return new ChapterSpec
@@ -141,9 +143,9 @@ public static class ChapterBuilder
                     baseId = "monastery_gate", baseName = "Portón del monasterio", baseResistance = 1000, baseColor = new Color(0.4f, 0.38f, 0.5f),
                     envName = "Env_Cathedral", envTint = new Color(0.9f, 0.7f, 1.3f),
                     levelNames = new[] { "El portón", "Naves de sombra", "El claustro", "La cripta", "El Señor Vampiro" },
-                    levelEnemies = new[] { new[] { "vampire", "goblin" }, new[] { "vampire", "bat", "imp" }, new[] { "werewolf", "vampire" }, new[] { "swamp_troll", "vampire", "werewolf" }, new[] { "vampire", "werewolf", "swamp_troll", "bat" } },
-                    waveCounts = new[] { 6, 6, 7, 7, 8 },
-                    startCounts = new[] { 4, 5, 3, 3, 4 },
+                    levelEnemies = new[] { new[] { "vampire", "goblin" }, new[] { "werewolf", "bat" }, new[] { "swamp_troll", "vampire" }, new[] { "goblin", "imp", "warg", "bat", "vampire", "werewolf", "swamp_troll" }, new[] { "vampire", "werewolf", "swamp_troll", "bat" } },
+                    waveCounts = new[] { 7, 7, 8, 8, 4 },
+                    startCounts = new[] { 4, 4, 3, 2, 3 },
                     introTexts = new[]
                     {
                         new[] { "La catedral se alza sobre el valle. El portón del monasterio es lo único que separa al Templario del Señor Vampiro." },
@@ -160,6 +162,7 @@ public static class ChapterBuilder
                         null,
                         new[] { "El Señor Vampiro se deshace en ceniza. El Templario recoge al bebé.", "Amanece sobre la catedral. La cruzada continúa, pero esta noche ha terminado." }
                     },
+                    epilogueTexts = new[] { "Años después, el bebé crece bajo la protección de la Orden.", "La profecía aún no se ha cumplido, pero el Templario sabe que volverá a empuñar la espada si hace falta." },
                     boss = VampireLord
                 };
         }
@@ -252,29 +255,27 @@ public static class ChapterBuilder
         });
     }
 
-    static BossDefinition SwampTrollGiant()
+    static BossDefinition BogTrollGiant()
     {
-        return BuildBoss("Boss_SwampTrollGiant", "boss_swamp_troll_giant", "Troll de Pantano Gigante", 1100, 35, 1.3f, 2.2f, CreatureTag.None, new Vector3(2.6f, 2.4f, 2.6f), new Color(0.3f, 0.4f, 0.2f), 220, go =>
+        return BuildBoss("Boss_BogTrollGiant", "boss_bog_troll_giant", "Troll de Pantano Gigante", 1400, 30, 0.9f, 2.2f, CreatureTag.None, new Vector3(2.6f, 2.4f, 2.6f), new Color(0.3f, 0.4f, 0.2f), 250, go =>
         {
-            go.AddComponent<RegenerationModule>().healthPerSecond = 6;
-            var rage = go.AddComponent<RageModule>();
-            rage.healthThreshold = 0.4f;
-            rage.speedBonus = 0.6f;
+            go.AddComponent<RegenerationModule>().healthPerSecond = 5f;
+            var strike = go.AddComponent<AreaStrikeModule>();
+            strike.radius = 3f;
+            strike.damage = 45;
+            strike.telegraphSeconds = 1.2f;
+            strike.vulnerableSeconds = 4f;
         });
     }
 
     static BossDefinition VampireLord()
     {
-        return BuildBoss("Boss_VampireLord", "boss_vampire_lord", "Señor Vampiro", 1600, 45, 2.2f, 2f, CreatureTag.Undead, new Vector3(1.6f, 2f, 1.6f), new Color(0.35f, 0f, 0.1f), 400, go =>
+        return BuildBoss("Boss_VampireLord", "boss_vampire_lord", "Señor Vampiro", 2500, 40, 2.2f, 2.2f, CreatureTag.Undead, new Vector3(1.6f, 2f, 1.6f), new Color(0.35f, 0f, 0.1f), 500, go =>
         {
-            var blink = go.AddComponent<BlinkModule>();
-            blink.distance = 6f;
-            blink.interval = 4f;
-            go.AddComponent<LifestealModule>().fraction = 0.4f;
-            var summon = go.AddComponent<SummonModule>();
-            summon.minion = FindEnemy("bat");
-            summon.count = 4;
-            summon.interval = 12f;
+            var lord = go.AddComponent<VampireLordModule>();
+            lord.orbPrefab = TroopBuilder.CreateBoltPrefab();
+            lord.vampireMinion = FindEnemy("vampire");
+            lord.batMinion = FindEnemy("bat");
         });
     }
 
