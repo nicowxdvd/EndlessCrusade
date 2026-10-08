@@ -47,6 +47,12 @@ public static class EmporiumBuilder
             Consumable(ConsumableDefinition.HolyWaterPotionId, "Poma de Agua Bendita", CurrencyType.Gold, 80),
             Consumable(ConsumableDefinition.ReviveElixirId, "Elixir de Resurrección", CurrencyType.Gems, 3)
         };
+        catalog.iapProducts = new[]
+        {
+            Product("gems_pack_small", "Puñado de reliquias", 80),
+            Product("gems_pack_medium", "Cofre de reliquias", 450),
+            Product("gems_pack_large", "Tesoro de reliquias", 1000)
+        };
         EditorUtility.SetDirty(catalog);
         AssetDatabase.SaveAssets();
         return catalog;
@@ -67,6 +73,16 @@ public static class EmporiumBuilder
         upgrade.currency = CurrencyType.Gold;
         EditorUtility.SetDirty(upgrade);
         return upgrade;
+    }
+
+    static IapProductDefinition Product(string productId, string displayName, int gems)
+    {
+        var product = LoadOrCreate<IapProductDefinition>(Folder + "/Iap_" + productId + ".asset");
+        product.productId = productId;
+        product.displayName = displayName;
+        product.gemsGranted = gems;
+        EditorUtility.SetDirty(product);
+        return product;
     }
 
     static ConsumableDefinition Consumable(string id, string displayName, CurrencyType currency, int cost)
@@ -115,11 +131,11 @@ public static class EmporiumBuilder
         screen.balanceLabel.color = theme.gold;
         screen.messageLabel = HudBuilder.CreateLabel(safe, "Message", "", 40f, new Vector2(0.5f, 0f), new Vector2(0f, 190f), new Vector2(1200f, 70f), theme, theme.bodyFont);
 
-        var tabs = new[] { ("Héroe", (UnityEngine.Events.UnityAction)screen.ShowHero), ("Tropas", screen.ShowTroops), ("Base", screen.ShowBase), ("Consumibles", screen.ShowConsumables) };
+        var tabs = new[] { ("Héroe", (UnityEngine.Events.UnityAction)screen.ShowHero), ("Tropas", screen.ShowTroops), ("Base", screen.ShowBase), ("Consumibles", screen.ShowConsumables), ("Reliquias", screen.ShowGems) };
         for (int i = 0; i < tabs.Length; i++)
         {
-            var x = (i - (tabs.Length - 1) * 0.5f) * 440f;
-            var tab = HudBuilder.CreateButton(safe, "Tab_" + tabs[i].Item1, tabs[i].Item1, new Vector2(0.5f, 1f), new Vector2(x, -230f), new Vector2(420f, 110f), theme);
+            var x = (i - (tabs.Length - 1) * 0.5f) * 370f;
+            var tab = HudBuilder.CreateButton(safe, "Tab_" + tabs[i].Item1, tabs[i].Item1, new Vector2(0.5f, 1f), new Vector2(x, -230f), new Vector2(350f, 110f), theme);
             UnityEventTools.AddPersistentListener(tab.onClick, tabs[i].Item2);
         }
 

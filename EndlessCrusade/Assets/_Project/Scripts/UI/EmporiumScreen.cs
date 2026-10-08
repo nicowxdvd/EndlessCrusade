@@ -9,7 +9,7 @@ namespace EC.UI
 {
     public class EmporiumScreen : MonoBehaviour
     {
-        enum Tab { Hero, Troop, Base, Consumables }
+        enum Tab { Hero, Troop, Base, Consumables, Gems }
 
         public ShopCatalog catalog;
         public RectTransform listRoot;
@@ -23,6 +23,7 @@ namespace EC.UI
         void Start()
         {
             rowTemplate.SetActive(false);
+            IapServices.Bind(catalog);
             Refresh();
         }
 
@@ -30,6 +31,7 @@ namespace EC.UI
         public void ShowTroops() { Show(Tab.Troop); }
         public void ShowBase() { Show(Tab.Base); }
         public void ShowConsumables() { Show(Tab.Consumables); }
+        public void ShowGems() { Show(Tab.Gems); }
 
         public void Back()
         {
@@ -75,6 +77,13 @@ namespace EC.UI
             var currency = CurrencyService.Instance;
             balanceLabel.text = "Oro " + currency.Balance(CurrencyType.Gold) + "   Reliquias " + currency.Balance(CurrencyType.Gems);
 
+            if (tab == Tab.Gems)
+            {
+                foreach (var product in catalog.iapProducts)
+                    AddProductRow(product);
+                return;
+            }
+
             if (tab == Tab.Consumables)
             {
                 foreach (var consumable in catalog.consumables)
@@ -108,6 +117,33 @@ namespace EC.UI
             row.buyLabel.text = full ? "Lleno" : consumable.cost + " " + CurrencyName(consumable.currency);
             row.buyButton.interactable = !full;
             row.buyButton.onClick.AddListener(() => Buy(() => service.TryBuyConsumable(consumable)));
+        }
+
+        void AddProductRow(IapProductDefinition product)
+        {
+            var iap = IapServices.Service;
+            var row = NewRow(product.displayName, product.gemsGranted + " reliquias");
+            row.buyLabel.text = iap.IsAvailable ? iap.LocalizedPrice(product.productId) : "Sin conexión";
+            row.buyButton.interactable = iap.IsAvailable;
+            row.buyButton.onClick.AddListener(() => BuyProduct(product));
+        }
+
+        async void BuyProduct(IapProductDefinition product)
+        {
+            var outcome = await IapServices.Service.PurchaseAsync(product.productId);
+            Refresh();
+            messageLabel.text = IapMessage(outcome);
+        }
+
+        public static string IapMessage(IapOutcome outcome)
+        {
+            switch (outcome)
+            {
+                case IapOutcome.Cancelled: return "Compra cancelada";
+                case IapOutcome.Failed: return "La compra falló";
+                case IapOutcome.Unavailable: return "Tienda no disponible";
+                default: return "";
+            }
         }
 
         EmporiumRow NewRow(string title, string info)

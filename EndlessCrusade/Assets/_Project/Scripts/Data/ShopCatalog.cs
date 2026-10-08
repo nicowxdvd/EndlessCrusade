@@ -7,5 +7,6 @@ namespace EC.Data
     {
         public UpgradeDefinition[] upgrades;
         public ConsumableDefinition[] consumables;
+        public IapProductDefinition[] iapProducts;
     }
 }
