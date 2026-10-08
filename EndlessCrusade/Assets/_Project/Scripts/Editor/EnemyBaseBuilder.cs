@@ -57,11 +57,16 @@ public static class EnemyBaseBuilder
         baseInstance.transform.position = new Vector3(config.baseX, config.groundY + 1.5f, 0f);
         baseInstance.GetComponent<BaseStructure>().definition = baseDefinition;
 
+        CreateSpawner(config).baseTarget = baseInstance.transform;
+    }
+
+    public static EnemySpawner CreateSpawner(LaneConfig config)
+    {
         var pool = new GameObject("PoolService").AddComponent<PoolService>();
         var spawner = new GameObject("EnemySpawner").AddComponent<EnemySpawner>();
         spawner.pool = pool;
         spawner.lane = config;
-        spawner.baseTarget = baseInstance.transform;
+        return spawner;
     }
 
     static void EnsureFolder(string parent, string name)
