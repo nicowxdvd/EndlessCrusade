@@ -25,6 +25,9 @@ namespace EC.UI
         {
             label.text = Caption(level.displayName, state);
             button.interactable = state != LevelNodeState.Locked;
+            var color = label.color;
+            color.a = state == LevelNodeState.Locked ? 0.4f : 1f;
+            label.color = color;
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => onSelected(level));
         }
