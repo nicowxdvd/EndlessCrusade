@@ -77,6 +77,14 @@ namespace EC.Gameplay
             for (int i = 0; i < modules.Length; i++)
                 modules[i].Tick(Time.deltaTime);
 
+            if (TryGetComponent<StatusEffectComponent>(out var status) && status.IsStunned)
+            {
+                attack.Target = null;
+                movement.Direction = 0f;
+                controller.Request(EntityState.Idle);
+                return;
+            }
+
             var team = controller.Health.Team;
             var target = TargetFinder.FindNearest(transform.position, team, attack.range);
             attack.Target = target;

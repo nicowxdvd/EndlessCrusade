@@ -9,6 +9,8 @@ namespace EC.UI
     public class CampaignMap : MonoBehaviour
     {
         public CampaignDefinition campaign;
+        public EquipmentCatalog equipmentCatalog;
+        public string equipmentScene = "Equipment";
         public RectTransform content;
         public GameObject chapterTemplate;
         public GameObject nodeTemplate;
@@ -20,6 +22,7 @@ namespace EC.UI
         {
             chapterTemplate.SetActive(false);
             nodeTemplate.SetActive(false);
+            new EquipmentService(SaveHost.Service, equipmentCatalog).GrantChapterRewards(campaign);
             var completed = SaveHost.Service.Current.progress.completedLevels;
 
             foreach (var chapter in campaign.chapters)
@@ -54,6 +57,11 @@ namespace EC.UI
         {
             LevelSession.Current = level;
             SceneFlow.Load(levelScene);
+        }
+
+        public void OpenEquipment()
+        {
+            SceneFlow.Load(equipmentScene);
         }
 
         public void OpenEmporium()

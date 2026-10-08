@@ -9,6 +9,21 @@ namespace EC.UI
         public int slot;
         public Button button;
         public Image cooldownFill;
+        public TMPro.TMP_Text caption;
+
+        void Start()
+        {
+            if (slot == 0)
+                return;
+            var miracles = EC.Data.HeroLoadoutHolder.Current.miracles;
+            if (slot > miracles.Count)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            if (caption != null)
+                caption.text = miracles[slot - 1].displayName;
+        }
 
         void OnEnable()
         {

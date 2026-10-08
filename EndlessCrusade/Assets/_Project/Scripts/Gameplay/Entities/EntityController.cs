@@ -10,6 +10,7 @@ namespace EC.Gameplay
         public float hurtDuration = 0.25f;
         public float healthMultiplier = 1f;
         public float damageMultiplier = 1f;
+        public int bonusHealth;
 
         StateMachine machine;
         HealthComponent health;
@@ -81,7 +82,7 @@ namespace EC.Gameplay
             hurtDuration = definition.hurtDuration;
             if (health != null)
             {
-                health.Initialize(Mathf.RoundToInt(definition.maxHealth * healthMultiplier), definition.team);
+                health.Initialize(Mathf.RoundToInt(definition.maxHealth * healthMultiplier) + bonusHealth, definition.team);
                 health.tags = definition.tags;
             }
 

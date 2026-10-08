@@ -1,3 +1,5 @@
+using EC.Core;
+using EC.Data;
 using EC.Services;
 using EC.UI;
 using TMPro;
@@ -91,6 +93,7 @@ public static class HudBuilder
 
         CreateAbilityButton(safe, theme);
         CreatePotionButton(safe, theme);
+        CreateEquipmentButtons(safe, theme);
         CreateTroopBar(safe, theme, presenter);
 
         var pause = root.AddComponent<PausePanel>();
@@ -252,6 +255,36 @@ public static class HudBuilder
         rect.gameObject.AddComponent<OnScreenButton>().controlPath = controlPath;
         var label = CreateLabel(rect, "Label", caption, 40f, new Vector2(0.5f, 0.5f), Vector2.zero, rect.sizeDelta, theme, theme.bodyFont);
         label.color = Color.white;
+    }
+
+    static void CreateEquipmentButtons(Transform parent, UiTheme theme)
+    {
+        var rowOne = Margin * 2f + ButtonSize * 1.5f;
+        var rowTwo = Margin * 3f + ButtonSize * 2.5f;
+        CreateCommandButton(parent, theme, "BlockButton", "Escudo", HeroCommandKind.Block, EquipmentSlot.Shield, new Vector2(-(Margin + ButtonSize * 0.5f), rowOne));
+        CreateCommandButton(parent, theme, "HeavyButton", "Maza", HeroCommandKind.Heavy, EquipmentSlot.HeavyWeapon, new Vector2(-(Margin * 2f + ButtonSize * 1.5f), rowOne));
+        CreateCommandButton(parent, theme, "RangedButton", "Ballesta", HeroCommandKind.Ranged, EquipmentSlot.RangedWeapon, new Vector2(-(Margin + ButtonSize * 0.5f), rowTwo));
+
+        for (int slot = 1; slot <= 2; slot++)
+        {
+            var position = new Vector2(-(Margin * (3f + slot) + ButtonSize * (2.5f + slot)), Margin + ButtonSize * 0.5f);
+            var button = CreateButton(parent, "Ability" + (slot + 1), "", new Vector2(1f, 0f), position, new Vector2(ButtonSize, ButtonSize), theme);
+            var label = button.GetComponentInChildren<TMP_Text>();
+            label.fontSize = 28f;
+            var ability = button.gameObject.AddComponent<AbilityButton>();
+            ability.slot = slot;
+            ability.button = button;
+            ability.caption = label;
+        }
+    }
+
+    static void CreateCommandButton(Transform parent, UiTheme theme, string name, string caption, HeroCommandKind kind, EquipmentSlot slot, Vector2 position)
+    {
+        var button = CreateButton(parent, name, caption, new Vector2(1f, 0f), position, new Vector2(ButtonSize, ButtonSize * 0.7f), theme);
+        button.GetComponentInChildren<TMP_Text>().fontSize = 30f;
+        var command = button.gameObject.AddComponent<HeroCommandButton>();
+        command.kind = kind;
+        command.requiredSlot = slot;
     }
 
     static void CreatePotionButton(Transform parent, UiTheme theme)
