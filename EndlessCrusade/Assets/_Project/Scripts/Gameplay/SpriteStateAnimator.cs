@@ -66,6 +66,14 @@ namespace EC.Gameplay
             }
         }
 
+        public float SecondsToFrame(string clipId, int frame)
+        {
+            var clip = animations != null ? animations.Find(clipId) : null;
+            if (clip == null || clip.framesPerSecond <= 0f)
+                return 0f;
+            return frame / clip.framesPerSecond;
+        }
+
         public void Play(string clipId)
         {
             if (dead)

@@ -26,6 +26,18 @@ namespace EC.Gameplay
         float nextRangedTime;
 
         const float RangedBoltSpeed = 16f;
+        const int ImpactFrame = 2;
+
+        class PendingHit
+        {
+            public MeleeAttackDefinition attack;
+            public int facing;
+            public bool whip;
+            public float due;
+            public System.Action<IDamageable> onHit;
+        }
+
+        readonly List<PendingHit> pendingHits = new List<PendingHit>();
         InputAction moveLeft;
         InputAction moveRight;
         InputAction attackSword;
@@ -81,6 +93,7 @@ namespace EC.Gameplay
 
         void Update()
         {
+            ResolvePending(Time.time);
             if (moveLeft == null)
                 return;
             if (useAbility1.WasPressedThisFrame())
@@ -133,21 +146,54 @@ namespace EC.Gameplay
                 Perform(whipAttack, "attack_whip", direction, now);
         }
 
-        IDamageable Perform(MeleeAttackDefinition attackDefinition, string clipId, int direction, float now)
+        void Perform(MeleeAttackDefinition attackDefinition, string clipId, int direction, float now, System.Action<IDamageable> onHit = null)
         {
-            if (attackDefinition == null || !attack.IsReady(attackDefinition, now))
-                return null;
-            var candidates = FindObjectsByType<HealthComponent>(FindObjectsSortMode.None);
-            var target = SelectTarget(transform.position.x, Facing, controller.Health.Team, attackDefinition.range, candidates);
-            if (target == null || !controller.Request(EntityState.Attack))
-                return null;
+            if (attackDefinition == null || !attack.IsReady(attackDefinition, now) || !controller.Request(EntityState.Attack))
+                return;
 
-            if (attack.TryAttack(attackDefinition, target, now))
-                MeleeSlashEffect.Spawn(transform.position, ((Component)target).transform.position, clipId == "attack_whip");
+            attack.MarkUsed(attackDefinition, now);
             if (animator != null)
                 animator.Play(clipId);
             controller.Request(direction != 0 ? EntityState.Move : EntityState.Idle);
-            return target;
+
+            var delay = animator != null ? animator.SecondsToFrame(clipId, ImpactFrame) : 0f;
+            var pendingHit = new PendingHit { attack = attackDefinition, facing = Facing, whip = clipId == "attack_whip", due = now + delay, onHit = onHit };
+            if (delay <= 0f)
+                Resolve(pendingHit);
+            else
+                pendingHits.Add(pendingHit);
+        }
+
+        void ResolvePending(float now)
+        {
+            for (var i = pendingHits.Count - 1; i >= 0; i--)
+            {
+                var pendingHit = pendingHits[i];
+                if (!controller.Health.IsAlive)
+                {
+                    pendingHits.RemoveAt(i);
+                    continue;
+                }
+                if (now < pendingHit.due)
+                    continue;
+                pendingHits.RemoveAt(i);
+                Resolve(pendingHit);
+            }
+        }
+
+        void Resolve(PendingHit pendingHit)
+        {
+            var candidates = FindObjectsByType<HealthComponent>(FindObjectsSortMode.None);
+            var target = SelectTarget(transform.position.x, pendingHit.facing, controller.Health.Team, pendingHit.attack.range, candidates);
+            if (target != null && attack.Strike(pendingHit.attack, target))
+            {
+                MeleeSlashEffect.Spawn(transform.position, ((Component)target).transform.position, pendingHit.whip);
+                pendingHit.onHit?.Invoke(target);
+                return;
+            }
+
+            var reach = transform.position + Vector3.right * pendingHit.facing * pendingHit.attack.range;
+            MeleeSlashEffect.Spawn(transform.position, reach, pendingHit.whip);
         }
 
         void OnCommand(HeroCommand command)
@@ -174,12 +220,14 @@ namespace EC.Gameplay
         void PerformHeavy(float now)
         {
             var weapon = HeroLoadoutHolder.Current.heavyWeapon;
-            var target = Perform(heavyAttack, "attack_sword", 0, now);
-            if (target == null || weapon == null || weapon.stunSeconds <= 0f || !(target is Component component))
-                return;
-            if (!component.TryGetComponent<StatusEffectComponent>(out var status))
-                status = component.gameObject.AddComponent<StatusEffectComponent>();
-            status.Apply(StatusEffectType.Stunned, weapon.stunSeconds);
+            Perform(heavyAttack, "attack_sword", 0, now, target =>
+            {
+                if (weapon == null || weapon.stunSeconds <= 0f || !(target is Component component))
+                    return;
+                if (!component.TryGetComponent<StatusEffectComponent>(out var status))
+                    status = component.gameObject.AddComponent<StatusEffectComponent>();
+                status.Apply(StatusEffectType.Stunned, weapon.stunSeconds);
+            });
         }
 
         void FireRanged(float now)
