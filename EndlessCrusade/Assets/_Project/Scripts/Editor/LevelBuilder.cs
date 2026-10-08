@@ -37,6 +37,7 @@ public static class LevelBuilder
         EquipmentBuilder.Build();
         PachinkoBuilder.Build();
         AudioBuilder.Build();
+        QualityBuilder.BuildPipelines();
         EditorBuildSettings.scenes = new[]
         {
             new EditorBuildSettingsScene(BootScenePath, true),
@@ -216,7 +217,10 @@ public static class LevelBuilder
         settings.sfxSlider = HudBuilder.CreateSlider(settings.panel.transform, "SfxSlider", new Vector2(0.5f, 0.5f), new Vector2(0f, -120f), new Vector2(800f, 60f));
         UnityEventTools.AddPersistentListener(settings.musicSlider.onValueChanged, settings.OnSliderChanged);
         UnityEventTools.AddPersistentListener(settings.sfxSlider.onValueChanged, settings.OnSliderChanged);
-        var settingsClose = HudBuilder.CreateButton(settings.panel.transform, "CloseButton", "Cerrar", new Vector2(0.5f, 0.5f), new Vector2(0f, -280f), new Vector2(480f, 120f), theme);
+        var qualityButton = HudBuilder.CreateButton(settings.panel.transform, "QualityButton", "", new Vector2(0.5f, 0.5f), new Vector2(0f, -250f), new Vector2(560f, 110f), theme);
+        settings.qualityLabel = qualityButton.GetComponentInChildren<TMP_Text>();
+        UnityEventTools.AddPersistentListener(qualityButton.onClick, settings.CycleQuality);
+        var settingsClose = HudBuilder.CreateButton(settings.panel.transform, "CloseButton", "Cerrar", new Vector2(0.5f, 0.5f), new Vector2(0f, -400f), new Vector2(480f, 120f), theme);
         UnityEventTools.AddPersistentListener(settingsClose.onClick, settings.Close);
         settings.panel.SetActive(false);
 

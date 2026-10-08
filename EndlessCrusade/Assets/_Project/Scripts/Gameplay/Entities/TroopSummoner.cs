@@ -78,6 +78,11 @@ namespace EC.Gameplay
             return SummonResult.Success;
         }
 
+        public void SpawnForStress(TroopDefinition troop)
+        {
+            Spawn(troop);
+        }
+
         public bool IsUnlocked(TroopDefinition troop)
         {
             if (campaign == null || SaveHost.Service == null)
