@@ -14,6 +14,7 @@ namespace EC.UI
         public RectTransform content;
         public GameObject chapterTemplate;
         public GameObject nodeTemplate;
+        public TMP_Text completeLabel;
         public string levelScene = "Level";
         public string menuScene = "Main";
         public string emporiumScene = "Emporium";
@@ -24,6 +25,9 @@ namespace EC.UI
             nodeTemplate.SetActive(false);
             new EquipmentService(SaveHost.Service, equipmentCatalog).GrantChapterRewards(campaign);
             var completed = SaveHost.Service.Current.progress.completedLevels;
+
+            if (completeLabel != null)
+                completeLabel.gameObject.SetActive(CampaignRules.IsComplete(campaign, completed));
 
             foreach (var chapter in campaign.chapters)
             {

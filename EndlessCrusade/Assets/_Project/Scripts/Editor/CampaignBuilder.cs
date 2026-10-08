@@ -142,6 +142,9 @@ public static class CampaignBuilder
 
         var map = canvasObject.AddComponent<CampaignMap>();
         map.campaign = campaign;
+        map.completeLabel = HudBuilder.CreateLabel(safe, "CompleteLabel", "Campaña completa", 48f, new Vector2(0.5f, 0f), new Vector2(0f, 100f), new Vector2(800f, 80f), theme, theme.titleFont);
+        map.completeLabel.color = theme.gold;
+        map.completeLabel.gameObject.SetActive(false);
         map.equipmentCatalog = EquipmentBuilder.BuildAssets();
         map.content = content;
         map.chapterTemplate = chapterTemplate.gameObject;
