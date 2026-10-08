@@ -74,7 +74,17 @@ public static class HeroBuilder
             importer.spritePixelsPerUnit = 1f;
             importer.SaveAndReimport();
         }
-        return AssetDatabase.LoadAssetAtPath<Sprite>(SpritePath);
+        var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(SpritePath);
+        if (sprite == null)
+        {
+            var importer = (TextureImporter)AssetImporter.GetAtPath(SpritePath);
+            importer.textureType = TextureImporterType.Sprite;
+            importer.spriteImportMode = SpriteImportMode.Single;
+            importer.spritePixelsPerUnit = 1f;
+            importer.SaveAndReimport();
+            sprite = AssetDatabase.LoadAssetAtPath<Sprite>(SpritePath);
+        }
+        return sprite;
     }
 
     static SpriteRenderer CreateLayer(Transform parent, string name, int order)
