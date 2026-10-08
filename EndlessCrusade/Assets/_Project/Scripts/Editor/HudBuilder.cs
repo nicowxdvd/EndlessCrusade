@@ -106,6 +106,7 @@ public static class HudBuilder
         pause.panel.SetActive(false);
 
         var result = root.AddComponent<ResultPanel>();
+        result.exitScene = "CampaignMap";
         result.panel = CreateOverlay(safe, "ResultPanel", theme);
         result.title = CreateLabel(result.panel.transform, "Title", "", 120f, new Vector2(0.5f, 0.5f), new Vector2(0f, 180f), new Vector2(1000f, 180f), theme, theme.titleFont);
         result.title.color = theme.gold;

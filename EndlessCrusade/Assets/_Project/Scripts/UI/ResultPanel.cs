@@ -12,7 +12,7 @@ namespace EC.UI
         public TMP_Text title;
         public string victoryText = "Victoria";
         public string defeatText = "Derrota";
-        public string exitScene = "Main";
+        public string exitScene = "CampaignMap";
         public StoryPlayer storyPlayer;
         public TMP_Text rewardsLabel;
 
@@ -71,13 +71,13 @@ namespace EC.UI
         public void Retry()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneFlow.Load(SceneManager.GetActiveScene().name);
         }
 
         public void Exit()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene(exitScene);
+            SceneFlow.Load(exitScene);
         }
     }
 }

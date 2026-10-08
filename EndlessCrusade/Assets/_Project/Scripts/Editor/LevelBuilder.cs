@@ -30,11 +30,13 @@ public static class LevelBuilder
     {
         var level = BuildAssets();
         BuildLevelScene(level);
-        BuildMainScene(level);
+        BuildMainScene();
+        CampaignBuilder.Build(level);
         EditorBuildSettings.scenes = new[]
         {
             new EditorBuildSettingsScene(BootScenePath, true),
             new EditorBuildSettingsScene(MainScenePath, true),
+            new EditorBuildSettingsScene(CampaignBuilder.ScenePath, true),
             new EditorBuildSettingsScene(LevelScenePath, true),
             new EditorBuildSettingsScene(SandboxScenePath, true)
         };
@@ -160,7 +162,7 @@ public static class LevelBuilder
         hud.GetComponent<ResultPanel>().storyPlayer = story;
     }
 
-    static void BuildMainScene(LevelDefinition level)
+    static void BuildMainScene()
     {
         var theme = HudBuilder.LoadOrCreateTheme();
         var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -185,7 +187,6 @@ public static class LevelBuilder
         var play = HudBuilder.CreateButton(canvasObject.transform, "PlayButton", "Jugar", new Vector2(0.5f, 0.5f), new Vector2(0f, -120f), new Vector2(520f, 140f), theme);
 
         var menu = canvasObject.AddComponent<MainMenu>();
-        menu.firstLevel = level;
         UnityEventTools.AddPersistentListener(play.onClick, menu.Play);
 
         var eventSystem = new GameObject("EventSystem");
