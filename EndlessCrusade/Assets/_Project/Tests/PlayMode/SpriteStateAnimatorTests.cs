@@ -5,7 +5,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace EC.Tests.EditMode
+namespace EC.Tests.PlayMode
 {
     public class SpriteStateAnimatorTests
     {

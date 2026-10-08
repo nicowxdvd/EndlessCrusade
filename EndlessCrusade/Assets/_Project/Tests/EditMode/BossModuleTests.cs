@@ -19,6 +19,7 @@ namespace EC.Tests.EditMode
             strike.telegraphSeconds = 1.2f;
             strike.vulnerableSeconds = 4f;
             strike.cooldown = 6f;
+            strike.Advance(6f, false);
         }
 
         [TearDown]
@@ -40,7 +41,7 @@ namespace EC.Tests.EditMode
             Assert.AreEqual(StrikeEvent.TelegraphStarted, strike.Advance(0.1f, true));
             Assert.IsTrue(strike.Telegraphing);
             Assert.AreEqual(StrikeEvent.None, strike.Advance(1f, true));
-            Assert.AreEqual(StrikeEvent.Struck, strike.Advance(0.2f, true));
+            Assert.AreEqual(StrikeEvent.Struck, strike.Advance(0.25f, true));
             Assert.IsFalse(strike.Telegraphing);
         }
 

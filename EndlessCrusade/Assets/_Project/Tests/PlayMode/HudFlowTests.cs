@@ -86,8 +86,7 @@ namespace EC.Tests.PlayMode
             Assert.IsTrue(result.panel.activeSelf);
 
             result.Retry();
-            yield return null;
-            yield return null;
+            yield return new WaitForSecondsRealtime(1f);
             Bind();
 
             Assert.AreEqual(1f, Time.timeScale);

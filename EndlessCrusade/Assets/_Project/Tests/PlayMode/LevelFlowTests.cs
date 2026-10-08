@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EC.Tests.EditMode
+namespace EC.Tests.PlayMode
 {
     public class LevelFlowTests
     {
@@ -21,15 +21,24 @@ namespace EC.Tests.EditMode
         StoryPlayer CreatePlayer()
         {
             host = new GameObject("Story");
+            host.SetActive(false);
             var root = new GameObject("Root");
             root.transform.SetParent(host.transform);
             var player = host.AddComponent<StoryPlayer>();
             player.root = root;
-            player.image = root.AddComponent<Image>();
-            player.text = root.AddComponent<TextMeshProUGUI>();
-            player.advanceButton = root.AddComponent<Button>();
-            player.skipButton = root.AddComponent<Button>();
+            player.image = NewChild(root, "Image").AddComponent<Image>();
+            player.text = NewChild(root, "Text").AddComponent<TextMeshProUGUI>();
+            player.advanceButton = NewChild(root, "Advance").AddComponent<Button>();
+            player.skipButton = NewChild(root, "Skip").AddComponent<Button>();
+            host.SetActive(true);
             return player;
+        }
+
+        static GameObject NewChild(GameObject parent, string name)
+        {
+            var child = new GameObject(name);
+            child.transform.SetParent(parent.transform);
+            return child;
         }
 
         static StorySequence Sequence(int panels)
@@ -86,10 +95,12 @@ namespace EC.Tests.EditMode
         public void Tutorial_OnlyAdvancesOnExpectedStepInOrder()
         {
             host = new GameObject("Tutorial");
+            host.SetActive(false);
             var tutorial = host.AddComponent<TutorialController>();
             tutorial.root = new GameObject("Root");
             tutorial.root.transform.SetParent(host.transform);
             tutorial.label = tutorial.root.AddComponent<TextMeshProUGUI>();
+            host.SetActive(true);
             var finished = 0;
             tutorial.Begin(() => finished++);
 

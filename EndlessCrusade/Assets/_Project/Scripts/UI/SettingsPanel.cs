@@ -54,7 +54,7 @@ namespace EC.UI
                 qualityLabel.text = QualityCaption(SaveHost.Service.Current.settings.qualityOverride);
         }
 
-        public void OnSliderChanged()
+        public void OnSliderChanged(float value)
         {
             AudioSettingsService.Set(musicSlider.value, sfxSlider.value);
         }
