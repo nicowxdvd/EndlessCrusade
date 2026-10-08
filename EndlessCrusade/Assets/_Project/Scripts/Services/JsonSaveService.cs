@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EC.Services
 {
-    public class JsonSaveService : ISaveService
+    public class JsonSaveService : ISaveService, ISaveRestorer
     {
         public const string FileName = "save.json";
 
@@ -38,7 +38,17 @@ namespace EC.Services
         {
             if (Current == null) Current = CreateNew();
             Current.updatedAtUtc = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            Write();
+        }
 
+        public void Restore(SaveData data)
+        {
+            Current = data;
+            Write();
+        }
+
+        void Write()
+        {
             try
             {
                 string dir = Path.GetDirectoryName(_path);

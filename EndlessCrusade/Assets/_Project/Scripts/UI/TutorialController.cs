@@ -59,6 +59,7 @@ namespace EC.UI
             {
                 step = -1;
                 root.SetActive(false);
+                EventBus<TutorialCompleted>.Publish(new TutorialCompleted());
                 var callback = onFinished;
                 onFinished = null;
                 callback?.Invoke();
