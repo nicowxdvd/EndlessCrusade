@@ -24,6 +24,8 @@ namespace EC.Gameplay
         {
             if (Current == 0 && maxHealth > 0)
                 Current = maxHealth;
+            if (!TryGetComponent<HitFlash>(out _))
+                gameObject.AddComponent<HitFlash>();
         }
 
         void OnEnable()

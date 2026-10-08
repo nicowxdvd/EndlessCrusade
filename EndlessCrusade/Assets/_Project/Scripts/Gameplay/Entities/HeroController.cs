@@ -142,7 +142,8 @@ namespace EC.Gameplay
             if (target == null || !controller.Request(EntityState.Attack))
                 return null;
 
-            attack.TryAttack(attackDefinition, target, now);
+            if (attack.TryAttack(attackDefinition, target, now))
+                MeleeSlashEffect.Spawn(transform.position, ((Component)target).transform.position, clipId == "attack_whip");
             if (animator != null)
                 animator.Play(clipId);
             controller.Request(direction != 0 ? EntityState.Move : EntityState.Idle);
