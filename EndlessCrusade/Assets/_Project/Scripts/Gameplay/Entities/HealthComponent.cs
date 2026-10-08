@@ -86,6 +86,7 @@ namespace EC.Gameplay
             else
             {
                 Damaged?.Invoke();
+                EventBus<EntityHurt>.Publish(new EntityHurt(gameObject));
             }
         }
     }
