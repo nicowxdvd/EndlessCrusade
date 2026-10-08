@@ -31,7 +31,7 @@ namespace EC.Tests.EditMode
         {
             var a = new JsonSaveService(_dir);
             a.Load();
-            Assert.AreEqual(1, a.Current.version);
+            Assert.AreEqual(SaveData.CurrentVersion, a.Current.version);
             Assert.IsFalse(string.IsNullOrEmpty(a.Current.playerId));
 
             var dir2 = Path.Combine(_dir, "otro");
@@ -108,7 +108,7 @@ namespace EC.Tests.EditMode
 
             var l = new JsonSaveService(_dir);
             Assert.DoesNotThrow(() => l.Load());
-            Assert.AreEqual(1, l.Current.version);
+            Assert.AreEqual(SaveData.CurrentVersion, l.Current.version);
             Assert.AreEqual(0, l.Current.profile.gold);
         }
 
@@ -135,7 +135,7 @@ namespace EC.Tests.EditMode
             File.WriteAllText(SavePath, "{\"version\":0,\"playerId\":\"abc\",\"profile\":{\"gold\":7}}");
             var l = new JsonSaveService(_dir);
             l.Load();
-            Assert.AreEqual(1, l.Current.version);
+            Assert.AreEqual(SaveData.CurrentVersion, l.Current.version);
             Assert.AreEqual("abc", l.Current.playerId);
             Assert.AreEqual(7, l.Current.profile.gold);
         }
@@ -156,6 +156,16 @@ namespace EC.Tests.EditMode
             s.Reset();
             Assert.AreEqual(0, s.Current.profile.gold);
             Assert.AreNotEqual(oldId, s.Current.playerId);
+        }
+
+        [Test]
+        public void Migrate_Version1_AddsAdLimits()
+        {
+            var data = SaveMigrator.Migrate("{\"version\":1,\"playerId\":\"abc\",\"profile\":{\"gold\":7}}");
+            Assert.AreEqual(SaveData.CurrentVersion, data.version);
+            Assert.AreEqual(7, data.profile.gold);
+            Assert.IsNotNull(data.profile.ads);
+            Assert.AreEqual(0, data.profile.ads.freeGemsToday);
         }
     }
 }

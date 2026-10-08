@@ -16,8 +16,14 @@ namespace EC.UI
         public string exitScene = "CampaignMap";
         public StoryPlayer storyPlayer;
         public TMP_Text rewardsLabel;
+        public UnityEngine.UI.Button doubleGoldButton;
 
         bool shown;
+        bool resultVisible;
+        bool victory;
+        bool doubled;
+        bool hasRewards;
+        RewardsGranted rewards;
         bool firstClear;
 
         void OnEnable()
@@ -34,8 +40,37 @@ namespace EC.UI
 
         void OnRewards(RewardsGranted evt)
         {
+            rewards = evt;
+            hasRewards = true;
             if (rewardsLabel != null)
                 rewardsLabel.text = FormatRewards(evt);
+            RefreshDoubleGold();
+        }
+
+        void RefreshDoubleGold()
+        {
+            if (doubleGoldButton == null)
+                return;
+            var total = rewards.EnemyGold + rewards.LevelGold;
+            var visible = resultVisible && victory && hasRewards && !doubled && total > 0 && SaveHost.Service != null && AdRewardService.Instance.IsReady(AdPlacement.DoubleGold);
+            doubleGoldButton.gameObject.SetActive(visible);
+        }
+
+        public async void DoubleGold()
+        {
+            if (doubled || !hasRewards)
+                return;
+            doubled = true;
+            var total = rewards.EnemyGold + rewards.LevelGold;
+            RefreshDoubleGold();
+            if (await AdRewardService.Instance.DoubleGoldAsync(total))
+            {
+                if (rewardsLabel != null)
+                    rewardsLabel.text += "\nOro duplicado: +" + total;
+                return;
+            }
+            doubled = false;
+            RefreshDoubleGold();
         }
 
         public static string FormatRewards(RewardsGranted evt)
@@ -88,7 +123,10 @@ namespace EC.UI
         void ShowResult(LevelOutcome outcome)
         {
             title.text = outcome == LevelOutcome.Victory ? victoryText : defeatText;
+            victory = outcome == LevelOutcome.Victory;
+            resultVisible = true;
             panel.SetActive(true);
+            RefreshDoubleGold();
         }
 
         public void Retry()
