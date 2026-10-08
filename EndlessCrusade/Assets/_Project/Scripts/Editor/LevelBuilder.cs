@@ -75,6 +75,7 @@ public static class LevelBuilder
         level.waves = waves;
         level.troopsEnabled = false;
         level.tutorial = true;
+        level.reward = new LevelReward { goldFirstClear = 150, goldReplay = 60, gemsFirstClear = 5, ticketsFirstClear = 1 };
         EditorUtility.SetDirty(level);
         AssetDatabase.SaveAssets();
         return level;

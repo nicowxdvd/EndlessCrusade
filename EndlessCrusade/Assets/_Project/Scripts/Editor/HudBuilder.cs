@@ -1,3 +1,4 @@
+using EC.Services;
 using EC.UI;
 using TMPro;
 using UnityEditor;
@@ -74,6 +75,9 @@ public static class HudBuilder
         presenter.heroBar = CreateBar(safe, "HeroBar", "Vida", new Vector2(0f, 1f), new Vector2(Margin, -Margin), theme.blood, theme);
         presenter.baseBar = CreateBar(safe, "BaseBar", "Base", new Vector2(1f, 1f), new Vector2(-Margin, -Margin), theme.gold, theme);
         presenter.waveLabel = CreateLabel(safe, "WaveLabel", "", 48f, new Vector2(0.5f, 1f), new Vector2(0f, -Margin), new Vector2(600f, 80f), theme, theme.titleFont);
+        presenter.goldLabel = CreateLabel(safe, "GoldLabel", "", 40f, new Vector2(0f, 1f), new Vector2(Margin + 260f, -Margin * 2f - 70f), new Vector2(520f, 70f), theme, theme.bodyFont);
+        presenter.goldLabel.color = theme.gold;
+        root.AddComponent<RewardTracker>();
         presenter.bossBar = CreateBar(safe, "BossBar", "Jefe", new Vector2(0.5f, 1f), new Vector2(0f, -Margin * 2f - 80f), theme.blood, theme);
         presenter.bossBar.fillOrigin = 0;
         presenter.bossRoot = presenter.bossBar.transform.parent.gameObject;
@@ -105,8 +109,9 @@ public static class HudBuilder
         result.panel = CreateOverlay(safe, "ResultPanel", theme);
         result.title = CreateLabel(result.panel.transform, "Title", "", 120f, new Vector2(0.5f, 0.5f), new Vector2(0f, 180f), new Vector2(1000f, 180f), theme, theme.titleFont);
         result.title.color = theme.gold;
-        var retry = CreateButton(result.panel.transform, "RetryButton", "Reintentar", new Vector2(0.5f, 0.5f), new Vector2(0f, -40f), new Vector2(480f, 120f), theme);
-        var exit = CreateButton(result.panel.transform, "ExitButton", "Salir", new Vector2(0.5f, 0.5f), new Vector2(0f, -200f), new Vector2(480f, 120f), theme);
+        result.rewardsLabel = CreateLabel(result.panel.transform, "Rewards", "", 44f, new Vector2(0.5f, 0.5f), new Vector2(0f, 20f), new Vector2(900f, 240f), theme, theme.bodyFont);
+        var retry = CreateButton(result.panel.transform, "RetryButton", "Reintentar", new Vector2(0.5f, 0.5f), new Vector2(0f, -140f), new Vector2(480f, 120f), theme);
+        var exit = CreateButton(result.panel.transform, "ExitButton", "Salir", new Vector2(0.5f, 0.5f), new Vector2(0f, -290f), new Vector2(480f, 120f), theme);
         UnityEventTools.AddPersistentListener(retry.onClick, result.Retry);
         UnityEventTools.AddPersistentListener(exit.onClick, result.Exit);
         result.panel.SetActive(false);

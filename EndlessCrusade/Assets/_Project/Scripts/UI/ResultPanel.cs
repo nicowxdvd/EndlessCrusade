@@ -14,17 +14,38 @@ namespace EC.UI
         public string defeatText = "Derrota";
         public string exitScene = "Main";
         public StoryPlayer storyPlayer;
+        public TMP_Text rewardsLabel;
 
         bool shown;
 
         void OnEnable()
         {
             EventBus<LevelEnded>.Subscribe(OnLevelEnded);
+            EventBus<RewardsGranted>.Subscribe(OnRewards);
         }
 
         void OnDisable()
         {
             EventBus<LevelEnded>.Unsubscribe(OnLevelEnded);
+            EventBus<RewardsGranted>.Unsubscribe(OnRewards);
+        }
+
+        void OnRewards(RewardsGranted evt)
+        {
+            if (rewardsLabel != null)
+                rewardsLabel.text = FormatRewards(evt);
+        }
+
+        public static string FormatRewards(RewardsGranted evt)
+        {
+            var text = "Oro por enemigos: " + evt.EnemyGold;
+            if (evt.LevelGold > 0)
+                text += "\nBono de nivel: " + evt.LevelGold;
+            if (evt.Gems > 0)
+                text += "\nReliquias: " + evt.Gems;
+            if (evt.Tickets > 0)
+                text += "\nBoletos: " + evt.Tickets;
+            return text;
         }
 
         void OnLevelEnded(LevelEnded evt)

@@ -1,7 +1,7 @@
 {
     "name": "EC.UI",
     "rootNamespace": "EC.UI",
-    "references": ["EC.Core", "EC.Data", "Unity.TextMeshPro", "UnityEngine.UI"],
+    "references": ["EC.Core", "EC.Data", "EC.Services", "Unity.TextMeshPro", "UnityEngine.UI"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
